@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{$eyou.field.title}-{eyou:global name='web_name' /}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <link href="{eyou:global name='web_cmspath'/}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    {eyou:static file="users/skin/css/bootstrap.min.css"/}
+    {eyou:static file="users/skin/css/basic.css"/}
+    {eyou:static file="users/skin/css/eyoucms.css"/}
+    {eyou:include file="users/skin/css/diy_css.htm"/}
+    
+    {eyou:static file="/public/static/common/js/jquery.min.js"/}
+    {eyou:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+    {eyou:static file="/public/static/common/js/tag_global.js"/}
+    
+    <style type="text/css">
+        @media (max-width: 640px){
+            .panel-body {
+                 padding:18px; 
+            }
+            /*.centre .panel-body {
+                padding: 18px;
+            }*/
+        }
+    </style>
+</head>
+
+<body class="pay shop">
+<!-- 头部 -->
+{eyou:include file="users/users_header.htm" /}
+<!-- 头部结束 -->
+
+<div class="member-profile ey-member">
+    <div class="container">
+        <div class="member-profile-content ">
+            <div class="row">
+                <!-- 侧边 -->
+                {eyou:include file="users/users_left.htm" /}
+                <!-- 侧边结束 -->
+
+                <!-- 中部 -->
+                <div class="col-xs-12 col-sm-10 ey-member-index">
+                    <div class="panel panel-default m-b-0" style="min-height: 486px;">
+                        <div class="panel-heading">
+                            <strong>{$eyou.field.title}</strong>
+                        </div>
+                        <div class="panel-body shop-finance">
+                            <div class="row">
+                                <div class="clearfix">
+                                    <div class="pull-xs-left">
+                                        您的用户等级：{$users.level_name}
+                                        {eyou:neq name='$users.level' value='1'}
+                                            &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+                                            剩余用户天数：{$users.maturity_date}
+                                        {/eyou:neq}
+                                    </div>
+                                </div>
+                                <form name='theForm' id="theForm">
+                                <div id="finance-list_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer clearfix">
+                                    <table class="dataTable table table-bordered table-hover table-striped w-full m-t-10 no-footer dtr-inline" cellspacing="0" id="finance-list" data-table-ajaxurl="" data-table-pagelength="20" data-plugin="selectable" role="grid" aria-describedby="finance-list_info" >
+                                        <thead>
+                                            <tr role="row">
+                                                <th  style="width: 50px; text-align: center;">选择</th>
+                                                <th  style="width: 262px; text-align: center;">产品名称</th>
+                                                <th  style="width: 200px; text-align: center;">产品价格</th>
+                                                <th  style="width: 155px; text-align: center;">用户期限</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {eyou:empty name="users_type"}
+                                                <tr class="odd">
+                                                    <td valign="top" colspan="6" class="dataTables_empty">当前没有用户升级产品</td>
+                                                </tr>
+                                            {eyou:else/}
+                                                {eyou:volist name="users_type" id="vo"}
+                                                    <tr class="odd">
+                                                        <td style="text-align: center;">
+                                                            <label>
+                                                                <input type="radio" {eyou:eq name='$key' value='0'}checked{/eyou:eq} name="type_id" value="{$vo.type_id}">
+                                                            </label>
+                                                        </td>
+                                                        <td  style="text-align: center;">
+                                                            {$vo.type_name}
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            ￥{$vo.price}
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            {$member_limit_arr[$vo['limit_id']]|default=''}
+                                                        </td>
+                                                    </tr>
+                                                {/eyou:volist}
+                                            {/eyou:empty}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br/><br/>
+                                <div class="form-group m-b-0">
+                                    <label>
+                                        <input type="radio" checked name='pay_id' value="0">
+                                        <input type="hidden" checked name='pay_mark[0]' value="balance">
+                                        <img src="{eyou:global name='web_templets_pc' /}/users/skin/images/pay_yiyou.png" alt="余额支付">
+                                    </label>
+
+                                    <!-- 支付API列表，套板请务必将整块代码一起复制，包含隐藏域 -->
+                                    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+                                    {eyou:sppayapilist id='vo'}
+                                        {eyou:notempty name="$vo.pay_id"}
+                                        <label>
+                                            <input type="radio" name='pay_id' value="{$vo.pay_id}">
+                                            <input type="hidden" name='pay_mark[{$vo.pay_id}]' value="{$vo.pay_mark}">
+                                            <img src="{eyou:empty name='$vo.pay_img'}{eyou:global name='web_templets_pc'/}/users/skin/images/{$vo.pay_mark}.png{eyou:else/}{$vo.pay_img}{/eyou:empty}" alt="{$vo.pay_name}" style="width: 120px; height: 40px;">
+                                        </label>
+                                        {/eyou:notempty}
+                                        {$vo.hidden}
+                                    {/eyou:sppayapilist}
+                                    <input type="hidden" id="PayID">
+                                    <input type="hidden" id="PayMark">
+                                    <!-- END -->
+                                </div>
+                                <br/>
+                                <input type="hidden" name='order_number' id="UnifiedNumber" value="{$OrderNumber}">
+                                <div class="form-group m-b-0">
+                                    <a href="JavaScript:void(0);" id='Pay' onclick="UsersUpgradePay(this);" class="btn btn-primary">
+                                        去付款
+                                    </a>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 中部结束 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{eyou:include file="users/users_footer.htm" /}

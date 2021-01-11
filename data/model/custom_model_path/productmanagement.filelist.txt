@@ -1,0 +1,5 @@
+application/common/model/Productmanagement.php
+application/home/controller/Productmanagement.php
+application/home/model/Productmanagement.php
+template/pc/lists_productmanagement.htm
+template/pc/view_productmanagement.htm

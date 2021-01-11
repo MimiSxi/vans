@@ -1,0 +1,4 @@
+<?php
+//000000000000
+ exit();?>
+s:838:"<option value="1" data-grade="0" data-current_channel="101" selected="ture">设计部</option><option value="2" data-grade="0" data-current_channel="2" selected="ture">趋势</option><option value="3" data-grade="0" data-current_channel="2" selected="ture">业务部</option><option value="4" data-grade="0" data-current_channel="2" selected="ture">采购部</option><option value="5" data-grade="0" data-current_channel="2" selected="ture">新品研发部</option><option value="68" data-grade="0" data-current_channel="2" selected="ture">辅料</option><option value="74" data-grade="0" data-current_channel="4" selected="ture">下载测试</option><option value="76" data-grade="0" data-current_channel="103" selected="ture">设计师</option><option value="80" data-grade="0" data-current_channel="102" selected="ture">产品</option>";

@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+<!--页面seo标题-->
+
+<title>{$eyou.field.seo_title}</title>
+
+<!--页面seo描述-->
+
+<meta name="description" content="{$eyou.field.seo_description}" />
+
+<!--页面seo关键词-->
+
+<meta name="keywords" content="{$eyou.field.seo_keywords}" />
+
+<!--网站地址栏图标-->
+
+<link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eyou:static file="skin/css/amazeui.min.css" /}
+
+{eyou:static file="skin/css/app.css" /}
+
+{eyou:static file="skin/css/video.css" /}
+
+{eyou:static file="skin/js/jquery.min.js" /}
+
+{eyou:static file="skin/js/amazeui.min.js" /}
+
+{eyou:static file="skin/js/app.js" /}
+</head>
+
+<body>
+
+<!--网站公用头部——开始--> 
+
+{eyou:include file="header.htm" /} 
+
+<!--网站公用头部——结束-->
+
+<article>
+  <section>
+    <div class="course-wrap page-wrap">
+      <div class="video-content" style="position: relative;"> {eyou:videoplay aid='$eyou.field.aid' autoplay='off' id='video'}
+        <video src="{$video.file_url}" {$video.id} loop='loop' width="375" height="187" class="video-js vjs-big-play-centered"></video>
+        {$video.hidden}
+        
+        {/eyou:videoplay}
+        <div class="jw-video-expense" id="VideoDiv13579" style="width: 100%;">
+          <div class="jw-video-tit" id="MsgTitle13579"></div>
+          <div class="jw-video-go" id="MsgOnclick13579"></div>
+        </div>
+      </div>
+      <div class="course-tab">
+        <div class="active" data-index="1">课程详情</div>
+        <div data-index="2">课程目录</div>
+        <div data-index="3">课件下载</div>
+      </div>
+      <div class="course-intro course-tab-div" data-index="1">
+        <div class="course-message">
+          <p class="course-message-title">{$eyou.field.title}</p>
+          <p class="course-message-info">{$eyou.field.seo_description}</p>
+        </div>
+        <div class="course-teacher">
+          <p class="course-teacher-title">主讲介绍</p>
+          {eyou:memberinfos mid='$eyou.field.users_id' id='users' addfields='para_3'}
+          <div class="course-teacher-deatil"> <img src="{$users.head_pic}" alt="">
+            <div class="course-teacher-right">
+              <p>{$users.nickname}</p>
+              <div class="course-teacher-intro"> {$users.para_3} </div>
+            </div>
+          </div>
+          {$users.hidden}
+          {/eyou:memberinfos} 
+		</div>
+        <div class="course-concrete">
+          <p class="course-concrete-title">课程介绍</p>
+          <div class="course-concrete-con"> {$eyou.field.content} </div>
+        </div>
+      </div>
+      <div class="course-list course-tab-div" data-index="2" style="background: #fff;">
+        <ul>
+          {eyou:videolist aid='$eyou.field.aid' id='video'}
+          <li {$video.onclick}> <a href="javascript:void(0);"> <span class="video-title pull-left">{$video.file_title}</span> <span class="video-title pull-right">{eyou:eq name="video.gratis" value="1"}[可试看]{eyou:else/}[<span class="VideoButton13579"></span>]{/eyou:eq}</span> </a> </li>
+          {$video.hidden}
+          {/eyou:videolist}
+        </ul>
+      </div>
+      <div class="course-tab-div course-hot" data-index="3">
+        <div class="m-courses-cotainer">
+          {eyou:notempty name='$eyou.field.courseware' /} 
+          <h1 style="text-align: center;"> <a href="{$eyou.field.courseware}" target="_blank">点击下载</a></h1>
+          {eyou:else/}
+          <h2><p>暂无课件下载</p></h2>
+         {/eyou:notempty}
+          
+        </div>
+      </div>
+      {eyou:gt name="$eyou.field.users_price" value="0"}
+      <div class="fix-btn">
+        <div class="video-period-price"><span>￥</span><span>{$eyou.field.users_price}</span></div>
+        <span class="buy-now" id="BuyOnclick13579">立即购买</span> </div>
+      {/eyou:gt} 
+      <!--网站公用底部——开始--> 
+      
+      <!--网站公用底部——结束--> 
+      
+    </div>
+  </section>
+</article>
+{eyou:static file="skin/js/video.js" /}
+</body>
+</html>
