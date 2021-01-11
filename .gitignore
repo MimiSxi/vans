@@ -5,3 +5,4 @@ vendor
 uploads
 .htaccess
 sitemap.xml
+data/runtime
