@@ -31,7 +31,15 @@
         <div class="ncap-form-default tab_div_1 tab_div_body">
             <dl class="row">
                 <dt class="tit">
+                    {if $typeid == 1}
+                    <label for="title"><em>*</em>作品编号</label>
+                    {elseif $typeid == 76}
+                    <label for="title"><em>*</em>设计师姓名</label>
+                    {elseif $typeid == 80}
+                    <label for="title"><em>*</em>产品编号</label>
+                    {else}
                     <label for="title"><em>*</em>标题</label>
+                    {/if}
                 </dt>
                 <dd class="opt">
                     <input type="text" name="title" value="" id="title" class="input-txt" maxlength="100">
