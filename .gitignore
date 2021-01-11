@@ -3,5 +3,6 @@
 vendor
 uploads
 data
+data/runtime
 weapp
 application/database.php
