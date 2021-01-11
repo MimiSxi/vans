@@ -1,5 +1,6 @@
 .idea
 .htaccess
+.DS_Store
 vendor
 uploads
 data
