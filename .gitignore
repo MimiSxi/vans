@@ -7,3 +7,7 @@ data/runtime
 weapp
 /application/database.php
 /data/
+runtime
+thinkphp
+backup
+.DS_Store
