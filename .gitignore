@@ -1,11 +1,7 @@
 .idea
 .htaccess
-install_1608270377
-public
 vendor
 uploads
-sitemap.xml
 data
-data/runtime
 weapp
 application/database.php
