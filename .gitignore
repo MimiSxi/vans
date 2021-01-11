@@ -1,8 +1,8 @@
 .idea
-install_1608270377
-public
+.htaccess
 vendor
 uploads
-.htaccess
-sitemap.xml
+data
 data/runtime
+weapp
+application/database.php
