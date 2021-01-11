@@ -329,9 +329,12 @@ class Custom extends Base
         // 栏目名称
         $assign_data['typename'] = $arctypeInfo['typename'];
         // 设计师信息
-        $designerInfo = Db::name('designer_content')->select();
+        $designerInfo = Db::name('designer_content')->alias('a')
+            ->join('archives b', 'b.aid = a.aid')
+            ->select();
+//        var_dump($designerInfo[0]['title']);die();
         foreach ($designerInfo as $key => $val) {
-            $designerInfo_html .= '<option value="' . $val['DesignerName'] . '">' . $val['DesignerName'] . '</option>';
+            $designerInfo_html .= '<option value="' . $val['aid'] . '">' . $val['title'] . '</option>';
         }
 //        echo $select_html;
 //        $arctype_html = allow_release_arctype($typeid, array($this->channeltype));
@@ -611,7 +614,7 @@ class Custom extends Base
 //
 //            $alist = Db::name('archives')->where("aid in ($str)")->select();
 //
-            $join = Db::table('ey_productmanagement_content')->alias('a')->join('archives b','a.aid = b.aid')->where(['a.workid' => $id])->select();
+            $join = Db::table('ey_productmanagement_content')->alias('a')->join('archives b', 'a.aid = b.aid')->where(['a.workid' => $id])->select();
             $assign_data['product_join'] = $join;
         }
 
