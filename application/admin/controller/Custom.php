@@ -571,12 +571,14 @@ class Custom extends Base
         $assign_data['typename'] = $arctypeInfo['typename'];
 
         // 设计师信息
-        $designerInfo = Db::name('designer_content')->select();
+        $designerInfo = Db::name('designer_content')->alias('a')
+            ->join('archives b', 'b.aid = a.aid')
+            ->select();
         foreach ($designerInfo as $key => $val) {
-            if ($val['DesignerName'] == $info['designername']) {
-                $designerInfo_html .= '<option value="' . $val['DesignerName'] . '" selected>' . $val['DesignerName'] . '</option>';
+            if ($val['aid'] == $info['designername']) {
+                $designerInfo_html .= '<option value="' . $val['aid'] . '" selected>' . $val['title'] . '</option>';
             } else {
-                $designerInfo_html .= '<option value="' . $val['DesignerName'] . '">' . $val['DesignerName'] . '</option>';
+                $designerInfo_html .= '<option value="' . $val['aid'] . '">' . $val['title'] . '</option>';
             }
         }
         $assign_data['designerInfo'] = $designerInfo_html;

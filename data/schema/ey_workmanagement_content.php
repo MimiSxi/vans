@@ -36,15 +36,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'work_num' => 
-  array (
-    'name' => 'work_num',
-    'type' => 'int(10)',
-    'notnull' => false,
-    'default' => NULL,
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'style' => 
   array (
     'name' => 'style',
