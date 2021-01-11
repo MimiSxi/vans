@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:56:"./application/admin/template/archives\index_archives.htm";i:1610006101;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\layout.htm";i:1596507477;s:84:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\archives\tags_btn.htm";i:1609207297;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\footer.htm";i:1571728724;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:56:"./application/admin/template/archives\index_archives.htm";i:1610352272;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\layout.htm";i:1596507477;s:84:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\archives\tags_btn.htm";i:1609207297;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\footer.htm";i:1571728724;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -160,8 +160,19 @@
         }
     </script>
                     <div class="sDiv2">
+                        <?php if($typeid == 1): ?>
+                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox"
+                               placeholder="作品编号搜索...">
+                        <?php elseif($typeid == 76): ?>
+                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox"
+                               placeholder="设计师姓名搜索...">
+                        <?php elseif($typeid == 80): ?>
+                        <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox"
+                               placeholder="产品编号搜索...">
+                        <?php else: ?>
                         <input type="text" size="30" name="keywords" value="<?php echo \think\Request::instance()->param('keywords'); ?>" class="qsbox"
                                placeholder="标题搜索...">
+                        <?php endif; ?>
                         <input type="submit" class="btn" value="搜索">
                     </div>
                 </div>
@@ -179,7 +190,15 @@
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
+                            <?php if($typeid == 1): ?>
+                            <div style="text-align: left; padding-left: 10px;" class="">作品编号</div>
+                            <?php elseif($typeid == 76): ?>
+                            <div style="text-align: left; padding-left: 10px;" class="">设计师姓名</div>
+                            <?php elseif($typeid == 80): ?>
+                            <div style="text-align: left; padding-left: 10px;" class="">产品编号</div>
+                            <?php else: ?>
                             <div style="text-align: left; padding-left: 10px;" class="">标题</div>
+                            <?php endif; ?>
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
                             <div class="tc">所属栏目</div>

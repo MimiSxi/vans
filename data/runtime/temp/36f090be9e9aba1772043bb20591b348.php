@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:44:"./application/admin/template/custom\edit.htm";i:1610006203;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\layout.htm";i:1596507477;s:98:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\archives\get_field_addonextitem.htm";i:1609233025;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\footer.htm";i:1571728724;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:44:"./application/admin/template/custom\edit.htm";i:1610352329;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\layout.htm";i:1596507477;s:98:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\archives\get_field_addonextitem.htm";i:1609233025;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\footer.htm";i:1571728724;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -81,7 +81,15 @@
         <div class="ncap-form-default tab_div_1 tab_div_body">
             <dl class="row">
                 <dt class="tit">
+                    <?php if($typeid == 1): ?>
+                    <label for="title"><em>*</em>作品编号</label>
+                    <?php elseif($typeid == 76): ?>
+                    <label for="title"><em>*</em>设计师姓名</label>
+                    <?php elseif($typeid == 80): ?>
+                    <label for="title"><em>*</em>产品编号</label>
+                    <?php else: ?>
                     <label for="title"><em>*</em>标题</label>
+                    <?php endif; ?>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="title" value="<?php echo $field['title']; ?>" id="title" class="input-txt" maxlength="100">

@@ -17,8 +17,19 @@
                 <div class="sDiv">
                     {include file="archives/tags_btn" /}
                     <div class="sDiv2">
+                        {if $typeid == 1}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="作品编号搜索...">
+                        {elseif $typeid == 76}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="设计师姓名搜索...">
+                        {elseif $typeid == 80}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="产品编号搜索...">
+                        {else}
                         <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
                                placeholder="标题搜索...">
+                        {/if}
                         <input type="submit" class="btn" value="搜索">
                     </div>
                 </div>
@@ -36,7 +47,15 @@
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
+                            {if $typeid == 1}
+                            <div style="text-align: left; padding-left: 10px;" class="">作品编号</div>
+                            {elseif $typeid == 76}
+                            <div style="text-align: left; padding-left: 10px;" class="">设计师姓名</div>
+                            {elseif $typeid == 80}
+                            <div style="text-align: left; padding-left: 10px;" class="">产品编号</div>
+                            {else}
                             <div style="text-align: left; padding-left: 10px;" class="">标题</div>
+                            {/if}
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
                             <div class="tc">所属栏目</div>
