@@ -11,6 +11,5 @@ application/database.php
 runtime
 thinkphp
 backup
-.DS_Store
 config/database.php
 /install_1608270377/
