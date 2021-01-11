@@ -11,3 +11,4 @@ runtime
 thinkphp
 backup
 .DS_Store
+config/database.php
