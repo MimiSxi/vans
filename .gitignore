@@ -5,4 +5,5 @@ uploads
 data
 data/runtime
 weapp
-application/database.php
+/application/database.php
+/data/

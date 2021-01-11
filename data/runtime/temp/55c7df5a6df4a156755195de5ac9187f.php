@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:56:"./application/admin/template/archives\index_archives.htm";i:1610352272;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\layout.htm";i:1596507477;s:84:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\archives\tags_btn.htm";i:1609207297;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\footer.htm";i:1571728724;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:56:"./application/admin/template/archives\index_archives.htm";i:1610352272;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\layout.htm";i:1610352462;s:84:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\archives\tags_btn.htm";i:1610352461;s:80:"C:\software\EyouCMS-V1.4.9-UTF8-SP2\application\admin\template\public\footer.htm";i:1610352462;}*/ ?>
 <!doctype html>
 <html>
 <head>
