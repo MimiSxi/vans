@@ -6,10 +6,11 @@ uploads
 data
 data/runtime
 weapp
-/application/database.php
+application/database.php
 /data/
 runtime
 thinkphp
 backup
 .DS_Store
 config/database.php
+/install_1608270377/
