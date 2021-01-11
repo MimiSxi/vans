@@ -1,8 +1,9 @@
 .idea
 install_1608270377
-public
+/public
 vendor
 uploads
 .htaccess
 sitemap.xml
-data/runtime
+data
+weapp
