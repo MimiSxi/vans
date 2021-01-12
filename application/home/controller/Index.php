@@ -9,8 +9,8 @@ class Index extends Base
 {
     public function _initialize() {
         parent::_initialize();
-        $this->alipay_return();
-        $this->Express100();
+//        $this->alipay_return();
+//        $this->Express100();
         $this->ey_agent();
     }
 
@@ -72,36 +72,36 @@ class Index extends Base
         return $html;
     }
 
-    /**
-     * 支付宝回调
-     */
-    private function alipay_return()
-    {
-        $param = input('param.');
-        if (isset($param['transaction_type']) && isset($param['is_ailpay_notify'])) {
-            // 跳转处理回调信息
-            $pay_logic = new PayLogic();
-            $pay_logic->alipay_return();
-        }
-    }
+//    /**
+//     * 支付宝回调
+//     */
+//    private function alipay_return()
+//    {
+//        $param = input('param.');
+//        if (isset($param['transaction_type']) && isset($param['is_ailpay_notify'])) {
+//            // 跳转处理回调信息
+//            $pay_logic = new PayLogic();
+//            $pay_logic->alipay_return();
+//        }
+//    }
 
-    /**
-     * 快递100返回时，重定向关闭父级弹框
-     */
-    private function Express100()
-    {
-        $coname = input('param.coname/s', '');
-        $m = input('param.m/s', '');
-        if (!empty($coname) || 'user' == $m) {
-            if (isWeixin()) {
-                $this->redirect(url('user/Shop/shop_centre'));
-                exit;
-            }else{
-                $this->redirect(url('api/Rewrite/close_parent_layer'));
-                exit;
-            }
-        }
-    }
+//    /**
+//     * 快递100返回时，重定向关闭父级弹框
+//     */
+//    private function Express100()
+//    {
+//        $coname = input('param.coname/s', '');
+//        $m = input('param.m/s', '');
+//        if (!empty($coname) || 'user' == $m) {
+//            if (isWeixin()) {
+//                $this->redirect(url('user/Shop/shop_centre'));
+//                exit;
+//            }else{
+//                $this->redirect(url('api/Rewrite/close_parent_layer'));
+//                exit;
+//            }
+//        }
+//    }
 
     /**
      * 无效链接跳转404
