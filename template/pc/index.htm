@@ -1,189 +1,907 @@
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=0">
-<meta name="renderer" content="webkit">
-<meta http-equiv="Cache-Control" content="no-siteapp"/>
-<!--首页seo标题-->
-<title>{eyou:global name='web_title' /}</title>
-<!--首页seo描述-->
-<meta name="description" content="{eyou:global name='web_description' /}" />
-<!--首页seo关键词-->
-<meta name="keywords" content="{eyou:global name='web_keywords' /}" />
-<!--网站地址栏图标-->
-<link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-{eyou:static file="skin/css/amazeui.min.css" /}
-{eyou:static file="skin/css/app.css" /}
-{eyou:static file="skin/css/skitter.css" /}
-<!--[if lt IE 9]>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!--首页seo标题-->
+    <title>{eyou:global name='web_title' /}</title>
+    <!--首页seo描述-->
+    <meta name="description" content="{eyou:global name='web_description' /}" />
+    <!--首页seo关键词-->
+    <meta name="keywords" content="{eyou:global name='web_keywords' /}" />
+    <!--网站地址栏图标-->
+    <link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="template/pc/skin/css/c.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="template/pc/skin/js/jquery1.42.min.js"></script>
+    <script src="template/pc/skin/js/yyui.js"></script>
+    <script type="text/javascript" src="template/pc/skin/js/jquery.SuperSlide.2.1.3.js"></script>
+    <!--[if lt IE 9]>
     <div class="notsupport">
         <h1>:( 非常遗憾</h1>
         <h2>您的浏览器版本太低，请升级您的浏览器</h2>
     </div>
-    <![endif]--> 
-{eyou:static file="skin/js/jquery.min.js" /} 
-{eyou:static file="skin/js/amazeui.min.js" /}
-{eyou:static file="skin/js/app.js" /}
-{eyou:static file="skin/js/jquery.easing.1.3.js" /}
-{eyou:static file="skin/js/jquery.skitter.js" /}
-{eyou:static file="skin/js/jquery.limarquee.js" /} 
+    <![endif]-->
+    {eyou:static file="skin/js/jquery.min.js" /}
+    {eyou:static file="skin/js/amazeui.min.js" /}
+    {eyou:static file="skin/js/app.js" /}
+    {eyou:static file="skin/js/jquery.easing.1.3.js" /}
+    {eyou:static file="skin/js/jquery.skitter.js" /}
+    {eyou:static file="skin/js/jquery.limarquee.js" /}
 </head>
 
+
 <body>
-<!--网站公用头部——开始-->
-{eyou:include file="header.htm" /}
-<!--网站公用头部——结束-->
-<!--广告首页大幻灯——开始-->
-<div class="banner">
-  <div class="skitter" id="banner">
-    <ul>
-      {eyou:adv pid='1'}
-      <li><a href="{$field.links}" {$field.target}><img src="{$field.litpic}" alt="{$field.title}" class="random" /></a></li>
-      {/eyou:adv}
-    </ul>
-  </div>
-</div>
+<style>
 
-<!--广告首页大幻灯——结束-->
-<!--关于我们——开始-->
-<div class="p20"></div>
-{eyou:channelartlist typeid='1'}
-<div class="width">
- 
-  <div class="home_about">
-    <div class="left">
-      <img src="{eyou:adv pid='5' row='1'}{$field.litpic}{/eyou:adv}" width="410" height="260">
-    </div>
-    <div class="right">
-     <!--公司简介——开始-->
-      <h2>{eyou:global name='web_name' /}</h2>
-      <p>{eyou:type typeid='8' addtable='single_content'}{$field.content|html_msubstr=###,0,275}...{/eyou:type}</p>
 
-      <span class="more"><a href="{eyou:field name='typeurl' /}">查看更多<i class="fa fa-angle-right"></i></a></span>
-      <!--公司简介——结束-->
+</style>
+<div class="top">
+    <div id="slideBox" class="slideBox">
+        <div class="hd">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li><img src="template/pc/skin/images/banner01.jpg"/></li>
+                <li><img src="template/pc/skin/images/banner02.jpg"/></li>
+                <li><img src="template/pc/skin/images/banner01.jpg"/></li>
+            </ul>
+        </div>
     </div>
-  </div>
-</div>
-{/eyou:channelartlist}
-<div class="p20"></div>
-<!--关于我们——结束-->
-<!--产品中心——开始-->
-{eyou:channelartlist typeid='3'}
-<div class="bg_gray">
-  <div class="width">
-   <div class="p10"></div>
-    <div class="home_title">
-	  <h2>{eyou:field name='typename' /}</h2>
-	  <div class="border">{eyou:field name='englist_name' /}</div>
+    <script type="text/javascript">
+        jQuery(".slideBox").slide({mainCell: ".bd ul", autoPlay: true});
+    </script>
+    <div class="top_logo"><img src="template/pc/skin/images/top_logo.jpg"></div>
+    <div class="top_meun">
+        <script type="text/javascript">
+            yyui_menu('.yyui_menu1');
+        </script>
+        <ul class="yyui_menu1">
+            <li class="none">
+                <a href="#">首页
+                    <div class="top_meun_hover_img">
+                        <img src="template/pc/skin/images/top_meun_hover.png">
+                    </div>
+                </a>
+            </li>
+            <li><a href="#">设计部</a>
+                <ul class="one clearfix">
+                    <li class="clearfix">
+                        <a href="#">
+                            <div class="second_title">风格</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="second_title">品类</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="more">
+                            <div class="second_title">艺术</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">趋势</a>
+                <ul class="one">
+                    <li>
+                        <a href="#">
+                            <div class="second_title">风格</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="second_title">品类</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="more">
+                            <div class="second_title">艺术</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">业务部</a>
+                <ul class="one">
+                    <li>
+                        <a href="#">
+                            <div class="second_title">风格</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="second_title">品类</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="more">
+                            <div class="second_title">艺术</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">采购部</a>
+                <ul class="one">
+                    <li>
+                        <a href="#">
+                            <div class="second_title">风格</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="second_title">品类</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="more">
+                            <div class="second_title">艺术</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">新品研发部</a>
+                <ul class="one">
+                    <li>
+                        <a href="#">
+                            <div class="second_title">风格</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="second_title">品类</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="more">
+                            <div class="second_title">艺术</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">辅料</a>
+                <ul class="one">
+                    <li>
+                        <a href="#">
+                            <div class="second_title">风格</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="second_title">品类</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="more">
+                            <div class="second_title">艺术</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
+                        </a>
+                        <ul class="two">
+                            <li><a href="#">欧美风</a></li>
+                            <li><a href="#">中国风</a></li>
+                            <li><a href="#" class="more">田园风</a></li>
+                            <li><a href="#">古典风</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li style="position:relative;">
+                <input type="text" value="中国风" name="fname" class="top_meun_search"
+                       onfocus="if(value=='中国风') {value=''}" onblur="if (value=='') {value='中国风'}">
+                <div class="meun_search_img"><img src="template/pc/skin/images/search.png"></div>
+            </li>
+            <div class="user">
+                {eyou:user type='open'}
+                {eyou:language type='default'}
+                <a href="{$field.url}"><img src="{$field.logo}" alt="{$field.title}">{$field.title}</a>
+                {/eyou:language}
+                {eyou:user type='login'}
+                <a href="{$field.url}" id="{$field.id}">登录</a>　
+                {$field.hidden}
+                {/eyou:user}
+                {eyou:user type='reg'}
+                <a href="{$field.url}" id="{$field.id}">注册</a>
+                {$field.hidden}
+                {/eyou:user}
+                {eyou:user type='logout'}
+                <a href="{$field.url}" id="{$field.id}">退出</a>
+                {$field.hidden}
+                {/eyou:user}
+                {/eyou:user}
+            </div>
+        </ul>
     </div>
-    <!--产品中心子栏目——开始-->
-    <div class="home_nav mt20">
-      <ul>
-        {eyou:channel type="son" row='3'}
-        <li {eyou:eq name='$i' value='1'}class="hover"{/eyou:eq} id="one{$i}" onMouseOver="setTab('one',{$i},3)"><a href="{$field.typeurl}" title="{$field.typename}">{$field.typename}</a></li>
-        {/eyou:channel}
-      </ul>
-      <div class="clear"></div>
-    </div>
-    <!--产品中心子栏目——结束-->
-    <div class="home_pro">
-     {eyou:channel type="son" row='3'}
-      <ul id="con_one_{$i}" {eyou:eq name='$i' value='1'}{else /}class="dis"{/eyou:eq}>
-       {eyou:arclist typeid='$field.typeid' row='8' titlelen='30'}
-        <li><a href="{$field.arcurl}" title="{$field.title}">
-          <div><img src="{$field.litpic}" alt="{$field.title}" height="280"></div>
-          <p class="title">{$field.title}</p>
-          <p class="price"><span>点击数：{$field.click} </span>¥ {$field.users_price} </p>
-          </a></li>
-        {/eyou:arclist} 
-      </ul>
-      <div class="clear"></div>
-      {/eyou:channel}
-    </div>
-    <div class="home_more"> <span class="more"><a href="{eyou:field name='typeurl' /}">查看更多<i class="fa fa-angle-right"></i></a></span></div>
-  </div>
-</div>
-{/eyou:channelartlist}
-<!--产品中心——结束-->
-<!--新闻动态——开始-->
-{eyou:channelartlist typeid='2'}
-<div class="width">
-  <div class="p10"></div>
-    <div class="home_title">
-	  <h2>{eyou:field name='typename' /}</h2>
-	  <div class="border">{eyou:field name='englist_name' /}</div>
-    </div>
-  <div class="home_news">
-  
-    <ul class="home_news_list">
-     {eyou:arclist row='6' titlelen='30'}
-		<li>
-          <div class="date">
-          	<span class="dateline">{$field.add_time|MyDate='d',###}</span>
-          	<em>{$field.add_time|MyDate='Y-m',###}</em>
-          </div>
-          <div class="txt">
-          	<a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a>{$field.seo_description|html_msubstr=###,0,60,true}
-          </div>
-		</li>
-     {/eyou:arclist} 
-    </ul>
-    <div class="clear"></div>
-    <div class="home_more"> <span class="more"><a href="{eyou:field name='typeurl' /}">查看更多<i class="fa fa-angle-right"></i></a></span></div>
-  </div>
-</div>
-{/eyou:channelartlist}
-<!--新闻动态——结束-->
-<!--客户案例——开始-->
-{eyou:channelartlist typeid='4'}
-<div class="bg_gray">
-  <div class="width">
-    <div class="p10"></div>
-    <div class="home_title">
-	  <h2>{eyou:field name='typename' /}</h2>
-	  <div class="border">{eyou:field name='englist_name' /}</div>
-	  
-    </div>
-    <div class="list_pic">
-      <ul>
-       {eyou:arclist row='4' titlelen='30'}
-        <li><a href="{$field.arcurl}" title="{$field.title}">
-          <div><img src="{$field.litpic}" alt="{$field.title}" height="200"></div>
-          <p class="title">{$field.title}</p>
-          </a></li>
-       {/eyou:arclist}   
-      </ul>
-      <div class="clear"></div>
-    </div>
-    <div class="home_more"> <span class="more"><a href="{eyou:field name='typeurl' /}">查看更多<i class="fa fa-angle-right"></i></a></span></div>
-  </div>
-</div>
-{/eyou:channelartlist}
-<!--客户案例——结束-->
+    <div class="all_serach">
+        <script type="text/javascript">
+            yyui_menu('.search_pulldown');
+        </script>
+        <div class="search_pulldown">
+            <ul class="yyui_menu1">
+                <li>
+                    <a href="#">
+                        <div style="float: left">全部</div>
+                        <div class="search_arrows"><img src="template/pc/skin/images/searcj_arrows.png"></div>
+                    </a>
+                    <ul class="one clearfix">
+                        <li class="clearfix">
+                            <a href="#">
+                                <div class="second_title">风格</div>
+                                <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="second_title">品类</div>
+                                <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="more">
+                                <div class="second_title">艺术</div>
+                                <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-<!--&lt;!&ndash;友情链接——开始&ndash;&gt;-->
-<!--<div class="bg_link">-->
-<!--  <div class="width link"> -->
-<!--    <div class="link_list" id="link"> 友情链接：-->
-<!--    {eyou:flink titlelen='45' type='text'}-->
-<!--    <a href="{$field.url}" {$field.target}>{$field.title} </a>-->
-<!--    {/eyou:flink}-->
-<!--    </div>-->
-<!--    <div class="clear"></div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--&lt;!&ndash;友情链接——结束&ndash;&gt;-->
-<!--网站公用底部——开始-->
-{eyou:include file="footer.htm" /}
-<!--网站公用底部——结束-->
-<script>
-$(function(){
-	//Banner切换
-	$('#banner').skitter({dots:true,interval:5000});
-})
-</script>
+            </ul>
+        </div>
+        <input value="请输入关键词全站搜索" type="text" name="fname" value="请输入关键词全站搜索" class="all_search_input"
+               onfocus="if(value=='请输入关键词全站搜索') {value=''}" onblur="if (value=='') {value='请输入关键词全站搜索'}">
+    </div>
+    <div class="wrapper">
+        <div class="all_search_label">
+            <ul>
+                <li>中国风</li>
+                <li>欧美风</li>
+                <li>田园风</li>
+                <li>提花</li>
+                <li>印花</li>
+                <li>绣花</li>
+                <li>2019</li>
+                <li>2018</li>
+                <li>四件套</li>
+                <li>沙发套</li>
+                <li>窗帘</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="index_trend clearfix">
+    <div class="wrapper">
+        <div class="trend_title_all">
+            <div class="trend_tit_left">
+                <div class="trend_title clearfix">
+                    <div class="trend_head">流行趋势</div>
+                    <div class="trend_chunk">
+                        <div class="trend_chunk_top"></div>
+                        <div class="trend_chunk_bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="trend_tit_right">Trend</div>
+        </div>
+        <div class="trend_content clearfix">
+            <div class="trend_content_left">
+                <div class="trend_content_lefttit">
+                    <div class="trend_tit1">2022/23秋冬全球色彩趋势预测</div>
+                    <div class="trend_tit2">
+                        我们的202223秋冬趋势预测主打能够在充满挑战的时期展现乐观与奢华质感的浓郁及活力色调,并分为应季、年度、长期三大专题调色板,显示了更高的灵活性与持久性...
+                    </div>
+                </div>
+                <div class="trend_content_img">
+                    <img src="template/pc/skin/images/trend_left_img.jpg">
+                </div>
+            </div>
+            <div class="trend_content_right">
+                <ul>
+                    <li>
+                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
+                        <div class="trend_right_title">家居&照明：色彩、材料</div>
+                    </li>
+                    <li>
+                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
+                        <div class="trend_right_title">家居&照明：色彩、材料</div>
+                    </li>
+                    <li>
+                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
+                        <div class="trend_right_title">家居&照明：色彩、材料</div>
+                    </li>
+                    <li>
+                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
+                        <div class="trend_right_title">家居&照明：色彩、材料</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="index_work clearfix">
+    <div class="wrapper">
+        <div class="trend_title_all">
+            <div class="trend_tit_left">
+                <div class="trend_title clearfix">
+                    <div class="trend_head">优质作品</div>
+                    <div class="trend_chunk">
+                        <div class="trend_chunk_top"></div>
+                        <div class="trend_chunk_bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="trend_tit_right">Works</div>
+        </div>
+        <div class="works_content clearfix">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="works_content_all">
+                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_title clearfix">
+                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_name">
+                                    <div class="name">Anne</div>
+                                    <div class="time">2020.06.17</div>
+                                </div>
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"></div>
+                                    <div class="index_recommend_tit">3,155</div>
+                                </div>
+                            </div>
+                            <div class="index_work_label">
+                                <ul>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="works_second">
+                    <a href="#">
+                        <div class="works_content_all">
+                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_title clearfix">
+                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_name">
+                                    <div class="name">Anne</div>
+                                    <div class="time">2020.06.17</div>
+                                </div>
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"></div>
+                                    <div class="index_recommend_tit">3,155</div>
+                                </div>
+                            </div>
+                            <div class="index_work_label">
+                                <ul>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="works_third">
+                    <a href="#">
+                        <div class="works_content_all">
+                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_title clearfix">
+                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_name">
+                                    <div class="name">Anne</div>
+                                    <div class="time">2020.06.17</div>
+                                </div>
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"></div>
+                                    <div class="index_recommend_tit">3,155</div>
+                                </div>
+                            </div>
+                            <div class="index_work_label">
+                                <ul>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="works_fourth">
+                    <a href="#">
+                        <div class="works_content_all">
+                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_title clearfix">
+                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_name">
+                                    <div class="name">Anne</div>
+                                    <div class="time">2020.06.17</div>
+                                </div>
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"></div>
+                                    <div class="index_recommend_tit">3,155</div>
+                                </div>
+                            </div>
+                            <div class="index_work_label">
+                                <ul>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="works_fifth">
+                    <a href="#">
+                        <div class="works_content_all">
+                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_title clearfix">
+                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_name">
+                                    <div class="name">Anne</div>
+                                    <div class="time">2020.06.17</div>
+                                </div>
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"></div>
+                                    <div class="index_recommend_tit">3,155</div>
+                                </div>
+                            </div>
+                            <div class="index_work_label">
+                                <ul>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="works_sixth">
+                    <a href="#">
+                        <div class="works_content_all">
+                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_title clearfix">
+                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_name">
+                                    <div class="name">Anne</div>
+                                    <div class="time">2020.06.17</div>
+                                </div>
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"></div>
+                                    <div class="index_recommend_tit">3,155</div>
+                                </div>
+                            </div>
+                            <div class="index_work_label">
+                                <ul>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>中国风</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                    <li>标签</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="index_recommend clearfix">
+    <div class="wrapper">
+        <div class="trend_title_all">
+            <div class="trend_tit_left">
+                <div class="trend_title clearfix">
+                    <div class="trend_head">作品推荐</div>
+                    <div class="trend_chunk">
+                        <div class="trend_chunk_top"></div>
+                        <div class="trend_chunk_bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="trend_tit_right">Recommendation</div>
+        </div>
+        <div class="recommend_all clearfix">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img
+                                    src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img
+                                    src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image"><img src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img
+                                    src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img
+                                    src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image"><img src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img
+                                    src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img
+                                    src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="location1">
+                            <div class="recommend_image"><img src="template/pc/skin/images/recommend_image.jpg"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">20PC142</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">3,311</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div class="index_designer clearfix">
+    <div class="wrapper">
+        <div class="trend_title_all clearfix">
+            <div class="trend_tit_left" style="width: 153px">
+                <div class="trend_title clearfix">
+                    <div class="trend_head">高级设计师</div>
+                    <div class="trend_chunk">
+                        <div class="trend_chunk_top"></div>
+                        <div class="trend_chunk_bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="trend_tit_right">Designers</div>
+        </div>
+        <div class="design_designer">
+            <ul class="clearfix">
+                <li class="desigen_1"><img src="template/pc/skin/images/design_one.jpg"></li>
+                <li class="desigen_2"><img src="template/pc/skin/images/design_two.jpg"></li>
+                <li class="desigen_3"><img src="template/pc/skin/images/design_three.jpg"></li>
+                <li class="desigen_4"><img src="template/pc/skin/images/design_four.jpg"></li>
+                <li class="desigen_5"><img src="template/pc/skin/images/design_5.jpg"></li>
+                <li class="desigen_6"><img src="template/pc/skin/images/design_6.jpg"></li>
+            </ul>
+            <ul>
+                <li class="desigen_7"><img src="template/pc/skin/images/design_7.jpg"></li>
+                <li class="desigen_8"><img src="template/pc/skin/images/design_8.jpg"></li>
+                <li class="desigen_9"><img src="template/pc/skin/images/design_9.jpg"></li>
+                <li class="desigen_10"><img src="template/pc/skin/images/design_10.jpg"></li>
+                <li class="desigen_11"><img src="template/pc/skin/images/design_11.jpg"></li>
+                <li class="desigen_12"><img src="template/pc/skin/images/design_12.jpg"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="foot clearfix">
+    <div class="wrapper">
+        <div class="foot_logo"><img src="template/pc/skin/images/foot_logo.png"></div>
+        <div class="foot_all">
+            <div class="foot_meun clearfix">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">趋势</a></li>
+                    <li><a href="#">设计部</a></li>
+                    <li><a href="#">业务部</a></li>
+                    <li><a href="#">采购部</a></li>
+                    <li><a href="#">新品研发部</a></li>
+                    <li><a href="#">辅料</a></li>
+                </ul>
+            </div>
+            <div class="foot_title">More resourceful，efficiency and straightforward for designing!</div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
