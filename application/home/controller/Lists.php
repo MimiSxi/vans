@@ -3,6 +3,7 @@
 
 namespace app\home\controller;
 
+use app\admin\controller\Archives;
 use app\common\model\Taglist;
 use think\Db;
 use think\Verify;
@@ -81,9 +82,18 @@ class Lists extends Base
 
         $tagInfo = Taglist::where('typeid', $tid)->column('tag');
         $result['tag'] = $tagInfo;
+
+        $designername = Db::name('archives')->where('typeid', $tid)->select();
+        for ($i = 0; $i < 999; $i++) {
+            if ($designername[$i]['designername'] != null) {
+                $n = Db::name('archives')->where('aid', $designername[$i]['designername'])->column('title');
+            }
+        }
+        $result['names'] = $n;
         $eyou       = array(
             'field' => $result,
         );
+
         $this->eyou = array_merge($this->eyou, $eyou);
         $this->assign('eyou', $this->eyou);
 

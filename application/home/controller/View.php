@@ -150,6 +150,8 @@ class View extends Base
 
         $tagInfo = Taglist::where('aid', $aid)->column('tag');
         $result['tag'] = $tagInfo;
+
+
         $eyou = array(
             'type' => $arctypeInfo,
             'field' => $result,
