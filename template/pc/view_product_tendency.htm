@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,73 +32,67 @@
     {eyou:static file="skin/js/jquery.limarquee.js" /}
 </head>
 <body style="background: #e5e5e5;">
+<div class="top">
+    <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
+</div>
 
+<!--网站公用头部——开始-->
 {eyou:include file="header.htm" /}
-    <div class="tendency_list">
-        <div class="wrapper" style="background: #ffffff;">
-            <div class="tendency_list_all">
-                <div class="tendency_details">
-                    <div class="tendency_details_title">{$eyou.field.title}</div>
-                    <div class="tendency_details_else clearfix">
-                        <ul>
-                            <li>{$eyou.field.add_time|MyDate='Y-m-d',###}</li>
-                            <li>浏览总数：{$eyou.field.Number_of_views}</li>
-                            <li>下载数量：{$eyou.field.Number_of_downloads}</li>
-                            <li>订阅数量：{$eyou.field.Number_of_subscriptions}</li>
-                        </ul>
-                    </div>
-                    <div class="tendency_details_label clearfix" style="margin-top: 40px;">
-                        {eyou:notempty name='$eyou.field.tags'}
-                        <div class="tendency_details_labeltit">标签:</div>
-                        <div class="tendency_details_label1">
-                            {eyou:tag sort='now' getall='0' row='100' empty=''}
-                            <a href="{$eyou.field.link}" {$eyou.field.target}>{$eyou.field.tag}</a>
-                            {/eyou:tag}
-                        </div>
-                        {/eyou:notempty}
-                    </div>
-                    <div class="tendency_details_label clearfix">
-                        <div class="tendency_details_labeltit">简述:</div>
-                        <div class="tendency_details_label1">{$eyou.field.Brief_introduction}</div>
-                    </div>
-                    <div class="tendency_details_operation clearfix">
-                        <div class="fl" style=" margin-right: 20px;">收藏:</div>
-                        <div class="fl"  style=" margin-right: 60px;"><img src="template/pc/skin/images/recommend_img_on.png"></div>
-                        <div class="fl" style=" margin-right: 20px;">下载:</div>
-                        <div class="fl"><img src="template/pc/skin/images/download.png"></div>
-                    </div>
-                    <div class="tendency_details_nr">
-                        {$eyou.field.content}
-                    </div>
-                    <div class="details_paging clearfix">
-                        <a href="#"><div class="previous">上一篇：2023关键色彩线上讨论会</div></a>
-                        <a href="#"><div class="next">下一篇：2023关键色彩线上讨论会</div></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--网站公用头部——结束-->
 
-
-    <div class="foot clearfix">
-        <div class="wrapper">
-            <div class="foot_logo"><img src="template/pc/skin/images/foot_logo.png"></div>
-            <div class="foot_all">
-                <div class="foot_meun clearfix">
+<div class="tendency_list">
+    <div class="wrapper" style="background: #ffffff;">
+        <div class="tendency_list_all">
+            <div class="tendency_details">
+                <div class="tendency_details_title">{$eyou.field.title}</div>
+                <div class="tendency_details_else clearfix">
                     <ul>
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">趋势</a></li>
-                        <li><a href="#">设计部</a></li>
-                        <li><a href="#">业务部</a></li>
-                        <li><a href="#">采购部</a></li>
-                        <li><a href="#">新品研发部</a></li>
-                        <li><a href="#">辅料</a></li>
+                        <li>{$eyou.field.add_time|MyDate='Y-m-d',###}</li>
+                        <li>浏览总数：{$eyou.field.Number_of_views}</li>
+                        <li>下载数量：{$eyou.field.Number_of_downloads}</li>
+                        <li>订阅数量：{$eyou.field.Number_of_subscriptions}</li>
                     </ul>
                 </div>
-                <div class="foot_title">More resourceful，efficiency and straightforward for designing!</div>
+                <div class="tendency_details_label clearfix" style="margin-top: 40px;">
+                    {eyou:notempty name='$eyou.field.tags'}
+                    <div class="tendency_details_labeltit">标签:</div>
+                    <div class="tendency_details_label1">
+                        {eyou:tag sort='now' getall='0' row='100' empty=''}
+                        <a href="{$eyou.field.link}" {$eyou.field.target}>{$eyou.field.tag}</a>
+                        {/eyou:tag}
+                    </div>
+                    {/eyou:notempty}
+                </div>
+                <div class="tendency_details_label clearfix">
+                    <div class="tendency_details_labeltit">简述:</div>
+                    <div class="tendency_details_label1">{$eyou.field.Brief_introduction}</div>
+                </div>
+                <div class="tendency_details_operation clearfix">
+                    <div class="fl" style=" margin-right: 20px;">收藏:</div>
+                    <div class="fl" style=" margin-right: 60px;"><img
+                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                    <div class="fl" style=" margin-right: 20px;">下载:</div>
+                    <div class="fl"><img src="template/pc/skin/images/download.png"></div>
+                </div>
+                <div class="tendency_details_nr">
+                    {$eyou.field.content}
+                </div>
+                <div class="details_paging clearfix">
+                    <a href="#">
+                        <div class="previous">上一篇：2023关键色彩线上讨论会</div>
+                    </a>
+                    <a href="#">
+                        <div class="next">下一篇：2023关键色彩线上讨论会</div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<!--网站公用底部——开始-->
+{eyou:include file="footer.htm" /}
+<!--网站公用底部——结束-->
 
 </body>
 </html>

@@ -1,43 +1,18 @@
-<div class="bg_footer">
-    	<div class="width footer">
-        	<div class="fl">
-            	<h1>{eyou:global name='web_name' /}</h1>
-                <h5></h5>
-                {eyou:searchform type='default'}
-				  <form method="get" action="{$field.action}">
-					{$field.hidden}
-                	<input type="text" name="keywords" placeholder="请输入关键字">
-					<input type="submit" value="搜索">
-                </form>
-				{/eyou:searchform} 
+<div class="foot clearfix">
+    <div class="wrapper">
+        <div class="foot_logo"><img src="template/pc/skin/images/foot_logo.png"></div>
+        <div class="foot_all">
+            <div class="foot_meun clearfix">
+                <ul>
+                    <li class="{eyou:eq name='$Request.param.m' value='Index'}hover{/eyou:eq}"><a
+                            href="{eyou:global name='web_cmsurl' /}" title="首页">首页</a></li>
+                    {eyou:channel type="top" row="6" id="field" currentstyle="hover"}
+                    <li class="{$field.currentstyle}"><a href="{$field.typeurl}">{$field.typename}</a>
+                    </li>
+                    {/eyou:channel}
+                </ul>
             </div>
-            <div class="fr">
-            	{eyou:channel type="top" row="4" id="field"}
-                <div class="left">
-                    <ul>
-                        <h6>{$field.typename}</h6>
-                        {eyou:channel name="$field.children" row="100" id="field2"}
-						<li><a href="{$field2.typeurl}" title="{$field2.typename}">{$field2.typename}</a></li>
-						{/eyou:channel}
-                    </ul>
-                </div>
-                {/eyou:channel}
-            </div>
-            <div class="clear"></div>
-            <div class="copyright">
-
-            </div>
+            <div class="foot_title">More resourceful，efficiency and straightforward for designing!</div>
         </div>
     </div>
-    <!-- 应用插件标签 start -->
-     {eyou:weapp type='default' /}
-    <!-- 应用插件标签 end -->
-    
-    
-    <!--[if lt IE 9]>
-    <div class="notsupport">
-        <h1>:( 非常遗憾</h1>
-        <h2>您的浏览器版本太低，请升级您的浏览器</h2>
-    </div>
-    <![endif]-->
-    
+</div>
