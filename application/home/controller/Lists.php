@@ -76,7 +76,6 @@ class Lists extends Base
         $this->nid     = $row['nid'];
         $this->channel = intval($row['current_channel']);
         /*--end*/
-
         $result = $this->logic($tid); // 模型对应逻辑
 
         $tagInfo = Taglist::where('typeid', $tid)->column('tag');
@@ -86,6 +85,9 @@ class Lists extends Base
         );
         $this->eyou = array_merge($this->eyou, $eyou);
         $this->assign('eyou', $this->eyou);
+
+        $designername = Db::name('archives')->where('aid', $result['designername'])->column('title');
+        $this->assign('dename', $designername);
 
         /*模板文件*/
         $viewfile = !empty($result['templist'])
@@ -227,7 +229,6 @@ class Lists extends Base
             }
         }
         /*--end*/
-
         return $result;
     }
 

@@ -150,10 +150,16 @@ class View extends Base
 
         $tagInfo = Taglist::where('aid', $aid)->column('tag');
         $result['tag'] = $tagInfo;
+
+        $dename = Db::name('archives')->where('aid', $result['designername'])->column('title');
+
         $eyou = array(
             'type' => $arctypeInfo,
             'field' => $result,
+            'dename' => $dename[0],
         );
+
+
 
         $this->eyou = array_merge($this->eyou, $eyou);
         $this->assign('eyou', $this->eyou);

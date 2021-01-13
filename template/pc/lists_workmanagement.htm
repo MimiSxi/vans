@@ -347,6 +347,7 @@
                 {/eyou:volist}
                 {$field.hidden}
                 {/eyou:screening}
+
                 <!--筛选——结束-->
                 <ul class="clearfix">
                     <li class="pull_down"><img src="template/pc/skin/images/pull-down.png"></li>
@@ -359,14 +360,13 @@
                     {eyou:list titlelen='20' pagesize='12'}
                     <li><a href="{$field.arcurl}">
                         <div class="design_content_all">
-
                             <div class="design_content_img"><img src="{$field.litpic}" alt="{$field.title}"
                                                                  width="355px"
                                                                  height="250px" style="width: 100%;"></div>
                             <div class="design_content_title clearfix">
                                 <div class="works_content_tit1">{$field.title}</div>
                                 <div class="design_content_name">
-                                    <div class="name">{$field.author}</div>
+<!--                                    <div class="name">{$dename}</div>-->
                                     <div class="time">{$field.add_time|MyDate='Y.m.d',###}</div>
                                 </div>
                                 <!--                                订阅-->
