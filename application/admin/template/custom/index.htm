@@ -11,18 +11,31 @@
                 <h5>(共{$pager->totalRows}条数据)</h5>
             </div>
             <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
-            <form class="navbar-form form-inline" id="searchForm" action="{:url('Custom/index')}" method="get" onsubmit="layer_loading('正在处理');">
+            <form class="navbar-form form-inline" id="searchForm" action="{:url('Custom/index')}" method="get"
+                  onsubmit="layer_loading('正在处理');">
                 {$searchform.hidden|default=''}
                 <input type="hidden" name="channel" value="{$Request.param.channel|default=0}">
                 <div class="sDiv">
                     {include file="archives/tags_btn" /}
                     <div class="sDiv2">
-                        <input type="hidden" name="typeid" id="typeid" value="{$Request.param.typeid|default=''}">
-                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox" placeholder="标题搜索...">
+                        {if $typeid == 1}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="作品编号搜索...">
+                        {elseif $typeid == 76}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="设计师姓名搜索...">
+                        {elseif $typeid == 80}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="产品编号搜索...">
+                        {else}
+                        <input type="text" size="30" name="keywords" value="{$Request.param.keywords}" class="qsbox"
+                               placeholder="标题搜索...">
+                        {/if}
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <div class="sDiv2">
-                        <input type="button" class="btn" value="重置" onClick="window.location.href='{:url('Custom/index', array("channel"=>$Request.param.channel,"typeid"=>$Request.param.typeid))}';">
+                        <input type="button" class="btn" value="重置"
+                               onClick="window.location.href='{:url('Custom/index', array(" channel"=>$Request.param.channel,"typeid"=>$Request.param.typeid))}';">
                     </div>
                 </div>
             </form>
@@ -35,12 +48,20 @@
                         <th class="sign w40" axis="col0">
                             <div class="tc">选择</div>
                         </th>
-                        
+
                         <th abbr="article_title" axis="col3" class="w40">
                             <div class="tc">ID</div>
                         </th>
                         <th abbr="article_title" axis="col3" class="">
+                            {if $typeid == 1}
+                            <div style="text-align: left; padding-left: 10px;" class="">作品编号</div>
+                            {elseif $typeid == 76}
+                            <div style="text-align: left; padding-left: 10px;" class="">设计师姓名</div>
+                            {elseif $typeid == 80}
+                            <div style="text-align: left; padding-left: 10px;" class="">产品编号</div>
+                            {else}
                             <div style="text-align: left; padding-left: 10px;" class="">标题</div>
+                            {/if}
                         </th>
                         <th abbr="article_time" axis="col6" class="w100">
                             <div class="tc">所属栏目</div>
@@ -60,7 +81,7 @@
                         <th abbr="article_time" axis="col6" class="w60">
                             <div class="tc">排序</div>
                         </th>
-                        
+
                     </tr>
                     </thead>
                 </table>
@@ -71,91 +92,106 @@
                 <table style="width: 100%;">
                     <tbody>
                     {empty name="list"}
-                        <tr>
-                            <td class="no-data" align="center" axis="col0" colspan="50">
-                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="no-data" align="center" axis="col0" colspan="50">
+                            <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                        </td>
+                    </tr>
                     {else/}
-                        {foreach name="list" item="vo" key="k" }
-                        <tr>
-                            <td class="sign">
-                                <div class="tc w40"><input type="checkbox" name="ids[]" value="{$vo.aid}"></div>
-                            </td>
-                           
-                            <td class="sort">
-                                <div class="tc w40">
-                                    {$vo.aid}
-                                </div>
-                            </td>
-                            <td class="" style="width: 100%;">
-                                <div class="tl" style="padding-left: 10px;">
-                                    {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                    <a href="{:url('Custom/edit',array('id'=>$vo['aid'], 'channel'=>$Request.param.channel))}" style="{eq name="vo.is_b" value="1"} font-weight: bold;{/eq}">{$vo.title}</a>
-                                    {else /}
-                                    {$vo.title}
-                                    {/eq}
-                                    {assign name='showArcFlagData' value='$vo|showArchivesFlagStr'}
-                                    {volist name='$showArcFlagData' id="vo1"}
-                                        {eq name='$i' value='1'}<span style="color: red;">[{/eq}
+                    {foreach name="list" item="vo" key="k" }
+                    <tr>
+                        <td class="sign">
+                            <div class="tc w40"><input type="checkbox" name="ids[]" value="{$vo.aid}"></div>
+                        </td>
+
+                        <td class="sort">
+                            <div class="tc w40">
+                                {$vo.aid}
+                            </div>
+                        </td>
+                        <td class="" style="width: 100%;">
+                            <div class="tl" style="padding-left: 10px;">
+                                {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                <a href="{:url('Custom/edit',array('id'=>$vo['aid'], 'channel'=>$Request.param.channel))}"
+                                   style="{eq name=" vo.is_b" value="1"} font-weight: bold;{/eq}">{$vo.title}</a>
+                                {else /}
+                                {$vo.title}
+                                {/eq}
+                                {assign name='showArcFlagData' value='$vo|showArchivesFlagStr'}
+                                {volist name='$showArcFlagData' id="vo1"}
+                                {eq name='$i' value='1'}<span style="color: red;">[{/eq}
                                         <i style="font-size: 12px;">{$vo1['small_name']}</i>
                                         {eq name='$i' value='$showArcFlagData|count'}]</span>{/eq}
-                                    {/volist}
-                                </div>
-                            </td>
-                            <td class="">
-                                <div class="w100 tc"><a href="{:url('Custom/index', array('typeid'=>$vo['typeid'], 'channel'=>$Request.param.channel, 'tab'=>3))}">{$vo.typename|default='<i class="red">数据出错！</i>'}</a></div>
-                            </td>
-                            <td>
-                                <div class="tc w50">
-                                    {if condition="$vo['is_recom'] eq 1"}
-                                        <span class="yes" {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}onClick="changeTableVal('archives','aid','{$vo.aid}','is_recom',this);"{/eq} ><i class="fa fa-check-circle"></i>是</span>
-                                    {else /}
-                                        <span class="no" {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}onClick="changeTableVal('archives','aid','{$vo.aid}','is_recom',this);"{/eq} ><i class="fa fa-ban"></i>否</span>
-                                    {/if}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="tc w60">
-                                    {$vo.click}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="w100 tc">
-                                    {$vo.add_time|date='Y-m-d',###}
-                                </div>
-                            </td>
-                            <td class="">
-                                <div class="w180 tc">
-                                    {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                    <a href="{:url('Custom/edit',array('id'=>$vo['aid'], 'channel'=>$Request.param.channel))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
-                                    {/eq}
-                                    {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Custom/del', ['channel'=>$Request.param.channel])}" data-id="{$vo.aid}" data-deltype="pseudo" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
-                                    {/eq}
-                                    <a href="{$vo.arcurl}" target="_blank" class="btn blue"><i class="fa fa-pencil-square-o"></i>浏览</a>
-                                    {if $vo.channel == 101}
-                                    <a href="{:url('Archives/add',array('id'=>$vo['aid'],'typeid'=>80, 'channel'=>102))}"
-                                       class="btn blue"><i class="fa fa-pencil-square-o"></i>添加产品</a>
-                                    {/if}
-                                    {if $vo.channel == 102}
-                                    <a href="{:url('InAndOut/add',array('id'=>$vo['aid']))}"
-                                       class="btn blue"><i class="fa fa-pencil-square-o"></i>出入库</a>
-                                    {/if}
-                                </div>
-                            </td>
-                             <td class="sort">
-                                <div class="w60 tc">
-                                    {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                    <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="changeTableVal('archives','aid','{$vo.aid}','sort_order',this);"  size="4"  value="{$vo.sort_order}" />
-                                    {else /}
-                                    {$vo.sort_order}
-                                    {/eq}
-                                </div>
-                            </td>
-                            
-                        </tr>
-                        {/foreach}
+                                {/volist}
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="w100 tc"><a
+                                    href="{:url('Custom/index', array('typeid'=>$vo['typeid'], 'channel'=>$Request.param.channel, 'tab'=>3))}">{$vo.typename|default='<i
+                                    class="red">数据出错！</i>'}</a></div>
+                        </td>
+                        <td>
+                            <div class="tc w50">
+                                {if condition="$vo['is_recom'] eq 1"}
+                                <span class="yes" {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access"
+                                      value="1" }onClick="changeTableVal('archives','aid','{$vo.aid}','is_recom',this);"
+                                      {/eq} ><i class="fa fa-check-circle"></i>是</span>
+                                {else /}
+                                <span class="no" {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access"
+                                      value="1" }onClick="changeTableVal('archives','aid','{$vo.aid}','is_recom',this);"
+                                      {/eq} ><i class="fa fa-ban"></i>否</span>
+                                {/if}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="tc w60">
+                                {$vo.click}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="w100 tc">
+                                {$vo.add_time|date='Y-m-d',###}
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="w180 tc">
+                                {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                <a href="{:url('Custom/edit',array('id'=>$vo['aid'], 'channel'=>$Request.param.channel))}"
+                                   class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                {/eq}
+                                {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
+                                <a class="btn red" href="javascript:void(0);"
+                                   data-url="{:url('Custom/del', ['channel'=>$Request.param.channel])}"
+                                   data-id="{$vo.aid}" data-deltype="pseudo" onClick="delfun(this);"><i
+                                        class="fa fa-trash-o"></i>删除</a>
+                                {/eq}
+                                <a href="{$vo.arcurl}" target="_blank" class="btn blue"><i
+                                        class="fa fa-pencil-square-o"></i>浏览</a>
+                                {if $vo.channel == 101}
+                                <a href="{:url('Archives/add',array('id'=>$vo['aid'],'typeid'=>80, 'channel'=>102))}"
+                                   class="btn blue"><i class="fa fa-pencil-square-o"></i>添加产品</a>
+                                {/if}
+                                {if $vo.channel == 102}
+                                <a href="{:url('InAndOut/add',array('id'=>$vo['aid']))}"
+                                   class="btn blue"><i class="fa fa-pencil-square-o"></i>出入库</a>
+                                {/if}
+                            </div>
+                        </td>
+                        <td class="sort">
+                            <div class="w60 tc">
+                                {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'');"
+                                       onpaste="this.value=this.value.replace(/[^\d]/g,'')"
+                                       onchange="changeTableVal('archives','aid','{$vo.aid}','sort_order',this);"
+                                       size="4" value="{$vo.sort_order}"/>
+                                {else /}
+                                {$vo.sort_order}
+                                {/eq}
+                            </div>
+                        </td>
+
+                    </tr>
+                    {/foreach}
                     {/empty}
                     </tbody>
                 </table>
@@ -167,29 +203,40 @@
                 <input type="checkbox" onclick="javascript:$('input[name*=ids]').prop('checked',this.checked);">
             </span>
             <div class="nav-dropup">
-                <button class="layui-btn layui-btn-primary dropdown-bt">批量操作<i class="layui-icon layui-icon-up"></i></button>
+                <button class="layui-btn layui-btn-primary dropdown-bt">批量操作<i class="layui-icon layui-icon-up"></i>
+                </button>
                 <div class="dropdown-menus" style="display:none;">
                     {eq name="'Archives@batch_attr'|is_check_access" value="1"}
-                    <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量新增属性');" data-url="{:url('Archives/batch_attr', ['opt'=>'add'])}"><i class="fa fa-plus"></i>新增属性</a>
-                    <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量删除属性');" data-url="{:url('Archives/batch_attr', ['opt'=>'del'])}"><i class="fa fa-close"></i>删除属性</a>
+                    <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量新增属性');"
+                       data-url="{:url('Archives/batch_attr', ['opt'=>'add'])}"><i class="fa fa-plus"></i>新增属性</a>
+                    <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量删除属性');"
+                       data-url="{:url('Archives/batch_attr', ['opt'=>'del'])}"><i class="fa fa-close"></i>删除属性</a>
                     <hr class="layui-bg-gray">
                     {/eq}
                     {eq name="'Archives@batch_copy'|is_check_access" value="1"}
-                    <a href="javascript:void(0);" onclick="func_batch_copy(this, 'ids');" data-url="{:url('Archives/batch_copy', array('typeid'=>$Request.param.typeid))}"><i class="fa fa-copy"></i>复制文档</a>
+                    <a href="javascript:void(0);" onclick="func_batch_copy(this, 'ids');"
+                       data-url="{:url('Archives/batch_copy', array('typeid'=>$Request.param.typeid))}"><i
+                            class="fa fa-copy"></i>复制文档</a>
                     {/eq}
                     {eq name="'Archives@move'|is_check_access" value="1"}
-                    <a href="javascript:void(0);" onclick="func_move(this, 'ids');" data-url="{:url('Archives/move', array('typeid'=>$Request.param.typeid))}"><i class="fa fa-hdd-o"></i>移动文档</a>
+                    <a href="javascript:void(0);" onclick="func_move(this, 'ids');"
+                       data-url="{:url('Archives/move', array('typeid'=>$Request.param.typeid))}"><i
+                            class="fa fa-hdd-o"></i>移动文档</a>
                     {/eq}
                     {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                    <a href="javascript:void(0);" onclick="batch_del(this, 'ids');" data-url="{:url('Custom/del', ['channel'=>$Request.param.channel])}" data-deltype="pseudo"><i class="fa fa-close"></i>删除文档</a>
+                    <a href="javascript:void(0);" onclick="batch_del(this, 'ids');"
+                       data-url="{:url('Custom/del', ['channel'=>$Request.param.channel])}" data-deltype="pseudo"><i
+                            class="fa fa-close"></i>删除文档</a>
                     {/eq}
                     {eq name="'Archives@check'|is_check_access" value="1"}
-                    <a href="javascript:void(0);" onclick="batch_check(this, 'ids');" data-url="{:url('Archives/check')}"><i class="fa fa-check-square-o"></i>审核文档</a>
+                    <a href="javascript:void(0);" onclick="batch_check(this, 'ids');"
+                       data-url="{:url('Archives/check')}"><i class="fa fa-check-square-o"></i>审核文档</a>
                     {/eq}
                 </div>
             </div>
             {eq name="'RecycleBin@archives_index'|is_check_access" value="1"}
-            <a href="{:url('RecycleBin/archives_index')}" class="layui-btn layui-btn-primary" title="回收站"><i class="layui-icon layui-icon-delete"></i>回收站</a>
+            <a href="{:url('RecycleBin/archives_index')}" class="layui-btn layui-btn-primary" title="回收站"><i
+                    class="layui-icon layui-icon-delete"></i>回收站</a>
             {/eq}
         </div>
         <!--分页位置-->
@@ -197,37 +244,37 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         // 表格行点击选中切换
-        $('#flexigrid > table>tbody >tr').click(function(){
+        $('#flexigrid > table>tbody >tr').click(function () {
             $(this).toggleClass('trSelected');
         });
 
         // 点击刷新数据
-        $('.fa-refresh').click(function(){
+        $('.fa-refresh').click(function () {
             location.href = location.href;
         });
 
         // 批量操作
-        $(".dropdown-bt").click(function(){
+        $(".dropdown-bt").click(function () {
             $(".dropdown-menus").slideToggle(200);
             event.stopPropagation();
         })
-        $(document).click(function(){
+        $(document).click(function () {
             $(".dropdown-menus").slideUp(200);
             event.stopPropagation();
         })
     });
 
     var aids = '';
-    function func_move(obj, name)
-    {
+
+    function func_move(obj, name) {
         var a = [];
         var k = 0;
         aids = '';
-        $('input[name^='+name+']').each(function(i,o){
-            if($(o).is(':checked')){
+        $('input[name^=' + name + ']').each(function (i, o) {
+            if ($(o).is(':checked')) {
                 a.push($(o).val());
                 if (k > 0) {
                     aids += ',';
@@ -236,7 +283,7 @@
                 k++;
             }
         })
-        if(a.length == 0){
+        if (a.length == 0) {
             layer.alert('请至少选择一项', {icon: 2});
             return;
         }
@@ -258,8 +305,7 @@
     /**
      * 获取修改之前的内容
      */
-    function get_aids()
-    {
+    function get_aids() {
         return aids;
     }
 </script>
