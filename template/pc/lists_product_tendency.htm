@@ -55,15 +55,11 @@
                                 addfields='Brief_introduction' /}
                             </div>
                             <div class="tendency_list_label clearfix">
-                                {eyou:notempty name='$eyou.field.tags'}
                                 <ul>
-                                    <div class="tags"><span class="am-icon-tags"></span> 标签：
-                                        {eyou:tag sort='now' getall='0' row='100' empty=''}
-                                        <a href="{$field.link}" {$field.target}>{$field.tag}</a>
-                                        {/eyou:tag}
-                                    </div>
+                                    {foreach $eyou.field.tag as $key=>$vo }
+                                    <li>{$vo}&nbsp;</li>
+                                    {/foreach}
                                 </ul>
-                                {/eyou:notempty}
                             </div>
                             <div class="tendency_list_then clearfix">
                                 <div class="tendency_list_time">{$field.add_time|MyDate='Y-m-d',###}</div>

@@ -3,6 +3,7 @@
 
 namespace app\home\controller;
 
+use app\common\model\Taglist;
 use think\Db;
 use think\Verify;
 
@@ -24,7 +25,6 @@ class Lists extends Base
     public function index($tid = '')
     {
         $param = input('param.');
-
         /*获取当前栏目ID以及模型ID*/
         $page_tmp = input('param.page/s', 0);
         if (empty($tid) || !is_numeric($page_tmp)) {
@@ -79,6 +79,8 @@ class Lists extends Base
 
         $result = $this->logic($tid); // 模型对应逻辑
 
+        $tagInfo = Taglist::where('typeid', $tid)->column('tag');
+        $result['tag'] = $tagInfo;
         $eyou       = array(
             'field' => $result,
         );

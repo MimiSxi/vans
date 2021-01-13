@@ -57,9 +57,9 @@
                     {eyou:notempty name='$eyou.field.tags'}
                     <div class="tendency_details_labeltit">标签:</div>
                     <div class="tendency_details_label1">
-                        {eyou:tag sort='now' getall='0' row='100' empty=''}
-                        <a href="{$eyou.field.link}" {$eyou.field.target}>{$eyou.field.tag}</a>
-                        {/eyou:tag}
+                        {foreach $eyou.field.tag as $key=>$vo }
+                        <a>{$vo}&nbsp;</a>
+                        {/foreach}
                     </div>
                     {/eyou:notempty}
                 </div>
@@ -77,14 +77,27 @@
                 <div class="tendency_details_nr">
                     {$eyou.field.content}
                 </div>
+
+                <!--上下篇——开始-->
                 <div class="details_paging clearfix">
-                    <a href="#">
-                        <div class="previous">上一篇：2023关键色彩线上讨论会</div>
+                    <!--上一篇-->
+                    {eyou:prenext get='pre' titlelen='30'}
+                    <a href="{$field.arcurl}">
+                        <div class="pre">{eyou:lang name='sys11' /} : {$field.title}</div>
+                        {eyou:else /}
+                        <div class="preghg h san h g">{eyou:lang name='sys11' /} : {eyou:lang name='sys10' /}</div>
                     </a>
-                    <a href="#">
-                        <div class="next">下一篇：2023关键色彩线上讨论会</div>
+                    {/eyou:prenext}
+                    <!--下一篇-->
+                    {eyou:prenext get='next' titlelen='30'}
+                    <a href="{$field.arcurl}">
+                        <div class="next">{eyou:lang name='sys12' /} : {$field.title}</div>
+                        {eyou:else /}
+                        <div class="next">{eyou:lang name='sys12' /} : {eyou:lang name='sys10' /}</div>
                     </a>
+                    {/eyou:prenext}
                 </div>
+                <!--上下篇——结束-->
             </div>
         </div>
     </div>

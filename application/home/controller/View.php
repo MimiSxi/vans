@@ -3,6 +3,7 @@
 
 namespace app\home\controller;
 
+use app\common\model\Taglist;
 use think\Db;
 
 class View extends Base
@@ -143,8 +144,10 @@ class View extends Base
         $result = $this->fieldLogic->getChannelFieldList($result, $this->channel);
         /*--end*/
 
+        $tagInfo = Taglist::where('aid', $aid)->column('tag');
+        $result['tag'] = $tagInfo;
         $eyou = array(
-            'type'  => $arctypeInfo,
+            'type' => $arctypeInfo,
             'field' => $result,
         );
 
