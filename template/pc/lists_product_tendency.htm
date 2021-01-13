@@ -32,67 +32,57 @@
     {eyou:static file="skin/js/jquery.limarquee.js" /}
 </head>
 <body style="background: #e5e5e5;">
-    <div class="top">
-            <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
-    </div>
-    {eyou:include file="header.htm" /}
+<div class="top">
+    <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
+</div>
 
-    <div class="tendency_list">
-        <div class="wrapper" style="background: #ffffff;">
-            <div class="tendency_list_all">
-                {eyou:list titlelen='20' pagesize='12'}
-                <ul>
-                    <li class="clearfix">
-                        <a href="{$field.arcurl}">
-                            <div class="tendency_listimg"><img src=""></div>
-                            <div class="tendency_list_content">
-                                <div class="tendency_list_title">{$field.title}</div>
-                                <div class="tendency_list_nr">{eyou:field.aid='$eyou.field.aid' addfields='Brief_introduction' /}</div>
-                                <div class="tendency_list_label clearfix">
-                                    {eyou:notempty name='$eyou.field.tags'}
-                                    <ul>
-                                        <div class="tags"><span class="am-icon-tags"></span> 标签：
-                                            {eyou:tag sort='now' getall='0' row='100' empty=''}
-                                            <a href="{$field.link}" {$field.target}>{$field.tag}</a>
-                                            {/eyou:tag}
-                                        </div>
-                                    </ul>
-                                    {/eyou:notempty}
-                                </div>
-                                <div class="tendency_list_then clearfix">
-                                    <div class="tendency_list_time">{$field.add_time|MyDate='Y-m-d',###}</div>
-                                    <div class="tendency_list_author">{$field.author}</div>
-                                    <div class="tendency_list_collect"><img src="template/pc/skin/images/tendency_collect.png"></div>
-                                </div>
+<!--网站公用头部——开始-->
+{eyou:include file="header.htm" /}
+<!--网站公用头部——结束-->
+
+<div class="tendency_list">
+    <div class="wrapper" style="background: #ffffff;">
+        <div class="tendency_list_all">
+            {eyou:list titlelen='20' pagesize='12'}
+            <ul>
+                <li class="clearfix">
+                    <a href="{$field.arcurl}">
+                        <div class="tendency_listimg">
+                            <img src="{$field.litpic}" alt="{$field.title}" width="395px" height="278px"></div>
+                        <div class="tendency_list_content">
+                            <div class="tendency_list_title">{$field.title}</div>
+                            <div class="tendency_list_nr">{eyou:field.aid='$eyou.field.aid'
+                                addfields='Brief_introduction' /}
                             </div>
-                        </a>
-                    </li>
-                </ul>
-                {/eyou:list}
-            </div>
+                            <div class="tendency_list_label clearfix">
+                                {eyou:notempty name='$eyou.field.tags'}
+                                <ul>
+                                    <div class="tags"><span class="am-icon-tags"></span> 标签：
+                                        {eyou:tag sort='now' getall='0' row='100' empty=''}
+                                        <a href="{$field.link}" {$field.target}>{$field.tag}</a>
+                                        {/eyou:tag}
+                                    </div>
+                                </ul>
+                                {/eyou:notempty}
+                            </div>
+                            <div class="tendency_list_then clearfix">
+                                <div class="tendency_list_time">{$field.add_time|MyDate='Y-m-d',###}</div>
+                                <div class="tendency_list_author">{$field.author}</div>
+                                <div class="tendency_list_collect"><img
+                                        src="template/pc/skin/images/tendency_collect.png"></div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            {/eyou:list}
         </div>
     </div>
+</div>
 
-
-    <div class="foot clearfix">
-        <div class="wrapper">
-            <div class="foot_logo"><img src="template/pc/skin/images/foot_logo.png"></div>
-            <div class="foot_all">
-                <div class="foot_meun clearfix">
-                    <ul>
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">趋势</a></li>
-                        <li><a href="#">设计部</a></li>
-                        <li><a href="#">业务部</a></li>
-                        <li><a href="#">采购部</a></li>
-                        <li><a href="#">新品研发部</a></li>
-                        <li><a href="#">辅料</a></li>
-                    </ul>
-                </div>
-                <div class="foot_title">More resourceful，efficiency and straightforward for designing!</div>
-            </div>
-        </div>
-    </div>
+<!--网站公用底部——开始-->
+{eyou:include file="footer.htm" /}
+<!--网站公用底部——结束-->
 
 </body>
 </html>
