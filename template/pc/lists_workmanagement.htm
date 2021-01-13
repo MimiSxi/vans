@@ -32,476 +32,372 @@
     {eyou:static file="skin/js/jquery.limarquee.js" /}
 </head>
 <style>
-    .label{position: absolute; width: 52%;  top: -70px; left: 24%; background: #ffffff; box-shadow: 0px 10px 10px rgba(168,168,168,0.4);}
-    .design_lable{ width: 100%; margin: 39px 36px 0px 36px;}
-    .design_lable ul li{ float: left; line-height: 32px; margin: 0px 48px 10px 0px;}
-    .design_lable ul li a{ color: #161616;}
-    .design_lable ul li a:hover{ text-decoration: underline;}
-    .design_lable ul li.design_lable_title{ width: 10%; border: 1px solid #e1e1e1; font-size:18px; font-weight: bold; text-align: center;}
-    .design_lable ul li.pull_down{ margin:20px 45%;}
-    .design_list{ margin: 260px 36px 50px 36px;}
-    .design_content{ padding: 34px 0px 46px 0px; border-bottom: 2px solid #7f7f7f;}
-    .design_content ul{}
-    .design_content ul li{  width: 354px; margin: 10px 11px; float: left;}
-    .design_content_all{border: 6px solid #ffffff; width: 354px;  }
-    .design_content_img{ width:354px; height: 250px; border: 1px solid #aaaaaa;}
-    .design_content_title{ font-size:26px; color: #1c1c1c; font-weight: bold; padding: 10px 10px 10px 0px; }
-    .works_content_tit1{ float: left;}
-    .design_content_name{ font-weight: normal; margin: 7px 0px 0px 18px; float: left;}
-    .design_content_name .name{ font-size: 14px; color: #1c1c1c; line-height: 14px; font-weight: bold;}
-    .design_content_name .time{ font-size: 10px; color: #9e9e9e; line-height: 10px;}
-    .works_recommend{ float: right;}
-    .index_recommend_img{ float: left;}
-    .design_recommend_tit{ float: left; font-size: 18px; font-weight: bold; margin:4px 0px 0px 0px; color: #161616;}
-    .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 610px; left: 21.1%;padding-bottom: 14px;}
-    .design_second .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 610px; left: 40.75%; padding-bottom: 14px;}
-    .design_third .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 610px; left: 60.42%; padding-bottom: 14px;}
-    .design_fourth .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 950px; left: 21.1%; padding-bottom: 14px;}
-    .design_fifth .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 950px; left: 40.75%; padding-bottom: 14px;}
-    .design_sixth .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 950px; left: 60.4%; padding-bottom: 14px;}
-    .design_sept .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1292px; left: 21.1%; padding-bottom: 14px;}
-    .design_huit .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1292px; left: 40.75%; padding-bottom: 14px;}
-    .design_neuf .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1292px; left: 60.4%; padding-bottom: 14px;}
-    .design_dix .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1630px; left: 21.1%; padding-bottom: 14px;}
-    .design_eleven .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1630px; left: 21.1%; padding-bottom: 14px;}
-    .design_twelve .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1630px; left: 40.75%; padding-bottom: 14px;}
-    .design_thirteen .design_work_label{ border: none; width: 366px; display: none; position: absolute; top: 1630px; left: 60.4%; padding-bottom: 14px;}
-    .design_work_label ul li{ float: left;  padding: 0px 5px; height: 28px; line-height: 28px;
-        margin: 4px 6px; width: 13%; text-align: center; font-size: 14px; border: 1px solid #aaaaaa; background: #ffffff; color: #161616;}
-    .design_content a .design_work_label,.name,.design_recommend_tit{ color:#161616;}
-    .design_content a:hover .design_content_all { border: 6px solid #161616;box-shadow: 6px 10px 16px rgba(210,210,210,1);}
-    .design_content a:hover .design_content_title{ background: #161616;}
-    .design_content a:hover .works_content_tit1{ color: #ffffff;}
-    .design_content a:hover .name{ color: #ffffff;}
-    .design_content a:hover .design_recommend_tit{ color: #ffffff;}
-    .design_content a:hover .design_work_label{ background: #161616; color: #ffffff; display: block; box-shadow: 6px 10px 16px rgba(210,210,210,1);}
+    .label {
+        position: absolute;
+        width: 52%;
+        top: -70px;
+        left: 24%;
+        background: #ffffff;
+        box-shadow: 0px 10px 10px rgba(168, 168, 168, 0.4);
+    }
+
+    .design_lable {
+        width: 100%;
+        margin: 39px 36px 0px 36px;
+    }
+
+    .design_lable ul li {
+        float: left;
+        line-height: 32px;
+        margin: 0px 48px 10px 0px;
+    }
+
+    .design_lable ul li a {
+        color: #161616;
+    }
+
+    .design_lable ul li a:hover {
+        text-decoration: underline;
+    }
+
+    .design_lable ul li.design_lable_title {
+        width: 10%;
+        border: 1px solid #e1e1e1;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .design_lable ul li.pull_down {
+        margin: 20px 45%;
+    }
+
+    .design_list {
+        margin: 260px 36px 50px 36px;
+    }
+
+    .design_content {
+        border-bottom: 2px solid #7f7f7f;
+    }
+
+    .design_content ul {
+    }
+
+    .design_content ul li {
+        width: 354px;
+        margin: 10px 11px;
+        float: left;
+    }
+
+    .design_content_all {
+        border: 6px solid #ffffff;
+        width: 354px;
+    }
+
+    .design_content_img {
+        width: 354px;
+        height: 250px;
+        border: 1px solid #aaaaaa;
+    }
+
+    .design_content_title {
+        font-size: 26px;
+        color: #1c1c1c;
+        font-weight: bold;
+        padding: 10px 10px 10px 0px;
+    }
+
+    .works_content_tit1 {
+        float: left;
+    }
+
+    .design_content_name {
+        font-weight: normal;
+        margin: 7px 0px 0px 18px;
+        float: left;
+    }
+
+    .design_content_name .name {
+        font-size: 14px;
+        color: #1c1c1c;
+        line-height: 14px;
+        font-weight: bold;
+    }
+
+    .design_content_name .time {
+        font-size: 10px;
+        color: #9e9e9e;
+        line-height: 10px;
+    }
+
+    .works_recommend {
+        float: right;
+    }
+
+    .index_recommend_img {
+        float: left;
+    }
+
+    .design_recommend_tit {
+        float: left;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 4px 0px 0px 0px;
+        color: #161616;
+    }
+
+    .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 610px;
+        left: 21.1%;
+        padding-bottom: 14px;
+    }
+
+    .design_second .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 610px;
+        left: 40.75%;
+        padding-bottom: 14px;
+    }
+
+    .design_third .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 610px;
+        left: 60.42%;
+        padding-bottom: 14px;
+    }
+
+    .design_fourth .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 950px;
+        left: 21.1%;
+        padding-bottom: 14px;
+    }
+
+    .design_fifth .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 950px;
+        left: 40.75%;
+        padding-bottom: 14px;
+    }
+
+    .design_sixth .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 950px;
+        left: 60.4%;
+        padding-bottom: 14px;
+    }
+
+    .design_sept .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1292px;
+        left: 21.1%;
+        padding-bottom: 14px;
+    }
+
+    .design_huit .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1292px;
+        left: 40.75%;
+        padding-bottom: 14px;
+    }
+
+    .design_neuf .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1292px;
+        left: 60.4%;
+        padding-bottom: 14px;
+    }
+
+    .design_dix .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1630px;
+        left: 21.1%;
+        padding-bottom: 14px;
+    }
+
+    .design_eleven .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1630px;
+        left: 21.1%;
+        padding-bottom: 14px;
+    }
+
+    .design_twelve .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1630px;
+        left: 40.75%;
+        padding-bottom: 14px;
+    }
+
+    .design_thirteen .design_work_label {
+        border: none;
+        width: 366px;
+        display: none;
+        position: absolute;
+        top: 1630px;
+        left: 60.4%;
+        padding-bottom: 14px;
+    }
+
+    .design_work_label ul li {
+        float: left;
+        padding: 0px 5px;
+        height: 28px;
+        line-height: 28px;
+        margin: 4px 6px;
+        width: 13%;
+        text-align: center;
+        font-size: 14px;
+        border: 1px solid #aaaaaa;
+        background: #ffffff;
+        color: #161616;
+    }
+
+    .design_content a .design_work_label, .name, .design_recommend_tit {
+        color: #161616;
+    }
+
+    .design_content a:hover .design_content_all {
+        border: 6px solid #161616;
+        box-shadow: 6px 10px 16px rgba(210, 210, 210, 1);
+    }
+
+    .design_content a:hover .design_content_title {
+        background: #161616;
+    }
+
+    .design_content a:hover .works_content_tit1 {
+        color: #ffffff;
+    }
+
+    .design_content a:hover .name {
+        color: #ffffff;
+    }
+
+    .design_content a:hover .design_recommend_tit {
+        color: #ffffff;
+    }
+
+    .design_content a:hover .design_work_label {
+        background: #161616;
+        color: #ffffff;
+        display: block;
+        box-shadow: 6px 10px 16px rgba(210, 210, 210, 1);
+    }
 
 </style>
 <body style="background: #e5e5e5;">
 
-    <div class="top">
-            <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
-    </div>
-    {eyou:include file="header.htm" /}
-    <div style="position: relative;">
-        <div class="wrapper" style="background: #ffffff;">
-            <div class="label">
-                <div class="design_lable">
-                    <!--筛选——开始-->
-                        {eyou:screening id='field' currentstyle='hover' alltxt='全部' }
-                        {eyou:volist name='$field.list' id='vo'}
-                        <ul class="clearfix">
-                            <li class="design_lable_title">{$vo.title}：</li>
-                            <li>
-                                {eyou:volist name='$vo.dfvalue' id='val'}
-                                &nbsp;&nbsp;&nbsp;<a {$val.onClick} class="{$val.currentstyle}">{$val.name}</a>&nbsp;&nbsp;&nbsp;
-                                {/eyou:volist}
-                            </li>
-                            <div class="clear"></div>
-                        </ul>
+<div class="top">
+    <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
+</div>
+{eyou:include file="header.htm" /}
+<div style="position: relative;">
+    <div class="wrapper" style="background: #ffffff;">
+        <div class="label">
+            <div class="design_lable">
+                <!--筛选——开始-->
+                {eyou:screening id='field' currentstyle='hover' alltxt='全部' }
+                {eyou:volist name='$field.list' id='vo'}
+                <ul class="clearfix">
+                    <li class="design_lable_title">{$vo.title}：</li>
+                    <li>
+                        {eyou:volist name='$vo.dfvalue' id='val'}
+                        &nbsp;&nbsp;&nbsp;<a {$val.onClick} class="{$val.currentstyle}">{$val.name}</a>&nbsp;&nbsp;&nbsp;
                         {/eyou:volist}
-                        {$field.hidden}
-                        {/eyou:screening}
-                    <!--筛选——结束-->
-
-                </div>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+                {/eyou:volist}
+                {$field.hidden}
+                {/eyou:screening}
+                <!--筛选——结束-->
             </div>
-            <div class="design_list clearfix">
-                <div class="design_content clearfix">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_second">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_third">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_fourth">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_fifth">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_sixth">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_sept">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_huit">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_neuf">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_dix">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_twelve">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="design_thirteen">
-                            <a href="#">
-                                <div class="design_content_all">
-                                    <div class="design_content_img"><img src="images/index_works.jpg" style="width: 100%;"></div>
-                                    <div class="design_content_title clearfix">
-                                        <div class="works_content_tit1">20PC142</div>
-                                        <div class="design_content_name">
-                                            <div class="name">Anne</div>
-                                            <div class="time">2020.06.17</div>
-                                        </div>
-                                        <div class="works_recommend">
-                                            <div class="index_recommend_img"><img src="images/index_recommend.png" style=" width:70%"></div>
-                                            <div class="design_recommend_tit">3,155</div>
-                                        </div>
-                                    </div>
-                                    <div class="design_work_label">
-                                        <ul>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>中国风</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                            <li>标签</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+        </div>
+        <div class="design_list clearfix">
+            <div class="design_content clearfix">
+                <ul>
+                    {eyou:list titlelen='20' pagesize='12'}
+                    <li><a href="{$field.arcurl}">
+                        <div class="design_content_all">
 
-                    </ul>
-                </div>
+                            <div class="design_content_img"><img src="{$field.litpic}" alt="{$field.title}"
+                                                                 width="355px"
+                                                                 height="250px" style="width: 100%;"></div>
+                            <div class="design_content_title clearfix">
+                                <div class="works_content_tit1">{$field.title}</div>
+                                <div class="design_content_name">
+                                    <div class="name">{$field.author}</div>
+                                    <div class="time">{$field.add_time|MyDate='Y.m.d',###}</div>
+                                </div>
+                                <!--                                订阅-->
+                                <div class="works_recommend">
+                                    <div class="index_recommend_img"><img
+                                            src="template/pc/skin/images/index_recommend.png"
+                                            style=" width:70%"></div>
+                                    <div class="design_recommend_tit">{eyou:field aid='$field.aid'
+                                        addfields='subscriptionsNum' /}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="design_work_label">
+                                <ul>
+                                    <li>{eyou:field aid='$field.aid' addfields='style' /}</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='category' /}</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='years' /}</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='craft' /}</li>
+                                    {foreach $eyou.field.tag as $key=>$vo }
+                                    <li>{$vo}&nbsp;</li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                    </li>
+                    {/eyou:list}
+                </ul>
             </div>
         </div>
     </div>
-
-
-    {eyou:include file="footer.htm" /}
+</div>
+{eyou:include file="footer.htm" /}
 
 </body>
 </html>
