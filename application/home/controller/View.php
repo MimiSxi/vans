@@ -3,6 +3,7 @@
 
 namespace app\home\controller;
 
+use app\admin\controller\Archives;
 use app\common\model\Taglist;
 use think\Db;
 
@@ -143,6 +144,9 @@ class View extends Base
         /*自定义字段的数据格式处理*/
         $result = $this->fieldLogic->getChannelFieldList($result, $this->channel);
         /*--end*/
+
+        $clickNum = Db::name('archives')->field('click')->where('aid', $aid)->find();
+        Db::name('archives')->where('aid', $aid)->update(['click' => $clickNum['click'] + 1]);
 
         $tagInfo = Taglist::where('aid', $aid)->column('tag');
         $result['tag'] = $tagInfo;

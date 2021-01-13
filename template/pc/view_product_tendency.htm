@@ -48,7 +48,7 @@
                 <div class="tendency_details_else clearfix">
                     <ul>
                         <li>{$eyou.field.add_time|MyDate='Y-m-d',###}</li>
-                        <li>浏览总数：{$eyou.field.Number_of_views}</li>
+                        <li>浏览总数：{$eyou.field.click}</li>
                         <li>下载数量：{$eyou.field.Number_of_downloads}</li>
                         <li>订阅数量：{$eyou.field.Number_of_subscriptions}</li>
                     </ul>
@@ -83,9 +83,9 @@
                     <!--上一篇-->
                     {eyou:prenext get='pre' titlelen='30'}
                     <a href="{$field.arcurl}">
-                        <div class="pre">{eyou:lang name='sys11' /} : {$field.title}</div>
+                        <div class="previous">{eyou:lang name='sys11' /} : {$field.title}</div>
                         {eyou:else /}
-                        <div class="preghg h san h g">{eyou:lang name='sys11' /} : {eyou:lang name='sys10' /}</div>
+                        <div class="previous">{eyou:lang name='sys11' /} : {eyou:lang name='sys10' /}</div>
                     </a>
                     {/eyou:prenext}
                     <!--下一篇-->
