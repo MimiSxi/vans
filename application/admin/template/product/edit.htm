@@ -940,10 +940,11 @@
         </dt>
         <dd class="opt">
             <select name="tempview" id="tempview">
-                {volist name='$templateList' id='vo'}
-                <option value="{$vo}" {eq name='$vo' value='$tempview' }selected{
-                /eq}>{$vo}</option>
-                {/volist}
+<!--                {volist name='$templateList' id='vo'}-->
+<!--                <option value="{$vo}" {eq name='$vo' value='$tempview' }selected{-->
+<!--                /eq}>{$vo}</option>-->
+<!--                {/volist}-->
+                <option value={$tempview} {eq="" name="$vo" }selected{="" eq}="">{$tempview}</option>
             </select>
             <input type="hidden" name="type_tempview" value="{$tempview}"/>
             <span class="err"></span>
