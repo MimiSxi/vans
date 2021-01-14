@@ -364,9 +364,9 @@
                                                                  width="355px"
                                                                  height="250px" style="width: 100%;"></div>
                             <div class="design_content_title clearfix">
-                                {foreach $eyou.field.names as $key=>$vo }
-                                <div class="works_content_tit1">{$vo}</div>
-                                {/foreach}
+
+                                <div class="works_content_tit1">{$eyou.field.designer_list[$key]['title']}</div>
+
                                 <div class="design_content_name">
 <!--                                    <div class="name">{$dename}</div>-->
                                     <div class="time">{$field.add_time|MyDate='Y.m.d',###}</div>
