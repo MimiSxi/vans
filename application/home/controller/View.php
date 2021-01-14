@@ -190,6 +190,13 @@ class View extends Base
         return $this->fetch(":{$viewfile}");
     }
 
+    public function downCount($aid = '')
+    {
+        $downNum = Db::name('archives')->field('downcount')->where('aid', $aid)->find();
+        Db::name('archives')->where('aid', $aid)->update(['downcount' => $downNum['downcount'] + 1]);
+        return $downNum['downcount'] + 1;
+    }
+
     /**
      * 下载文件
      */
