@@ -71,8 +71,10 @@
                     <div class="fl" style=" margin-right: 20px;">收藏:</div>
                     <div class="fl" style=" margin-right: 60px;"><img
                             src="template/pc/skin/images/recommend_img_on.png"></div>
+                    {if $eyou.field.pdf != null}
                     <div class="fl" style=" margin-right: 20px;">下载:</div>
                     <div class="fl"><a href={$eyou.field.pdf} download ><img src="template/pc/skin/images/download.png"></a></div>
+                    {/if}
                 </div>
                 <div class="tendency_details_nr">
                     {$eyou.field.content}
