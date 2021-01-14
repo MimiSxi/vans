@@ -81,21 +81,24 @@ class Lists extends Base
         $tagInfo = Taglist::where('typeid', $tid)->column('tag');
         $result['tag'] = $tagInfo;
 
-        // 设计师列表
-        $designer_list = M('archives')->field('b.aid, b.typeid, b.title')
-            ->alias('a')
-            ->join('archives b', 'a.designername = b.aid', 'LEFT')
-            ->where('a.typeid = 1 AND a.designername > 0')
-            ->order('a.designername')
-            ->select();
-
-        $result['designer_list'] = $designer_list;
+//        // 设计师列表
+//        $designer_list = M('archives')->field('b.aid, b.typeid, b.title')
+//            ->alias('a')
+//            ->join('archives b', 'a.designername = b.aid', 'LEFT')
+//            ->where('a.typeid = 1 AND a.designername > 0')
+//            ->order('a.designername')
+//            ->select();
+//
+//        $result['designer_list'] = $designer_list;
 
         $eyou = array(
             'field' => $result,
         );
 
-        $this->eyou = array_merge($this->eyou, $eyou);
+//        $this->eyou = array_merge($this->eyou, $eyou);
+
+//        print_r(json_encode($this->eyou));die;
+//
         $this->assign('eyou', $this->eyou);
 
         /*模板文件*/

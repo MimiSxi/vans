@@ -292,6 +292,14 @@ class Custom extends Base
                 'update_time' => strtotime($post['add_time']),
                 'designername' => $post['designername'],
             );
+
+            if ($newData['typeid'] = 1){
+                $designer = M('archives')
+                    ->where('aid',$newData['designername'])
+                    ->find();
+                $newData['designer_name'] = $designer['title'];
+            }
+
             $data = array_merge($post, $newData);
 
             $aid = $this->archives_db->insertGetId($data);
@@ -499,6 +507,14 @@ class Custom extends Base
                 'update_time' => getTime(),
                 'designername' => $post['designername'],
             );
+
+            if ($newData['typeid'] = 1){
+                $designer = M('archives')
+                    ->where('aid',$newData['designername'])
+                    ->find();
+                $newData['designer_name'] = $designer['title'];
+            }
+            
             $data = array_merge($post, $newData);
 
             $r = M('archives')->where([
