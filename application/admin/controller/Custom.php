@@ -514,7 +514,7 @@ class Custom extends Base
                     ->find();
                 $newData['designer_name'] = $designer['title'];
             }
-            
+
             $data = array_merge($post, $newData);
 
             $r = M('archives')->where([
