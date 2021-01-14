@@ -326,7 +326,11 @@
 <body style="background: #e5e5e5;">
 
 <div class="top">
-    <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
+    <div class="details_banner">
+        {eyou:adv pid='15'}
+        <img src='{$field.litpic}' alt='{$field.title}' />
+        {/eyou:adv}
+    </div>
 </div>
 {eyou:include file="header.htm" /}
 

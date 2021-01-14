@@ -151,7 +151,7 @@
         width: 366px;
         display: none;
         position: absolute;
-        top: 610px;
+        top: 589px;
         left: 21.1%;
         padding-bottom: 14px;
     }
@@ -326,7 +326,11 @@
 <body style="background: #e5e5e5;">
 
 <div class="top">
-    <div class="details_banner"><img src="template/pc/skin/images/in_banner01.jpg"></div>
+    <div class="details_banner">
+        {eyou:adv pid='7'}
+        <img src='{$field.litpic}' alt='{$field.title}'/>
+        {/eyou:adv}
+    </div>
 </div>
 {eyou:include file="header.htm" /}
 <div style="position: relative;">
@@ -368,7 +372,7 @@
                                 <div class="works_content_tit1">{$vo}</div>
                                 {/foreach}
                                 <div class="design_content_name">
-<!--                                    <div class="name">{$dename}</div>-->
+                                    <!--                                    <div class="name">{$dename}</div>-->
                                     <div class="time">{$field.add_time|MyDate='Y.m.d',###}</div>
                                 </div>
                                 <!--                                订阅-->
