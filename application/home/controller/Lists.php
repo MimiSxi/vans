@@ -3,7 +3,6 @@
 
 namespace app\home\controller;
 
-use app\admin\controller\Archives;
 use app\common\model\Taglist;
 use think\Db;
 use think\Verify;
@@ -34,29 +33,29 @@ class Lists extends Base
 
         $map = [];
         /*URL上参数的校验*/
-/*        $seo_pseudo = config('ey_config.seo_pseudo');
-        $url_screen_var = config('global.url_screen_var');
-        if (!isset($param[$url_screen_var]) && 3 == $seo_pseudo)
-        {
-            if (stristr($this->request->url(), '&c=Lists&a=index&')) {
-                abort(404,'页面不存在');
-            }
-            $map = array('a.dirname'=>$tid);
-        }
-        else if (isset($param[$url_screen_var]) || 1 == $seo_pseudo || (2 == $seo_pseudo && isMobile()))
-        {
-            $seo_dynamic_format = config('ey_config.seo_dynamic_format');
-            if (1 == $seo_pseudo && 2 == $seo_dynamic_format && stristr($this->request->url(), '&c=Lists&a=index&')) {
-                abort(404,'页面不存在');
-            } else if (!is_numeric($tid) || strval(intval($tid)) !== strval($tid)) {
-                abort(404,'页面不存在');
-            }
-            $map = array('a.id'=>$tid);
-            
-        }else if (2 == $seo_pseudo){ // 生成静态页面代码
-            
-            $map = array('a.id'=>$tid);
-        }*/
+        /*        $seo_pseudo = config('ey_config.seo_pseudo');
+                $url_screen_var = config('global.url_screen_var');
+                if (!isset($param[$url_screen_var]) && 3 == $seo_pseudo)
+                {
+                    if (stristr($this->request->url(), '&c=Lists&a=index&')) {
+                        abort(404,'页面不存在');
+                    }
+                    $map = array('a.dirname'=>$tid);
+                }
+                else if (isset($param[$url_screen_var]) || 1 == $seo_pseudo || (2 == $seo_pseudo && isMobile()))
+                {
+                    $seo_dynamic_format = config('ey_config.seo_dynamic_format');
+                    if (1 == $seo_pseudo && 2 == $seo_dynamic_format && stristr($this->request->url(), '&c=Lists&a=index&')) {
+                        abort(404,'页面不存在');
+                    } else if (!is_numeric($tid) || strval(intval($tid)) !== strval($tid)) {
+                        abort(404,'页面不存在');
+                    }
+                    $map = array('a.id'=>$tid);
+
+                }else if (2 == $seo_pseudo){ // 生成静态页面代码
+
+                    $map = array('a.id'=>$tid);
+                }*/
         /*--end*/
         if (!is_numeric($tid) || strval(intval($tid)) !== strval($tid)) {
             $map = array('a.dirname' => $tid);
@@ -64,8 +63,8 @@ class Lists extends Base
             $map = array('a.id' => $tid);
         }
         $map['a.is_del'] = 0; // 回收站功能
-        $map['a.lang']   = $this->home_lang; // 多语言
-        $row             = M('arctype')->field('a.id, a.current_channel, b.nid')
+        $map['a.lang'] = $this->home_lang; // 多语言
+        $row = M('arctype')->field('a.id, a.current_channel, b.nid')
             ->alias('a')
             ->join('__CHANNELTYPE__ b', 'a.current_channel = b.id', 'LEFT')
             ->where($map)
@@ -73,8 +72,8 @@ class Lists extends Base
         if (empty($row)) {
             abort(404, '页面不存在');
         }
-        $tid           = $row['id'];
-        $this->nid     = $row['nid'];
+        $tid = $row['id'];
+        $this->nid = $row['nid'];
         $this->channel = intval($row['current_channel']);
         /*--end*/
         $result = $this->logic($tid); // 模型对应逻辑
@@ -82,22 +81,22 @@ class Lists extends Base
         $tagInfo = Taglist::where('typeid', $tid)->column('tag');
         $result['tag'] = $tagInfo;
 
-        $designername = Db::name('archives')->where('typeid', $tid)->select();
-        for ($i = 0; $i < 999; $i++) {
-            if ($designername[$i]['designername'] != null) {
-                $n = Db::name('archives')->where('aid', $designername[$i]['designername'])->column('title');
-            }
-        }
-        $result['names'] = $n;
-        $eyou       = array(
+        // 设计师列表
+        $designer_list = M('archives')->field('b.aid, b.typeid, b.title')
+            ->alias('a')
+            ->join('archives b', 'a.designername = b.aid', 'LEFT')
+            ->where('a.typeid = 1 AND a.designername > 0')
+            ->order('a.designername')
+            ->select();
+
+        $result['designer_list'] = $designer_list;
+
+        $eyou = array(
             'field' => $result,
         );
 
         $this->eyou = array_merge($this->eyou, $eyou);
         $this->assign('eyou', $this->eyou);
-
-        $designername = Db::name('archives')->where('aid', $result['designername'])->column('title');
-        $this->assign('dename', $designername);
 
         /*模板文件*/
         $viewfile = !empty($result['templist'])
@@ -175,11 +174,11 @@ class Lists extends Base
                     if ($result_new['is_part'] == 1) {
                         $result_new['typelink'] = htmlspecialchars_decode($result_new['typelink']);
                         if (!is_http_url($result_new['typelink'])) {
-                            $typeurl = '//'.$this->request->host();
-                            if (!preg_match('#^'.ROOT_DIR.'(.*)$#i', $result_new['typelink'])) {
+                            $typeurl = '//' . $this->request->host();
+                            if (!preg_match('#^' . ROOT_DIR . '(.*)$#i', $result_new['typelink'])) {
                                 $typeurl .= ROOT_DIR;
                             }
-                            $typeurl .= '/'.trim($result_new['typelink'], '/');
+                            $typeurl .= '/' . trim($result_new['typelink'], '/');
                             $result_new['typelink'] = $typeurl;
                         }
                         $this->redirect($result_new['typelink']);
@@ -190,7 +189,7 @@ class Lists extends Base
                     /*--end*/
                     $result = array_merge($arctype_info, $result_new);
 
-                    $result['templist'] = !empty($arctype_info['templist']) ? $arctype_info['templist'] : 'lists_'. $arctype_info['nid'];
+                    $result['templist'] = !empty($arctype_info['templist']) ? $arctype_info['templist'] : 'lists_' . $arctype_info['nid'];
                     $result['dirpath'] = $arctype_info['dirpath'];
                     $result['typeid'] = $arctype_info['typeid'];
                 }
@@ -204,7 +203,7 @@ class Lists extends Base
                 if ($result['is_part'] == 1) {
                     $result['typelink'] = htmlspecialchars_decode($result['typelink']);
                     if (!is_http_url($result['typelink'])) {
-                        $result['typelink'] = '//'.$this->request->host().ROOT_DIR.'/'.trim($result['typelink'], '/');
+                        $result['typelink'] = '//' . $this->request->host() . ROOT_DIR . '/' . trim($result['typelink'], '/');
                     }
                     $this->redirect($result['typelink']);
                     exit;
@@ -267,15 +266,15 @@ class Lists extends Base
             $channel_guestbook_interval = tpSetting('channel_guestbook.channel_guestbook_interval');
             $channel_guestbook_interval = is_numeric($channel_guestbook_interval) ? intval($channel_guestbook_interval) : 60;
             if (0 < $channel_guestbook_interval) {
-                $map   = array(
-                    'ip'       => $ip,
-                    'typeid'   => $typeid,
-                    'lang'     => $this->home_lang,
+                $map = array(
+                    'ip' => $ip,
+                    'typeid' => $typeid,
+                    'lang' => $this->home_lang,
                     'add_time' => array('gt', getTime() - $channel_guestbook_interval),
                 );
                 $count = M('guestbook')->where($map)->count('aid');
                 if ($count > 0) {
-                    $this->error('同一个IP在'.$channel_guestbook_interval.'秒之内不能重复提交！');
+                    $this->error('同一个IP在' . $channel_guestbook_interval . '秒之内不能重复提交！');
                 }
             }
             /*end*/
@@ -287,20 +286,20 @@ class Lists extends Base
                     $attr_id = substr($key, 5);
                     $attr_id = intval($attr_id);
                     $ga_data = Db::name('guestbook_attribute')->where([
-                        'attr_id'   => $attr_id,
-                        'lang'      => $this->home_lang,
+                        'attr_id' => $attr_id,
+                        'lang' => $this->home_lang,
                     ])->find();
                     if ($ga_data['required'] == 1) {
                         if (empty($value)) {
                             $this->error($ga_data['attr_name'] . '不能为空！');
                         } else {
                             if ($ga_data['validate_type'] == 6) {
-                                $pattern  = "/^1\d{10}$/";
+                                $pattern = "/^1\d{10}$/";
                                 if (!preg_match($pattern, $value)) {
                                     $this->error($ga_data['attr_name'] . '格式不正确！');
                                 }
                             } elseif ($ga_data['validate_type'] == 7) {
-                                $pattern  = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
+                                $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
                                 if (preg_match($pattern, $value) == false) {
                                     $this->error($ga_data['attr_name'] . '格式不正确！');
                                 }
@@ -311,7 +310,7 @@ class Lists extends Base
             }
 
             /* 处理判断验证码 */
-            $is_vertify        = 1; // 默认开启验证码
+            $is_vertify = 1; // 默认开启验证码
             $guestbook_captcha = config('captcha.guestbook');
             if (!function_exists('imagettftext') || empty($guestbook_captcha['is_on'])) {
                 $is_vertify = 0; // 函数不存在，不符合开启的条件
@@ -332,25 +331,25 @@ class Lists extends Base
             $this->channel = !empty($channeltype_list['guestbook']) ? $channeltype_list['guestbook'] : 8;
 
             $newData = array(
-                'typeid'      => $typeid,
-                'channel'     => $this->channel,
-                'ip'          => $ip,
-                'lang'        => $this->home_lang,
-                'add_time'    => getTime(),
+                'typeid' => $typeid,
+                'channel' => $this->channel,
+                'ip' => $ip,
+                'lang' => $this->home_lang,
+                'add_time' => getTime(),
                 'update_time' => getTime(),
             );
-            $data    = array_merge($post, $newData);
+            $data = array_merge($post, $newData);
 
             // 数据验证
-            $rule     = [
+            $rule = [
                 'typeid' => 'require|token:' . $token,
             ];
-            $message  = [
+            $message = [
                 'typeid.require' => '表单缺少标签属性{$field.hidden}',
             ];
             $validate = new \think\Validate($rule, $message);
             if (!$validate->batch()->check($data)) {
-                $error     = $validate->getError();
+                $error = $validate->getError();
                 $error_msg = array_values($error);
                 $this->error($error_msg[0]);
             } else {
@@ -363,21 +362,21 @@ class Lists extends Base
                     }
                     unset($formdata[$key]);
                 }
-                $md5data         = md5(serialize($formdata));
+                $md5data = md5(serialize($formdata));
                 $data['md5data'] = $md5data;
-                $guestbookRow    = M('guestbook')->field('aid')->where(['md5data' => $md5data])->find();
+                $guestbookRow = M('guestbook')->field('aid')->where(['md5data' => $md5data])->find();
                 /*--end*/
                 $dataStr = '';
                 if (empty($guestbookRow)) { // 非重复表单的才能写入数据库
                     $aid = M('guestbook')->insertGetId($data);
                     if ($aid > 0) {
                         $res = $this->saveGuestbookAttr($aid, $typeid);
-                        if ($res){
+                        if ($res) {
                             $this->error($res);
                         }
                     }
                     /*插件 - 邮箱发送*/
-                    $data    = [
+                    $data = [
                         'gbook_submit',
                         $typeid,
                         $aid,
@@ -407,15 +406,15 @@ class Lists extends Base
     {
         // post 提交的属性  以 attr_id _ 和值的 组合为键名    
         $post = input("post.");
-        $arr = explode('|',tpCache('basic.image_type'));
+        $arr = explode('|', tpCache('basic.image_type'));
         /*上传图片或附件*/
         foreach ($_FILES as $fileElementId => $file) {
             try {
                 if (!empty($file['name']) && !is_array($file['name'])) {
                     $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-                    if (in_array($ext,$arr)){
+                    if (in_array($ext, $arr)) {
                         $uplaod_data = func_common($fileElementId, 'allimg');
-                    }else{
+                    } else {
                         $uplaod_data = func_common_doc($fileElementId, 'files');
                     }
                     if (0 == $uplaod_data['errcode']) {
@@ -425,7 +424,8 @@ class Lists extends Base
 //                        $post[$fileElementId] = '';
                     }
                 }
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
         }
         /*end*/
 
@@ -435,7 +435,7 @@ class Lists extends Base
         if (is_language()) {
             foreach ($post as $key => $val) {
                 if (preg_match_all('/^attr_(\d+)$/i', $key, $matchs)) {
-                    $attr_value           = intval($matchs[1][0]);
+                    $attr_value = intval($matchs[1][0]);
                     $attrArr[$attr_value] = [
                         'attr_id' => $attr_value,
                     ];
@@ -460,13 +460,13 @@ class Lists extends Base
 
             //$v = str_replace('_', '', $v); // 替换特殊字符
             //$v = str_replace('@', '', $v); // 替换特殊字符
-            $v       = trim($v);
+            $v = trim($v);
             $adddata = array(
-                'aid'         => $aid,
-                'attr_id'     => $attr_id,
-                'attr_value'  => $v,
-                'lang'        => $this->home_lang,
-                'add_time'    => getTime(),
+                'aid' => $aid,
+                'attr_id' => $attr_id,
+                'attr_value' => $v,
+                'lang' => $this->home_lang,
+                'add_time' => getTime(),
                 'update_time' => getTime(),
             );
             M('GuestbookAttr')->add($adddata);
