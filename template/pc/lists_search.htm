@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <!--搜索页seo标题-->
-    <title>搜索页_{$eyou.field.keywords}_{eyou:global name="web_name" /}</title>
+    <title>{eyou:global name="web_name" /}</title>
     <!--搜索页seo关键词-->
     <meta name="description" content=""/>
     <!--搜索页seo关键词-->
@@ -63,6 +63,14 @@
         <li><a>站内搜索</a></li>
         <li class="am-active">{$eyou.field.keywords}</li>
     </ol>
+
+<!--    搜索热词-->
+    <ul>
+        {eyou:hotwords num="10" id="field"}
+        <li>{$field.word}</li>
+        {/eyou:hotwords}
+    </ul>
+
     <!--搜索关键词调用-->
     <h1>{eyou:lang name='sys7' /} <strong>{$eyou.field.keywords}</strong> {eyou:lang name='yybl12' /}</h1>
     <ul class="news_list mt20">
