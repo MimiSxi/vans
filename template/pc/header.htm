@@ -25,11 +25,25 @@
 			{/eyou:notempty}
 		</li>
 		{/eyou:channel}
+
+<!--		搜索-->
 		<li style="position:relative;">
 			<input type="text" value="" name="fname" class="top_meun_search"
 				   onfocus="if(value=='') {value=''}" onblur="if (value=='') {value=''}">
-			<div class="meun_search_img"><img src="template/pc/skin/images/search.png"></div>
+			<div class="meun_search_img"><img src="template/pc/skin/images/search.png" href="#"></div>
 		</li>
+
+		<form name="formsearch" action="/plus/search.php" class="product-search">
+			<div class="form-group">
+				<div class="input-search">
+					<button type="submit" class="input-search-btn"><i class="icon wb-search" aria-hidden="true"></i></button>
+					<input type="text" class="form-control" name="q" placeholder="Search">
+				</div>
+			</div>
+		</form>
+
+<!--		搜索-->
+
 		<div class="user">
 			{eyou:user type='open'}
 			{eyou:user type='login'}
