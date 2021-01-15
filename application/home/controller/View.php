@@ -223,7 +223,7 @@ class View extends Base
         }
         if ($aaa != "") {
             $b = 2;
-            Db::name('my_favourite')->where('aid', $aid)->delete();
+            Db::name('my_favourite')->where('aid', $aid)->where('userid', $userid)->delete();
         }
         return $b;
     }
