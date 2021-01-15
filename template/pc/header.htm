@@ -25,25 +25,30 @@
 			{/eyou:notempty}
 		</li>
 		{/eyou:channel}
-
-<!--		搜索-->
+		<!--搜索start-->
 		<li style="position:relative;">
-			<input type="text" value="" name="fname" class="top_meun_search"
-				   onfocus="if(value=='') {value=''}" onblur="if (value=='') {value=''}">
-			<div class="meun_search_img"><img src="template/pc/skin/images/search.png" href="#"></div>
-		</li>
-
-		<form name="formsearch" action="/plus/search.php" class="product-search">
-			<div class="form-group">
-				<div class="input-search">
-					<button type="submit" class="input-search-btn"><i class="icon wb-search" aria-hidden="true"></i></button>
-					<input type="text" class="form-control" name="q" placeholder="Search">
+			{eyou:searchform type='default'}
+			<form method="get" action="{$field.action}" onsubmit="return searchForm();">
+				{$field.hidden}
+				<input type="text" name="keywords" class="top_meun_search" id="keywords" placeholder="请输入关键字">
+				<div class="meun_search_img">
+					<input type="image" src="template/pc/skin/images/search.png" name="img">
 				</div>
-			</div>
-		</form>
-
-<!--		搜索-->
-
+			</form>
+			<script>
+				function searchForm()
+				{
+					var keywords = document.getElementById('keywords').value;
+					if (keywords == '') {
+						alert('请输入关键字');
+						return false;
+					}
+					return true;
+				}
+			</script>
+			{/eyou:searchform}
+		</li>
+		<!--搜索end-->
 		<div class="user">
 			{eyou:user type='open'}
 			{eyou:user type='login'}
@@ -67,61 +72,3 @@
 		</div>
 	</ul>
 </div>
-<!--<div class="top">-->
-<!--  <div class="width">-->
-<!--	<div class="user">-->
-<!--		{eyou:user type='open'}-->
-<!--			{eyou:language type='default'}-->
-<!--				<a href="{$field.url}"><img src="{$field.logo}" alt="{$field.title}">{$field.title}</a>-->
-<!--			{/eyou:language}-->
-<!--			{eyou:user type='login'}-->
-<!--				<a href="{$field.url}" id="{$field.id}">登录</a>　-->
-<!--				 {$field.hidden}-->
-<!--			{/eyou:user}-->
-<!--			{eyou:user type='reg'}-->
-<!--				<a href="{$field.url}" id="{$field.id}">注册</a>-->
-<!--				 {$field.hidden}-->
-<!--			{/eyou:user}-->
-<!--			{eyou:user type='logout'}-->
-<!--				<a href="{$field.url}" id="{$field.id}">退出</a>-->
-<!--				 {$field.hidden}-->
-<!--			{/eyou:user}-->
-<!--		{/eyou:user}-->
-<!--	</div>-->
-<!--  </div>-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash; <div class="width header">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class="fl"><a href="{eyou:global name='web_cmsurl' /}"><img src="{eyou:global name='web_logo' /}" alt="{eyou:global name='web_name' /}"></a></div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class="fr">&ndash;&gt;-->
-<!--&lt;!&ndash;     <div class="tel">{eyou:global name='web_attr_1' /}</div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class="clear"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--<div class="bg_nav">-->
-<!--        <div class="width">-->
-<!--        	<ul class="nav">-->
-<!--             <li class="{eyou:eq name='$Request.param.m' value='Index'}hover{/eyou:eq}"><a href="{eyou:global name='web_cmsurl' /}" title="首页">首页</a></li>-->
-<!--			 {eyou:channel type="top" row="60" id="field" currentstyle="hover"}-->
-<!--			 <li class="{$field.currentstyle}"><a href="{$field.typeurl}">{$field.typename}</a>-->
-<!--			  {eyou:notempty name="$field.children"}-->
-<!--			  <ul class="subnav">-->
-<!--			    {eyou:channel name="$field.children" row="100" id="field2"}-->
-<!--				 <li><a href="{$field2.typeurl}">{$field2.typename}</a>-->
-<!--	             {eyou:notempty name="$field2.children"}-->
-<!--		            <ul class="subnav2">-->
-<!--						{eyou:channel name="$field2.children" row="100" id="field3"}-->
-<!--						 <li><a href="{$field3.typeurl}">{$field3.typename}</a> </li>-->
-<!--						{/eyou:channel}-->
-<!--		            </ul>-->
-<!--		         {/eyou:notempty}-->
-<!--		         </li>-->
-<!--			    {/eyou:channel}-->
-<!--			  </ul>-->
-<!--			 {/eyou:notempty}-->
-<!--			 </li>-->
-<!--		 	 {/eyou:channel}-->
-<!--            </ul>-->
-<!--        </div>-->
-<!--</div>-->
