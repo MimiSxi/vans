@@ -58,6 +58,8 @@
     <script type="text/javascript">
         yyui_menu('.search_pulldown');
     </script>
+
+
     <div class="search_pulldown">
         <ul class="yyui_menu1">
             <li>
@@ -77,8 +79,17 @@
             </li>
         </ul>
     </div>
-    <input value="请输入关键词全站搜索" type="text" name="fname" value="请输入关键词全站搜索" class="all_search_input"
-           onfocus="if(value=='请输入关键词全站搜索') {value=''}" onblur="if (value=='') {value='请输入关键词全站搜索'}">
+<!--    <input value="请输入关键词全站搜索" type="text" name="fname" value="请输入关键词全站搜索" class="all_search_input"-->
+<!--           onfocus="if(value=='请输入关键词全站搜索') {value=''}" onblur="if (value=='') {value='请输入关键词全站搜索'}">-->
+
+    {eyou:searchform type='default' typeid='2'}
+    <form class="sidebar-search" method="get" action="{$field.action}">
+        <input type="text" class="all_search_input" name="keywords" placeholder="请输入关键词" />
+        {$field.hidden}
+    </form>
+    {/eyou:searchform}
+
+
 </div>
 <!--网站公用头部——结束-->
 <div class="top">
