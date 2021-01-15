@@ -23,7 +23,7 @@ return array (
     'name' => 'template_money',
     'type' => 'decimal(10,2) unsigned',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => NULL,
     'primary' => false,
     'autoinc' => false,
   ),
