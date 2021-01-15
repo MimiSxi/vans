@@ -146,6 +146,8 @@ class View extends Base
         $clickNum = Db::name('archives')->field('click')->where('aid', $aid)->find();
         Db::name('archives')->where('aid', $aid)->update(['click' => $clickNum['click'] + 1]);
 
+        $favNum = Db::name('my_favourite')->where('aid', $aid)->count();
+
         $tagInfo = Taglist::where('aid', $aid)->column('tag');
         $result['tag'] = $tagInfo;
 
@@ -157,6 +159,7 @@ class View extends Base
             'field' => $result,
             'loginId' => $uu,
             'dename' => $dename[0],
+            'favNum' => $favNum,
         );
 
 
