@@ -32,7 +32,7 @@ return array (
     'name' => 'price',
     'type' => 'decimal(10,2)',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => NULL,
     'primary' => false,
     'autoinc' => false,
   ),

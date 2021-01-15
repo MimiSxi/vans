@@ -48,9 +48,9 @@ return array (
   'file_url' => 
   array (
     'name' => 'file_url',
-    'type' => 'text',
+    'type' => 'varchar(255)',
     'notnull' => false,
-    'default' => NULL,
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),

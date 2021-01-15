@@ -36,15 +36,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'DesignerName' => 
-  array (
-    'name' => 'DesignerName',
-    'type' => 'varchar(200)',
-    'notnull' => false,
-    'default' => '',
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'avatar' => 
   array (
     'name' => 'avatar',
