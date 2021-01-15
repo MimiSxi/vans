@@ -32,7 +32,6 @@
     {eyou:static file="skin/js/jquery.limarquee.js" /}
 </head>
 
-
 <body>
 <!--网站公用头部——开始-->
 
@@ -62,35 +61,20 @@
     <div class="search_pulldown">
         <ul class="yyui_menu1">
             <li>
-                <a href="#">
+                <a>
                     <div style="float: left">全部</div>
                     <div class="search_arrows"><img src="template/pc/skin/images/searcj_arrows.png"></div>
                 </a>
                 <ul class="one clearfix">
                     <li class="clearfix">
+                        {eyou:channel type="top" row="60" id="field" currentstyle="hover"}
                         <a href="#">
-                            <div class="second_title">风格</div>
-                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
-                            </div>
+                            <div class="second_title">{$field.typename}</div>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="second_title">品类</div>
-                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="more">
-                            <div class="second_title">艺术</div>
-                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
-                            </div>
-                        </a>
+                        {/eyou:channel}
                     </li>
                 </ul>
             </li>
-
         </ul>
     </div>
     <input value="请输入关键词全站搜索" type="text" name="fname" value="请输入关键词全站搜索" class="all_search_input"
