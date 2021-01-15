@@ -16,7 +16,8 @@ class View extends Base
     // 模型名称
     public $modelName = '';
 
-    public function _initialize() {
+    public function _initialize()
+    {
         parent::_initialize();
     }
 
@@ -26,22 +27,19 @@ class View extends Base
     public function index($aid = '')
     {
         if (!is_numeric($aid) || strval(intval($aid)) !== strval($aid)) {
-            abort(404,'页面不存在');
+            abort(404, '页面不存在');
         }
 
         $seo_pseudo = config('ey_config.seo_pseudo');
         /*URL上参数的校验*/
-        if (3 == $seo_pseudo)
-        {
+        if (3 == $seo_pseudo) {
             if (stristr($this->request->url(), '&c=View&a=index&')) {
-                abort(404,'页面不存在');
+                abort(404, '页面不存在');
             }
-        }
-        else if (1 == $seo_pseudo || (2 == $seo_pseudo && isMobile()))
-        {
+        } else if (1 == $seo_pseudo || (2 == $seo_pseudo && isMobile())) {
             $seo_dynamic_format = config('ey_config.seo_dynamic_format');
             if (1 == $seo_pseudo && 2 == $seo_dynamic_format && stristr($this->request->url(), '&c=View&a=index&')) {
-                abort(404,'页面不存在');
+                abort(404, '页面不存在');
             }
         }
         /*--end*/
@@ -53,12 +51,12 @@ class View extends Base
             ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
             ->join('__USERS_LEVEL__ c', 'a.arc_level_id = c.level_id', 'LEFT')
             ->where([
-                'a.aid'     => $aid,
-                'a.is_del'      => 0,
+                'a.aid' => $aid,
+                'a.is_del' => 0,
             ])
             ->find();
         if (empty($archivesInfo) || !in_array($archivesInfo['channel'], config('global.allow_release_channel'))) {
-            abort(404,'页面不存在');
+            abort(404, '页面不存在');
             // $this->redirect('/public/static/errpage/404.html', 301);
         }
         $this->nid = $archivesInfo['nid'];
@@ -74,7 +72,7 @@ class View extends Base
         }
         // 外部链接跳转
         if ($result['is_jump'] == 1) {
-            header('Location: '.$result['jumplinks']);
+            header('Location: ' . $result['jumplinks']);
             exit;
         }
         /*--end*/
@@ -101,7 +99,7 @@ class View extends Base
                     $dirname2 = $arctypeInfo['dirname'];
                 }
                 if ($dirname != $dirname2) {
-                    abort(404,'页面不存在');
+                    abort(404, '页面不存在');
                 }
             }
             /*--end*/
@@ -110,17 +108,17 @@ class View extends Base
             $arctypeInfo['has_children'] = model('Arctype')->hasChildren($tid);
             // 文档模板文件，不指定文档模板，默认以栏目设置的为主
             empty($result['tempview']) && $result['tempview'] = $arctypeInfo['tempview'];
-            
+
             /*给没有type前缀的字段新增一个带前缀的字段，并赋予相同的值*/
             foreach ($arctypeInfo as $key => $val) {
-                if (!preg_match('/^type/i',$key)) {
-                    $key_new = 'type'.$key;
+                if (!preg_match('/^type/i', $key)) {
+                    $key_new = 'type' . $key;
                     !array_key_exists($key_new, $arctypeInfo) && $arctypeInfo[$key_new] = $val;
                 }
             }
             /*--end*/
         } else {
-            abort(404,'页面不存在');
+            abort(404, '页面不存在');
         }
         $result = array_merge($arctypeInfo, $result);
 
@@ -152,13 +150,14 @@ class View extends Base
         $result['tag'] = $tagInfo;
 
         $dename = Db::name('archives')->where('aid', $result['designername'])->column('title');
+        $uu = session('users_id');
 
         $eyou = array(
             'type' => $arctypeInfo,
             'field' => $result,
+            'loginId' => $uu,
             'dename' => $dename[0],
         );
-
 
 
         $this->eyou = array_merge($this->eyou, $eyou);
@@ -166,13 +165,13 @@ class View extends Base
 
         /*模板文件*/
         $viewfile = !empty($result['tempview'])
-        ? str_replace('.'.$this->view_suffix, '',$result['tempview'])
-        : 'view_'.$this->nid;
+            ? str_replace('.' . $this->view_suffix, '', $result['tempview'])
+            : 'view_' . $this->nid;
         /*--end*/
 
         /*多语言内置模板文件名*/
         if (!empty($this->home_lang)) {
-            $viewfilepath = TEMPLATE_PATH.$this->theme_style_path.DS.$viewfile."_{$this->home_lang}.".$this->view_suffix;
+            $viewfilepath = TEMPLATE_PATH . $this->theme_style_path . DS . $viewfile . "_{$this->home_lang}." . $this->view_suffix;
             if (file_exists($viewfilepath)) {
                 $viewfile .= "_{$this->home_lang}";
             }
@@ -181,7 +180,7 @@ class View extends Base
 
         // 若需要用户权限则执行
         if ($this->eyou['field']['arcrank'] > 0) {
-            $msg = action('api/Ajax/get_arcrank', ['aid'=>$aid, 'vars'=>1]);
+            $msg = action('api/Ajax/get_arcrank', ['aid' => $aid, 'vars' => 1]);
             if (true !== $msg) {
                 $this->error($msg);
             }
@@ -195,6 +194,35 @@ class View extends Base
         $downNum = Db::name('archives')->field('downcount')->where('aid', $aid)->find();
         Db::name('archives')->where('aid', $aid)->update(['downcount' => $downNum['downcount'] + 1]);
         return $downNum['downcount'] + 1;
+    }
+
+    public function checkFavourite($aid = '', $userid = '')
+    {
+        $data = Db::name('my_favourite')->where('aid', $aid)->where('userid', $userid)->find();
+        if ($data == "") {
+            $aaa = "";
+        }
+        if ($data != "") {
+            $aaa = $data;
+        }
+        return $aaa;
+    }
+
+    public function setFavourite($aid = '', $userid = '')
+    {
+        $time = intval(time());
+        $data = Db::name('my_favourite')->where('aid', $aid)->where('userid', $userid)->find();
+        $aaa = $data;
+        if ($aaa == "") {
+            $b = 1;
+            $data_save = ['userid' => $userid, 'aid' => $aid, 'create_time' => $time];
+            Db::name('my_favourite')->insert($data_save);
+        }
+        if ($aaa != "") {
+            $b = 2;
+            Db::name('my_favourite')->where('aid', $aid)->delete();
+        }
+        return $b;
     }
 
     /**
@@ -214,7 +242,7 @@ class View extends Base
 
         // 查询信息
         $map = array(
-            'a.file_id'   => $file_id,
+            'a.file_id' => $file_id,
             'a.uhash' => $uhash,
         );
         $result = Db::name('download_file')
@@ -224,9 +252,9 @@ class View extends Base
             ->where($map)
             ->find();
 
-        $file_url_gbk = iconv("utf-8","gb2312//IGNORE",$result['file_url']);
+        $file_url_gbk = iconv("utf-8", "gb2312//IGNORE", $result['file_url']);
         $file_url_gbk = preg_replace('#^(/[/\w]+)?(/public/upload/soft/|/uploads/soft/)#i', '$2', $file_url_gbk);
-        if (empty($result) || (!is_http_url($result['file_url']) && !file_exists('.'.$file_url_gbk))) {
+        if (empty($result) || (!is_http_url($result['file_url']) && !file_exists('.' . $file_url_gbk))) {
             $this->error('下载文件不存在！');
             exit;
         }
@@ -240,24 +268,24 @@ class View extends Base
             if (empty($UsersData['users_id'])) {
                 $this->error('请登录后下载！');
                 exit;
-            }else{
+            } else {
                 /*判断用户是否可下载该文件--2019-06-21 陈风任添加*/
                 // 查询用户信息
                 $users = Db::name('users')
                     ->alias('a')
                     ->field('a.users_id,b.level_value,b.level_name')
                     ->join('__USERS_LEVEL__ b', 'a.level = b.level_id', 'LEFT')
-                    ->where(['a.users_id'=>$UsersData['users_id']])
+                    ->where(['a.users_id' => $UsersData['users_id']])
                     ->find();
                 // 查询下载所需等级值
                 $file_level = Db::name('archives')
                     ->alias('a')
                     ->field('b.level_value,b.level_name')
                     ->join('__USERS_LEVEL__ b', 'a.arc_level_id = b.level_id', 'LEFT')
-                    ->where(['a.aid'=>$result['aid']])
+                    ->where(['a.aid' => $result['aid']])
                     ->find();
                 if ($users['level_value'] < $file_level['level_value']) {
-                    $msg = '文件为【'.$file_level['level_name'].'】可下载，您当前为【'.$users['level_name'].'】，请先升级！';
+                    $msg = '文件为【' . $file_level['level_name'] . '】可下载，您当前为【' . $users['level_name'] . '】，请先升级！';
                     $this->error($msg);
                     exit;
                 }
@@ -280,11 +308,9 @@ class View extends Base
                 $this->redirect($result['file_url']);
                 exit;
             }
-        } 
-        // 本站链接
-        else
-        {
-            if (md5_file('.'.$file_url_gbk) != $result['md5file']) {
+        } // 本站链接
+        else {
+            if (md5_file('.' . $file_url_gbk) != $result['md5file']) {
                 $this->error('下载文件包已损坏！');
             }
 
@@ -292,11 +318,11 @@ class View extends Base
             $this->download_log($result['file_id'], $result['aid']);
 
             $uhash_mch = mchStrCode($uhash);
-            $url = $this->root_dir."/index.php?m=home&c=View&a=download_file&file_id={$file_id}&uhash={$uhash_mch}";
+            $url = $this->root_dir . "/index.php?m=home&c=View&a=download_file&file_id={$file_id}&uhash={$uhash_mch}";
             if (IS_AJAX) {
                 $this->success('开始下载中……', $url);
             } else {
-                $url = $this->request->domain().$url;
+                $url = $this->request->domain() . $url;
                 $this->redirect($url);
                 exit;
             }
@@ -312,7 +338,7 @@ class View extends Base
         $uhash = input('param.uhash/s', '');
         $uhash = mchStrCode($uhash, 'DECODE');
         $map = array(
-            'file_id'   => $file_id,
+            'file_id' => $file_id,
         );
         $result = Db::name('download_file')->field('file_url,file_mime,uhash')->where($map)->find();
         if (!empty($result['uhash']) && $uhash != $result['uhash']) {
@@ -343,18 +369,18 @@ class View extends Base
             $this->error('请登录后下载！');
         }
 
-        $level_info = Db::name('users_level')->field('level_name,down_count')->where(['level_id'=>$users['level']])->find();
+        $level_info = Db::name('users_level')->field('level_name,down_count')->where(['level_id' => $users['level']])->find();
         if (empty($level_info)) {
             $this->error('当前用户等级不存在！');
         }
-        
+
         $begin_mtime = strtotime(date('Y-m-d 00:00:00'));
-        $end_mtime   = strtotime(date('Y-m-d 23:59:59'));
-        $downNum         = Db::name('download_log')->where([
-                'users_id'  => $users['users_id'],
-                'add_time'  => ['between', [$begin_mtime, $end_mtime]],
-                'aid'       => ['NEQ', $aid],
-            ])->group('aid')->count('aid');
+        $end_mtime = strtotime(date('Y-m-d 23:59:59'));
+        $downNum = Db::name('download_log')->where([
+            'users_id' => $users['users_id'],
+            'add_time' => ['between', [$begin_mtime, $end_mtime]],
+            'aid' => ['NEQ', $aid],
+        ])->group('aid')->count('aid');
         if (intval($level_info['down_count']) <= intval($downNum)) {
             $msg = "{$level_info['level_name']}每天最多下载{$level_info['down_count']}个！";
             $this->error($msg);
@@ -371,25 +397,26 @@ class View extends Base
             $users_id = intval($users_id);
 
             $counts = Db::name('download_log')->where([
-                    'file_id'   => $file_id,
-                    'aid'       => $aid,
-                    'users_id'  => $users_id,
-                ])->count();
+                'file_id' => $file_id,
+                'aid' => $aid,
+                'users_id' => $users_id,
+            ])->count();
             if (empty($users_id) || empty($counts)) {
                 $saveData = [
-                    'users_id'  => $users_id,
-                    'aid'       => $aid,
-                    'file_id'   => $file_id,
-                    'ip'        => clientIP(),
-                    'add_time'  => getTime(),
+                    'users_id' => $users_id,
+                    'aid' => $aid,
+                    'file_id' => $file_id,
+                    'ip' => clientIP(),
+                    'add_time' => getTime(),
                 ];
                 $r = Db::name('download_log')->insertGetId($saveData);
                 if ($r !== false) {
-                    Db::name('download_file')->where(['file_id'=>$file_id])->setInc('downcount');
-                    Db::name('archives')->where(['aid'=>$aid])->setInc('downcount');
+                    Db::name('download_file')->where(['file_id' => $file_id])->setInc('downcount');
+                    Db::name('archives')->where(['aid' => $aid])->setInc('downcount');
                 }
             }
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
     }
 
     /**
@@ -417,10 +444,10 @@ class View extends Base
         if (preg_match('#^(/[\w]+)?(/uploads/media/)#i', $result['file_url'])) {
             $file_url = preg_replace('#^(/[\w]+)?(/uploads/media/)#i', '$2', $result['file_url']);
         } else {
-            $file_url = preg_replace('#^('.$this->root_dir.')?(/)#i', '$2', $result['file_url']);
+            $file_url = preg_replace('#^(' . $this->root_dir . ')?(/)#i', '$2', $result['file_url']);
         }
-        
-        if (empty($result) || (!is_http_url($result['file_url']) && !file_exists('.'.$file_url))) {
+
+        if (empty($result) || (!is_http_url($result['file_url']) && !file_exists('.' . $file_url))) {
             $this->error('视频文件不存在！');
         }
 
@@ -430,7 +457,7 @@ class View extends Base
             if (!empty($result['users_price']) && 0 < $result['users_price']) {
                 // 未登录则提示
                 if (empty($UsersID)) $this->error('请先登录！', url('user/Users/login'));
-                
+
                 $Paid = 0; // 未付费
                 $where = [
                     'users_id' => $UsersID,
@@ -496,18 +523,16 @@ class View extends Base
                 $this->redirect($result['file_url']);
                 exit;
             }
-        } 
-        // 本站链接
-        else
-        {
-            if (md5_file('.'.$file_url) != $result['md5file']) {
+        } // 本站链接
+        else {
+            if (md5_file('.' . $file_url) != $result['md5file']) {
                 $this->error('视频文件已损坏！');
             }
 
             // 记录播放次数
             $this->video_log($result['file_id'], $result['aid']);
 
-            $url = $this->request->domain().$this->root_dir.$file_url;
+            $url = $this->request->domain() . $this->root_dir . $file_url;
             if (IS_AJAX) {
                 $this->success('准备播放中……', $url);
             } else {
@@ -527,24 +552,25 @@ class View extends Base
             $users_id = intval($users_id);
 
             $counts = Db::name('media_log')->where([
-                    'file_id'   => $file_id,
-                    'aid'       => $aid,
-                    'users_id'  => $users_id,
-                ])->count();
+                'file_id' => $file_id,
+                'aid' => $aid,
+                'users_id' => $users_id,
+            ])->count();
             if (empty($users_id) || empty($counts)) {
                 $saveData = [
-                    'users_id'  => $users_id,
-                    'aid'       => $aid,
-                    'file_id'   => $file_id,
-                    'ip'        => clientIP(),
-                    'add_time'  => getTime(),
+                    'users_id' => $users_id,
+                    'aid' => $aid,
+                    'file_id' => $file_id,
+                    'ip' => clientIP(),
+                    'add_time' => getTime(),
                 ];
                 $r = Db::name('media_log')->insertGetId($saveData);
                 if ($r !== false) {
-                    Db::name('media_file')->where(['file_id'=>$file_id])->setInc('playcount');
-                    Db::name('archives')->where(['aid'=>$aid])->setInc('downcount');
+                    Db::name('media_file')->where(['file_id' => $file_id])->setInc('playcount');
+                    Db::name('archives')->where(['aid' => $aid])->setInc('downcount');
                 }
             }
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
     }
 }

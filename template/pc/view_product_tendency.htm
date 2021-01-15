@@ -68,13 +68,17 @@
                     <div class="tendency_details_label1">{$eyou.field.Brief_introduction}</div>
                 </div>
                 <div class="tendency_details_operation clearfix">
-                    <div class="fl" style=" margin-right: 20px;">收藏:</div>
-                    <div class="fl" style=" margin-right: 60px;"><img
-                            src="template/pc/skin/images/recommend_img_on.png"></div>
                     {if $eyou.field.pdf != null}
                     <div class="fl" style=" margin-right: 20px;">下载:</div>
                     <div class="fl"><a href={$eyou.field.pdf} download onclick="downCount({$eyou.field.aid})"><img src="template/pc/skin/images/download.png"></a></div>
                     {/if}
+                    <div class="fl" style=" margin-left: 20px;">收藏:</div>
+                    <div class="fl" style=" margin-left: 20px;">
+                        <img id="heart_img" onclick="setFavouritr({$eyou.field.aid})" style="display: none"
+                             src="template/pc/skin/images/tendency_collect.png">
+                        <img id="hearts_img" onclick="setFavouritr({$eyou.field.aid})" style="display: none"
+                             src="template/pc/skin/images/recommend_img_on.png">
+                    </div>
                 </div>
                 <div class="tendency_details_nr">
                     {$eyou.field.content}
@@ -105,6 +109,24 @@
     </div>
 </div>
 <script type="text/javascript">
+    $aaid=({$eyou.field.aid})
+    $uuid=({$eyou.loginId})
+    $.ajax({
+        url: "{:url('app/home/view/checkFavourite')}",
+        type: 'post',
+        dataType: 'json',
+        data: {"aid": $aaid, "userid": $uuid},
+        success: function (result) {
+            if (result !== "") {
+                document.getElementById('heart_img').style.display = "none"
+                document.getElementById('hearts_img').style.display = "block";
+            } else {
+                document.getElementById('hearts_img').style.display = "none"
+                document.getElementById('heart_img').style.display = "block";
+            }
+        }
+    });
+
     function downCount(obj) {
         $.ajax({
             url: "{:url('app/home/view/downCount')}",
@@ -113,6 +135,24 @@
             data: {"aid": obj},
             success: function (result) {
                 $("#downdown").html("下载数量：" + result);
+            }
+        });
+    }
+
+    function setFavouritr(obj) {
+        $.ajax({
+            url: "{:url('app/home/view/setFavourite')}",
+            type: 'post',
+            dataType: 'json',
+            data: {"aid": obj, "userid": $uuid},
+            success: function (res) {
+                if (res === 1) {
+                    document.getElementById('heart_img').style.display = "none"
+                    document.getElementById('hearts_img').style.display = "block";
+                } else {
+                    document.getElementById('hearts_img').style.display = "none"
+                    document.getElementById('heart_img').style.display = "block";
+                }
             }
         });
     }
