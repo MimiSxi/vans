@@ -61,15 +61,16 @@
     <div class="search_pulldown">
         <ul class="yyui_menu1">
             <li>
-                <a>
+                <a href="#">
                     <div style="float: left">全部</div>
                     <div class="search_arrows"><img src="template/pc/skin/images/searcj_arrows.png"></div>
                 </a>
                 <ul class="one clearfix">
                     <li class="clearfix">
-                        {eyou:channel type="top" row="60" id="field" currentstyle="hover"}
+                        {eyou:channel type="top" row="60" id="field"}
                         <a href="#">
                             <div class="second_title">{$field.typename}</div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png"></div>
                         </a>
                         {/eyou:channel}
                     </li>
@@ -77,25 +78,24 @@
             </li>
         </ul>
     </div>
-    <input value="请输入关键词全站搜索" type="text" name="fname" value="请输入关键词全站搜索" class="all_search_input"
-           onfocus="if(value=='请输入关键词全站搜索') {value=''}" onblur="if (value=='') {value='请输入关键词全站搜索'}">
+
+    {eyou:searchform type='default' typeid='0'}
+    <form class="sidebar-search" method="get" action="{$field.action}">
+        <input type="text" class="all_search_input" name="keywords" placeholder="请输入关键词" />
+        {$field.hidden}
+    </form>
+    {/eyou:searchform}
+
+
 </div>
 <!--网站公用头部——结束-->
 <div class="top">
     <div class="wrapper">
         <div class="all_search_label">
             <ul>
-                <li>中国风</li>
-                <li>欧美风</li>
-                <li>田园风</li>
-                <li>提花</li>
-                <li>印花</li>
-                <li>绣花</li>
-                <li>2019</li>
-                <li>2018</li>
-                <li>四件套</li>
-                <li>沙发套</li>
-                <li>窗帘</li>
+                {eyou:hotwords num="10" id="field"}
+                <li>{$field.word}</li>
+                {/eyou:hotwords}
             </ul>
         </div>
     </div>
