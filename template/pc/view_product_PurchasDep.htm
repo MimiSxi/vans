@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <!--页面seo标题-->
-    <title>{$eyou.field.seo_title}</title>
-    <!--页面seo描述-->
-    <meta name="description" content="{$eyou.field.seo_description}"/>
-    <!--页面seo关键词-->
-    <meta name="keywords" content="{$eyou.field.seo_keywords}"/>
+    <!--首页seo标题-->
+    <title>{eyou:global name='web_title' /}</title>
+    <!--首页seo描述-->
+    <meta name="description" content="{eyou:global name='web_description' /}"/>
+    <!--首页seo关键词-->
+    <meta name="keywords" content="{eyou:global name='web_keywords' /}"/>
     <!--网站地址栏图标-->
     <link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    {eyou:static file="skin/css/amazeui.min.css" /}
-    {eyou:static file="skin/css/app.css" /}
+    <link href="template/pc/skin/css/c.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="template/pc/skin/js/jquery1.42.min.js"></script>
+    <script src="template/pc/skin/js/yyui.js"></script>
+    <script type="text/javascript" src="template/pc/skin/js/jquery.SuperSlide.2.1.3.js"></script>
     <!--[if lt IE 9]>
     <div class="notsupport">
         <h1>:( 非常遗憾</h1>
@@ -25,131 +27,119 @@
     {eyou:static file="skin/js/jquery.min.js" /}
     {eyou:static file="skin/js/amazeui.min.js" /}
     {eyou:static file="skin/js/app.js" /}
+    {eyou:static file="skin/js/jquery.easing.1.3.js" /}
+    {eyou:static file="skin/js/jquery.skitter.js" /}
+    {eyou:static file="skin/js/jquery.limarquee.js" /}
 </head>
-<body>
-<!--网站公用头部——开始-->
-{eyou:include file="header.htm" /}
-<!--网站公用头部——结束-->
-<!--网站公用自定义文件——开始-->
-{eyou:include file="banner.htm" /}
-<!--网站公用自定义文件——结束-->
-<div class="width inner_container">
-    <div class="pro_show">
-        <div class="left">
-            <!--图集循环调用——开始-->
-            <!--调用一条数据-->
-            {eyou:volist name="$eyou.field.image_list" row='1'}
-            <div id="zoom_pic" class="zoom"><img src="{$field.image_url}" alt="{$eyou.field.title}" width="500"
-                                                 id="zoom"></div>
-            {/eyou:volist}
-            <!--图集循环调用——结束-->
-            <div class="thumb_pic">
-                <ul>
-                    <!--图集循环调用——开始-->
-                    {eyou:volist name="$eyou.field.image_list"}
-                    <li {eyou:eq name='$i' value='1' }class="hover" {
-                    /eyou:eq}><img src="{$field.image_url}" data-url="{$field.image_url}" alt="{$eyou.field.title}"
-                                   width="60" height="60"></li>
-                    {/eyou:volist}
-                </ul>
-                <!--图集循环调用——结束-->
-            </div>
-        </div>
-        <div class="right">
-            <!--产品标题-->
-            <h1>{$eyou.field.title}</h1>
 
-            <!--浏览数量 todo-->
-            <p>浏览数量:{$eyou.field.Number_of_views}</p>
+<body style="background: #e5e5e5;">
 
-            <!--下载数量 todo-->
-            <p>下载数量:{$eyou.field.Number_of_downloads}</p>
-
-            <!--订阅数量 todo-->
-            <p>订阅数量:{$eyou.field.Number_of_subscriptions}</p>
-
-            <!--主题 todo 主题？-->
-            <p>主题:{$eyou.field.fengge}</p>
-
-            <!--时间 todo 时间戳格式化-->
-            <p class="time">{$field.add_time|MyDate='Y-m-d',###}</p>
-
-            <!--作者-->
-            <p>作者:{$eyou.field.author}</p>
-
-            <!--品类-->
-            <p>品类:{$eyou.field.pinglei}</p>
-
-            <!--工艺-->
-            <p>工艺:{$eyou.field.gongyi}</p>
-
-            <!--年份-->
-            <p>年份:{$eyou.field.nianfeng}</p>
-
-            <!--标签 todo 标签？-->
-            <p>标签:</p>
-
-            <!--简述-->
-            <p>简述:{$eyou.field.Brief_introduction}</p>
-
-            <!--收藏 todo 功能实现-->
-            <p>收藏♥</p>
-
-            <!--下载 todo 功能实现-->
-            <p>下载</p>
-
-            <!--文件 todo 功能实现-->
-            <p>文件</p>
-
-            <!--分享 todo 功能实现-->
-            <p>分享</p>
-
-            <!--产品参数调用——开始-->
-            <ul class="attribute">
-                {eyou:attribute type='newattr' attrid='$eyou.field.attrlist_id'}
-                <li><em>{$attr.name}：</em>{$attr.value}</li>
-                {/eyou:attribute}
-            </ul>
-            <!--产品参数调用——结束-->
-            <!--tag标签——开始-->
-            {eyou:notempty name='$eyou.field.tags'}
-            <div class="tags"><span class="am-icon-tags"></span> 标签：
-                {eyou:tag sort='now' getall='0' row='100' empty=''}
-                <a href="{$field.link}" {$field.target}>{$field.tag}</a>
-                {/eyou:tag}
-            </div>
-            {/eyou:notempty}
-            <!--tag标签——结束-->
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="pro_intro">
-        <div class="tabs">
-            <ul>
-                <li class="hover"><a>介绍:</a></li>
-            </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="intro">
-            <!--产品详情-->
-            {$eyou.field.content}
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="tabs">
-        <ul>
-            <li class="hover"><a>推荐:</a></li>
-        </ul>
+<div class="top">
+    <div class="details_banner">
+        {eyou:adv pid='13'}
+        <img src='{$field.litpic}' alt='{$field.title}' />
+        {/eyou:adv}
     </div>
 </div>
-<!--网站公用底部——开始-->
+{eyou:include file="header.htm" /}
+
+<div class="clearfix" style="position: relative;">
+    <div class="wrapper" style="background: #ffffff;">
+        <div class="label">
+            <div id="slideBox1" class="slideBox1" style="float: left">
+                <div class="bd">
+                    {eyou:diyfield type='imgs' id='bigPicture' name='$eyou.field.bigPicture'}
+                    <img src='{$bigPicture.image_url}'/>
+                    {/eyou:diyfield}
+                </div>
+            </div>
+            <script type="text/javascript">
+                jQuery(".slideBox1").slide({mainCell: ".bd ul", autoPlay: true});
+            </script>
+            <div class="label_content">
+                <div class="label_content_title">{$eyou.field.title}</div>
+                <div class="label_content_number">
+                    <ul>
+                        <li>浏览数量：{$eyou.field.click}</li>
+                        <li>下载数量：{$eyou.field.downcount}</li>
+                        <li>订阅数量：{$eyou.favNum}</li>
+                    </ul>
+                </div>
+                <div class="label_content_down clearfix">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img src="template/pc/skin/images/recommend_img_on.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="template/pc/skin/images/download.png" style="width: 78%;">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="label_content_lable">
+                    <ul>
+                        <li class="lables">风格：</li>
+                        <li>{$eyou.field.fengge}</li>
+                        <li class="lables">品类：</li>
+                        <li>{$eyou.field.pinglei}</li>
+                        <li class="lables">年份：</li>
+                        <li>{$eyou.field.nianfeng}</li>
+                        <li class="lables">颜色：</li>
+                        <li>{$eyou.field.yanse}</li>
+                        <li class="lables">材质：</li>
+                        <li>{$eyou.field.caizhi}</li>
+                        <li class="lables">工艺：</li>
+                        <li>{$eyou.field.gongyi}</li>
+                        <li class="lables">时间：</li>
+                        <li>{$eyou.field.add_time|MyDate='Y.m.d',###}</li>
+                        <li class="lables" style="width: 64%; border-bottom: none;">简述：</li>
+                        <li style="width: 64%; word-break:break-all; border-bottom: none;">
+                            {$eyou.field.Brief_introduction}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="design_details_content clearfix">
+    <div class="wrapper" style="background:#FFFfff">
+        <div class="design_details_content_all">
+            <div class="design_details_content_title">介绍：</div>
+            <div class="design_content_content">
+                {$eyou.field.content}
+            </div>
+            <div class="design_tabe">
+                <div class="design_details_content_title fl">推荐：</div>
+                <div class="recommander clearfix">
+                    <ul>
+                        <li>
+                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
+                            <div class="recommander_title">mingzi</div>
+                        </li>
+                        <li>
+                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
+                            <div class="recommander_title">mingzi</div>
+                        </li>
+                        <li>
+                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
+                            <div class="recommander_title">mingzi</div>
+                        </li>
+                        <li>
+                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
+                            <div class="recommander_title">mingzi</div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {eyou:include file="footer.htm" /}
-<!--网站公用底部——结束-->
-
-{eyou:static file="skin/js/jquery.zoombie.js" /}
-{eyou:static file="skin/css/toastr.css" /}
-{eyou:static file="skin/js/toastr.min.js" /}
-{eyou:static file="skin/js/jquery.validator.min.js" /}
-
 </body>
 </html>
