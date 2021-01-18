@@ -40,7 +40,7 @@ input::-webkit-input-placeholder{
 .wrapper{ width: 1200px; margin: 0 auto; min-width: 1200px; overflow: hidden; }
 
 /* 登录页面css */
-.login_bg{ background: url("../../../../../../Users/清野/Desktop/万斯/images/login_bg.jpg") no-repeat top center; width: 100%; height: 936px; background-size: 100%; }
+.login_bg{ background: url("../images/login_bg.jpg") no-repeat top center; width: 100%; height: 936px; background-size: 100%; }
 .login_title{ font-size: 43px; color: #ffffff; font-weight: bold; text-align: center; margin-top: 140px; margin-bottom: 56px;}
 .login_content{ width:612px; height: 454px; border-radius: 10px; background: #ffffff;box-shadow: 0px -5px 20px #888888;margin: 18px auto;}
 .login_enter{ margin:0px 0px; padding: 54px 56px;}
@@ -286,6 +286,72 @@ input::-webkit-input-placeholder{
 .design_content a:hover .design_recommend_tit{ color: #ffffff;}
 .design_content a:hover .design_work_label{ background: #161616; color: #ffffff; display: block; box-shadow: 6px 10px 16px rgba(210,210,210,1);}
 
+
+/* 设计详情css */
+/* 焦点图css */
+.slideBox1{ width:494px; height:348px; overflow:hidden; position:relative; border:1px solid #ddd; margin: 46px 30px;  }
+.slideBox1 .hd{ height:15px; overflow:hidden; position:absolute; right:5px; bottom:5px; z-index:1; }
+.slideBox1 .hd ul{ overflow:hidden; zoom:1; float:left;  }
+.slideBox1 .hd ul li{ float:left; margin-right:2px;  width:15px; height:15px; line-height:14px; text-align:center; background:#fff; cursor:pointer; }
+.slideBox1 .hd ul li.on{ background:#f00; color:#fff; }
+.slideBox1 .bd{ position:relative; height:100%; z-index:0;   }
+.slideBox1 .bd li{ zoom:1; vertical-align:middle; }
+.slideBox1 .bd img{ width:494px; height:348px; display:block;  }
+
+/* 前/后按钮 */
+.slideBox1 .prev,
+.slideBox1 .next{ position:absolute; left:3%; top:53%; margin-top:-25px; display:block; width:32px; height:40px; background:url(../images/slider-arrow.png) -110px 5px no-repeat; filter:alpha(opacity=50);opacity:0.5;   }
+.slideBox1 .next{ left:auto; right:3%; background-position:8px 5px; }
+.slideBox1 .prev:hover,
+.slideBox1 .next:hover{ filter:alpha(opacity=100);opacity:1;  }
+.slideBox1 .prevStop{ display:none;  }
+.slideBox1 .nextStop{ display:none;  }
+
+.label_content{ margin: 46px 0px;color: #161616; float: left; width: 42%;}
+.label_content_title{ font-size:32px; font-weight: bold; }
+.label_content_number{ color: #aaaaaa; font-size: 12px;}
+.label_content_number ul li{ float: left; padding: 0px 10px 0px 0px;}
+.label_content_down{ padding: 12px 0px;}
+.label_content_down ul li{ float: left; padding: 0px 20px 0px 0px; }
+.label_content_lable{ width: 100%;}
+.label_content_lable ul li{ float: left; margin-right: 20px; border-bottom: 1px dashed #aaaaaa; padding: 0px 36px 0px 22px; margin-bottom: 10px;}
+.label_content_lable ul li.lables{ padding: 0 0px;  color:#aaaaaa; width: 17%; border-bottom: 1px dashed #aaaaaa; font-size: 16px; margin-right: 0px;}
+.lablescontent{ width: 100%; padding: 10px}
+
+.design_details_content{ width: 100%; margin-top: 21%;}
+.design_details_content_all{ padding: 30px 30px;}
+.design_details_content_title{ width: 96px; line-height: 36px; background: #000000; color: #ffffff; font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 26px;}
+.design_content_content{ font-size: 14px; color: #161616; line-height: 24px; word-break: break-all;}
+.design_content_content p{ text-indent: 30px;}
+
+.slideTxtBox1{ width:88%; margin-top: 20px; float: left;}
+.slideTxtBox1 .hd{  position:relative; }
+.slideTxtBox1 .hd ul{}
+.slideTxtBox1 .hd ul li{ width: 96px; line-height: 36px; background: #000000; color: #ffffff; font-size: 20px; font-weight: bold; text-align: center;
+    float: left; margin: 0px 40px 20px 0px;}
+.slideTxtBox1 .hd ul li.on{ text-decoration: underline;}
+.slideTxtBox1 .bd{ margin-left: -148px; background: #ffffff; margin-bottom: 40px;}
+.slideTxtBox1 .bd ul{ padding:15px;  zoom:1;  box-shadow:-10px 0px 43px rgba(196,196,196,0.4);  }
+.slideTxtBox1 .bd li{ line-height:24px; width: 100%; background: #ffffff;  }
+.slideTxtBox1 .bd li .date{ float:right; color:#999;  }
+.design_tabe_img{ float: left; margin: 10px 46px 20px 10px; float: left;}
+.design_tabe_content{ float: left; width: 50%;}
+.design_tabe_content_titleall{ margin: 12px 0px 0px 0px;}
+.design_tabe_content_title1{ float: left; font-size: 36px; font-weight: bold; color: #161616;}
+.design_tabe_content_title2{ float: left; font-size: 20px; padding:4px 0px 0px 10px; color: #161616;}
+.design_tabe_content_title3{ color: #aaaaaa; font-weight: bold; font-size: 14px; margin-top: 6px;}
+
+.design_tabe_content_lable1{ width: 100%; background: none; box-shadow: none;}
+.design_tabe_content_lable1 ul{box-shadow: none !important; padding: 0 0 !important; margin-top: 20px;}
+.design_tabe_content_lable1 ul li{ width: 19% !important;background: none; box-shadow: none; float: left; border-bottom: 1px dashed #aaaaaa; margin-right: 22px; }
+.design_tabe_content_lable1 ul li.lables1{  color:#aaaaaa; width: 20% !important; border-bottom: 1px dashed #aaaaaa; font-size: 16px; margin-right: 0px; padding: 0px 36px 0px 0px; margin-bottom: 18px; margin-right: 0px;}
+.design_tabe_content_label2{}
+.design_labless{ float: left; line-height: 36px; padding: 0px 114px;}
+.enregistrer{ float: left; padding: 0px 20px; line-height: 34px; border: 1px solid #aaaaaa; margin: 0px 0px 0px 40px; font-weight: bold;}
+.enregistrer a{ color: #161616;}
+.recommander_title{ text-align: center; padding: 10px 0px;}
+.recommander ul li{ float: left; width: 21%; margin: 0px 22px;}
+.recommander_img{ border: 1px solid #aaaaaa; height: 167px;}
 
 
 /* 底部css */
