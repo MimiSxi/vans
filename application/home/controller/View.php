@@ -153,6 +153,7 @@ class View extends Base
 
         $dename = Db::name('archives')->where('aid', $result['designername'])->column('title');
         $uu = session('users_id');
+        $workInfo = Db::name('productmanagement_content')->where('workid',$aid)->select();
 
         $eyou = array(
             'type' => $arctypeInfo,
@@ -160,6 +161,7 @@ class View extends Base
             'loginId' => $uu,
             'dename' => $dename[0],
             'favNum' => $favNum,
+            'workInfo' => $workInfo,
         );
 
 
