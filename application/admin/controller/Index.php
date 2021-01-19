@@ -94,7 +94,7 @@ class Index extends Base
     public function createArea($aid = '', $areaid = '', $is_order = '')
     {
         $time = intval(time());
-       
+
         return "";
     }
 
