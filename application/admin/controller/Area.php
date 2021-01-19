@@ -75,6 +75,7 @@ class Area extends Base
             // 添加区域位置表信息
             $data = array(
                 'title'       => trim($post['title']),
+                'status'       => 1,
                 'create_people'    => session('admin_id'),
                 'create_time'    => getTime(),
                 'change_time' => getTime(),
