@@ -66,9 +66,9 @@ return array (
   'aidlist' => 
   array (
     'name' => 'aidlist',
-    'type' => 'text',
+    'type' => 'varchar(100)',
     'notnull' => false,
-    'default' => NULL,
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),
