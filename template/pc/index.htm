@@ -37,18 +37,19 @@
 
 <!--轮播图-->
 <div id="slideBox" class="slideBox" style="position: relative; top: -21px;">
-    <div class="skitter"  id="banner">
+    <div class="skitter" id="banner">
         <ul>
             {eyou:adv pid='1'}
-            <li><a href="{$field.links}" {$field.target}><img src="{$field.litpic}" alt="{$field.title}" class="random" /></a></li>
+            <li><a href="{$field.links}" {$field.target}><img src="{$field.litpic}" alt="{$field.title}"
+                                                              class="random"/></a></li>
             {/eyou:adv}
         </ul>
     </div>
 </div>
 <script>
-    $(function(){
+    $(function () {
         //Banner切换
-        $('#banner').skitter({dots:true,interval:5000});
+        $('#banner').skitter({dots: true, interval: 5000});
     })
 </script>
 <!--轮播图-->
@@ -70,7 +71,8 @@
                         {eyou:channel type="top" row="60" id="field"}
                         <a href="#">
                             <div class="second_title">{$field.typename}</div>
-                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png"></div>
+                            <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png">
+                            </div>
                         </a>
                         {/eyou:channel}
                     </li>
@@ -81,7 +83,7 @@
 
     {eyou:searchform type='default' typeid='0'}
     <form class="sidebar-search" method="get" action="{$field.action}">
-        <input type="text" class="all_search_input" name="keywords" placeholder="请输入关键词" />
+        <input type="text" class="all_search_input" name="keywords" placeholder="请输入关键词"/>
         {$field.hidden}
     </form>
     {/eyou:searchform}
@@ -100,6 +102,8 @@
         </div>
     </div>
 </div>
+
+{eyou:channelartlist typeid='2'}
 <div class="index_trend clearfix">
     <div class="wrapper">
         <div class="trend_title_all">
@@ -115,40 +119,41 @@
             <div class="trend_tit_right">Trend</div>
         </div>
         <div class="trend_content clearfix">
-            <div class="trend_content_left">
-                <div class="trend_content_lefttit">
-                    <div class="trend_tit1">2022/23秋冬全球色彩趋势预测</div>
-                    <div class="trend_tit2">
-                        我们的202223秋冬趋势预测主打能够在充满挑战的时期展现乐观与奢华质感的浓郁及活力色调,并分为应季、年度、长期三大专题调色板,显示了更高的灵活性与持久性...
+            {eyou:arclist titlelen='20' row='1' infolen='50'}
+            <a href="{$field.arcurl}" target="_blank">
+                <div class="trend_content_left">
+                    <div class="trend_content_lefttit">
+                        <div class="trend_tit1">{$field.title}</div>
+                        <div class="trend_tit2">
+                            {$field.seo_description}
+                        </div>
+                    </div>
+                    <div class="trend_content_img">
+                        <img src="{$field.litpic}" alt="{$field.title}" class="img-responsive" width="549px"
+                             height="388px">
                     </div>
                 </div>
-                <div class="trend_content_img">
-                    <img src="template/pc/skin/images/trend_left_img.jpg">
-                </div>
-            </div>
+            </a>
+            {/eyou:arclist}
+            {eyou:arclist titlelen='20' row='4' infolen='50'}
             <div class="trend_content_right">
-                <ul>
-                    <li>
-                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
-                        <div class="trend_right_title">家居&照明：色彩、材料</div>
-                    </li>
-                    <li>
-                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
-                        <div class="trend_right_title">家居&照明：色彩、材料</div>
-                    </li>
-                    <li>
-                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
-                        <div class="trend_right_title">家居&照明：色彩、材料</div>
-                    </li>
-                    <li>
-                        <div class="trend_right_img"><img src="template/pc/skin/images/trend_right_img.jpg"></div>
-                        <div class="trend_right_title">家居&照明：色彩、材料</div>
-                    </li>
-                </ul>
+                    <ul>
+                        <a href="{$field.arcurl}" target="_blank">
+                        <li>
+                            <div class="trend_right_img"><img src="{$field.litpic}" width="273px" height="192px"></div>
+                            <div class="trend_right_title">{$field.title}</div>
+                        </li>
+                        </a>
+                    </ul>
             </div>
+            {/eyou:arclist}
         </div>
     </div>
 </div>
+{/eyou:channelartlist}
+
+
+{eyou:channelartlist typeid='1'}
 <div class="index_work clearfix">
     <div class="wrapper">
         <div class="trend_title_all">
@@ -163,202 +168,34 @@
             </div>
             <div class="trend_tit_right">Works</div>
         </div>
+        {eyou:arclist titlelen='20' row='6' infolen='50'}
         <div class="works_content clearfix">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="{$field.arcurl}">
                         <div class="works_content_all">
-                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
+                            <div class="works_content_img"><img src="{$field.litpic}" width="552px" height="389px"></div>
                             <div class="works_content_title clearfix">
-                                <div class="works_content_tit1">20PC142</div>
+                                <div class="works_content_tit1">{$field.title}</div>
                                 <div class="works_content_name">
-                                    <div class="name">Anne</div>
-                                    <div class="time">2020.06.17</div>
+                                    <div class="name">{$field.designer_name}</div>
+                                    <div class="time">{$field.add_time|MyDate='Y.m.d',###}</div>
                                 </div>
                                 <div class="works_recommend">
                                     <div class="index_recommend_img"><img
                                             src="template/pc/skin/images/index_recommend.png"></div>
-                                    <div class="index_recommend_tit">3,155</div>
+                                    <div class="index_recommend_tit">{$field.click}</div>
                                 </div>
                             </div>
                             <div class="index_work_label">
                                 <ul>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="works_second">
-                    <a href="#">
-                        <div class="works_content_all">
-                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
-                            <div class="works_content_title clearfix">
-                                <div class="works_content_tit1">20PC142</div>
-                                <div class="works_content_name">
-                                    <div class="name">Anne</div>
-                                    <div class="time">2020.06.17</div>
-                                </div>
-                                <div class="works_recommend">
-                                    <div class="index_recommend_img"><img
-                                            src="template/pc/skin/images/index_recommend.png"></div>
-                                    <div class="index_recommend_tit">3,155</div>
-                                </div>
-                            </div>
-                            <div class="index_work_label">
-                                <ul>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="works_third">
-                    <a href="#">
-                        <div class="works_content_all">
-                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
-                            <div class="works_content_title clearfix">
-                                <div class="works_content_tit1">20PC142</div>
-                                <div class="works_content_name">
-                                    <div class="name">Anne</div>
-                                    <div class="time">2020.06.17</div>
-                                </div>
-                                <div class="works_recommend">
-                                    <div class="index_recommend_img"><img
-                                            src="template/pc/skin/images/index_recommend.png"></div>
-                                    <div class="index_recommend_tit">3,155</div>
-                                </div>
-                            </div>
-                            <div class="index_work_label">
-                                <ul>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="works_fourth">
-                    <a href="#">
-                        <div class="works_content_all">
-                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
-                            <div class="works_content_title clearfix">
-                                <div class="works_content_tit1">20PC142</div>
-                                <div class="works_content_name">
-                                    <div class="name">Anne</div>
-                                    <div class="time">2020.06.17</div>
-                                </div>
-                                <div class="works_recommend">
-                                    <div class="index_recommend_img"><img
-                                            src="template/pc/skin/images/index_recommend.png"></div>
-                                    <div class="index_recommend_tit">3,155</div>
-                                </div>
-                            </div>
-                            <div class="index_work_label">
-                                <ul>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="works_fifth">
-                    <a href="#">
-                        <div class="works_content_all">
-                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
-                            <div class="works_content_title clearfix">
-                                <div class="works_content_tit1">20PC142</div>
-                                <div class="works_content_name">
-                                    <div class="name">Anne</div>
-                                    <div class="time">2020.06.17</div>
-                                </div>
-                                <div class="works_recommend">
-                                    <div class="index_recommend_img"><img
-                                            src="template/pc/skin/images/index_recommend.png"></div>
-                                    <div class="index_recommend_tit">3,155</div>
-                                </div>
-                            </div>
-                            <div class="index_work_label">
-                                <ul>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="works_sixth">
-                    <a href="#">
-                        <div class="works_content_all">
-                            <div class="works_content_img"><img src="template/pc/skin/images/index_works.jpg"></div>
-                            <div class="works_content_title clearfix">
-                                <div class="works_content_tit1">20PC142</div>
-                                <div class="works_content_name">
-                                    <div class="name">Anne</div>
-                                    <div class="time">2020.06.17</div>
-                                </div>
-                                <div class="works_recommend">
-                                    <div class="index_recommend_img"><img
-                                            src="template/pc/skin/images/index_recommend.png"></div>
-                                    <div class="index_recommend_tit">3,155</div>
-                                </div>
-                            </div>
-                            <div class="index_work_label">
-                                <ul>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>中国风</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
-                                    <li>标签</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='style' /}</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='category' /}</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='years' /}</li>
+                                    <li>{eyou:field aid='$field.aid' addfields='craft' /}</li>
+                                    {foreach $eyou.field.tag as $key=>$vo }
+                                    <li>{$vo}&nbsp;</li>
+                                    {/foreach}
                                 </ul>
                             </div>
                         </div>
@@ -366,8 +203,12 @@
                 </li>
             </ul>
         </div>
+        {/eyou:arclist}
     </div>
 </div>
+{/eyou:channelartlist}
+
+
 <div class="index_recommend clearfix">
     <div class="wrapper">
         <div class="trend_title_all">
