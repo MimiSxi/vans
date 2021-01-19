@@ -90,7 +90,14 @@ class Index extends Base
 
         return $this->fetch();
     }
-   
+
+    public function createArea($aid = '', $areaid = '', $is_order = '')
+    {
+        $time = intval(time());
+       
+        return "";
+    }
+
     public function welcome()
     {
         $globalConfig = tpCache('global');

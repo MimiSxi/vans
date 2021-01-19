@@ -153,7 +153,7 @@ class View extends Base
 
         $dename = Db::name('archives')->where('aid', $result['designername'])->column('title');
         $uu = session('users_id');
-        $workInfo = Db::name('productmanagement_content')->where('workid',$aid)->select();
+        $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
 
         $eyou = array(
             'type' => $arctypeInfo,
@@ -228,6 +228,23 @@ class View extends Base
             Db::name('my_favourite')->where('aid', $aid)->where('userid', $userid)->delete();
         }
         return $b;
+    }
+
+    public function orderDesign($aid = '', $areaid = '', $is_order = '')
+    {
+        $time = intval(time());
+        $data = Db::name('order_recommend')->where('aid', $aid)->where('area_id', $areaid)->find();
+        $a = $data;
+
+        if ($a == "") {
+            $data_save = ['aid' => $aid, 'area_id' => $areaid, 'user_id' => session('users_id'), 'is_order' => $is_order, 'create_time' => strtotime($time)];
+            Db::name('order_recommend')->insert($data_save);
+            $text = "success";
+        }
+        if ($a != "") {
+            $text = "failed";
+        }
+        return "";
     }
 
     /**
