@@ -1,0 +1,93 @@
+{include file="public/layout" /}
+<body class="bodystyle" style="overflow-y: scroll;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-chevron-left"></i></a>
+            <div class="subject">
+                <h3>新增区域</h3>
+                <h5></h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="post_form" action="{:url('Client/add')}" method="post">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>客户名称</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="" id="title" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">保持唯一性，不可重复</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>区域</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="" id="area_id" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">保持唯一性，不可重复</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>联系人</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="" id="contact_people" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">保持唯一性，不可重复</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>联系电话</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="" id="contact_phone" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">保持唯一性，不可重复</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>地址</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="" id="address" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">保持唯一性，不可重复</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>备注</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="" id="remarks" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">保持唯一性，不可重复</p>
+                </dd>
+            </dl>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    // 判断输入框是否为空
+    function checkForm(){
+        if($('input[name=title]').val() == ''){
+            layer.msg('区域名称不能为空！', {icon: 2,time: 1000});
+            return false;
+        }
+        layer_loading('正在处理');
+        $('#post_form').submit();
+    }
+</script>
+
+{include file="public/footer" /}
