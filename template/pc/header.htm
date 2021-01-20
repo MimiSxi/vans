@@ -4,27 +4,74 @@
 		yyui_menu('.yyui_menu1');
 	</script>
 	<ul class="yyui_menu1">
-		<li class="{eyou:eq name='$Request.param.m' value='Index'}hover{/eyou:eq}"><a
-				href="{eyou:global name='web_cmsurl' /}" title="首页">首页</a></li>
-		{eyou:channel type="top" row="60" id="field" currentstyle="hover"}
-		<li class="{$field.currentstyle}"><a href="{$field.typeurl}">{$field.typename}</a>
-			{eyou:notempty name="$field.children"}
-			<ul class="subnav">
-				{eyou:channel name="$field.children" row="100" id="field2"}
-				<li><a href="{$field2.typeurl}">{$field2.typename}</a>
-					{eyou:notempty name="$field2.children"}
-					<ul class="subnav2">
-						{eyou:channel name="$field2.children" row="100" id="field3"}
-						<li><a href="{$field3.typeurl}">{$field3.typename}</a></li>
-						{/eyou:channel}
+		<li class="none">
+			<a href="{eyou:global name='web_cmsurl' /}" title="首页">首页
+				<div class="top_meun_hover_img">
+					<img src="template/pc/skin/images/top_meun_hover.png">
+				</div>
+			</a>
+		</li>
+		<!--筛选版-->
+		{eyou:channel type="top" row="60" id="one" currentstyle="hover"}
+		<li><a href="{$one.typeurl}">{$one.typename}</a>
+			{eyou:screening id='field' typeid='$one.typeid' currentstyle='active' alltxt='off' }
+
+			<ul class="one clearfix">
+				{eyou:volist name='$field.list' id='vo'}
+				<li class="clearfix">
+					<a href="{$field2.typeurl}">
+						<div class="second_title">{$vo.title}</div>
+						<div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png"></div>
+					</a>
+					<ul class="two">
+						{eyou:volist name='$vo.dfvalue' id='val'}
+						<li>
+							<a href="javascript:jump('{$val.SelectUrl}');">{$val.name}</a>
+						</li>
+						{/eyou:volist}
 					</ul>
-					{/eyou:notempty}
 				</li>
-				{/eyou:channel}
+				{/eyou:volist}
 			</ul>
-			{/eyou:notempty}
+
+			{/eyou:screening}
 		</li>
 		{/eyou:channel}
+		<script>
+			function jump($var){
+				var obj = JSON.parse($var);
+				console.log(obj);
+				// self.location.href=$var;
+			}
+		</script>
+		<!--筛选版-->
+
+		<!-- todo 子栏目版-->
+<!--		{eyou:channel type="top" row="60" id="field" currentstyle="hover"}-->
+<!--		<li><a href="{$field.typeurl}">{$field.typename}</a>-->
+<!--			{eyou:notempty name="$field.children"}-->
+<!--			<ul class="one clearfix">-->
+<!--				{eyou:channel name="$field.children" row="100" id="field2"}-->
+<!--				<li class="clearfix">-->
+<!--					<a href="{$field2.typeurl}">-->
+<!--						<div class="second_title">{$field2.typename}111</div>-->
+<!--						<div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png"></div>-->
+<!--					</a>-->
+<!--					{eyou:notempty name="$field2.children"}-->
+<!--					<ul class="two">-->
+<!--						{eyou:channel name="$field2.children" row="100" id="field3"}-->
+<!--						<li><a href="{$field3.typeurl}">{$field3.typename}222</a></li>-->
+<!--						{/eyou:channel}-->
+<!--					</ul>-->
+<!--					{/eyou:notempty}-->
+<!--				</li>-->
+<!--				{/eyou:channel}-->
+<!--			</ul>-->
+<!--			{/eyou:notempty}-->
+<!--		</li>-->
+<!--		{/eyou:channel}-->
+		<!-- todo 子栏目版-->
+
 		<!--搜索start-->
 		<li style="position:relative;">
 			{eyou:searchform type='default'}
