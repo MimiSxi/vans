@@ -78,7 +78,12 @@ class Client extends Base
             }
             exit;
         }
+        $nowArr = Db::name('area_tab')->select();
 
+        foreach ($nowArr as $key => $val) {
+            $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '</option>';
+        }
+        $this->assign('area_html', $select_html);
         return $this->fetch();
     }
 
@@ -93,7 +98,6 @@ class Client extends Base
                 if (array_key_exists($post['id'], $this->client_system_id)) {
                     $this->error("不可更改系统预定义位置", url('Client/edit', array('id' => $post['id'])));
                 }
-
                 $data = array(
                     'id' => $post['id'],
                     'title' => trim($post['title']),
@@ -127,14 +131,21 @@ class Client extends Base
             $this->error('客户不存在，请联系管理员！');
             exit;
         }
-        $assign_data['field'] = $field;
 
-        // 区域
-        $ad_data = Db::name('ad')->where(array('pid' => $field['id']))->order('sort_order asc')->select();
-        foreach ($ad_data as $key => $val) {
-            $ad_data[$key]['litpic'] = handle_subdir_pic($val['litpic']); // 支持子目录
+        $abc = Db::name('client_tab')->where('id', $id)->find();
+        $selected = $abc['area_id'];
+        $nowArr = Db::name('area_tab')->select();
+
+        foreach ($nowArr as $key => $val) {
+            if ($val['id'] == $selected) {
+                $select_html .= '<option value="' . $val['id'] . '" selected>' . $val['title'] . '</option>';
+            } else {
+                $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '</option>';
+            }
         }
-        $assign_data['ad_data'] = $ad_data;
+        $this->assign('area_html', $select_html);
+
+        $assign_data['field'] = $field;
 
         $this->assign($assign_data);
         return $this->fetch();
