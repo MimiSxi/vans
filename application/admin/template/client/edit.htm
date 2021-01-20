@@ -28,7 +28,10 @@
                     <label for="title">区域</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" name="area_id" value="{$field.area_id}" id="area_id" class="input-txt">
+                    <select name="area_id" id="area_id">
+                        <option value="0">请选择区域…</option>
+                        {$area_html}
+                    </select>
                     <span class="err"></span>
                 </dd>
             </dl>

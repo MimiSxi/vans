@@ -244,7 +244,7 @@ class View extends Base
         if ($a != "") {
             $text = "failed";
         }
-        return "";
+        return $text;
     }
 
     /**
