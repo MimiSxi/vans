@@ -293,7 +293,7 @@ class Custom extends Base
                 'designername' => $post['designername'],
             );
 
-            if ($newData['typeid'] = 1){
+            if ($newData['typeid'] == 1){
                 $designer = M('archives')
                     ->where('aid',$newData['designername'])
                     ->find();
