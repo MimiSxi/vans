@@ -217,31 +217,29 @@ class View extends Base
     {
         $time = intval(time());
         $data = Db::name('my_favourite')->where('aid', $aid)->where('userid', $userid)->find();
-        $aaa = $data;
-        if ($aaa == "") {
+        if ($data == "") {
             $b = 1;
             $data_save = ['userid' => $userid, 'aid' => $aid, 'create_time' => $time];
             Db::name('my_favourite')->insert($data_save);
         }
-        if ($aaa != "") {
+        if ($data != "") {
             $b = 2;
             Db::name('my_favourite')->where('aid', $aid)->where('userid', $userid)->delete();
         }
         return $b;
     }
 
-    public function orderDesign($aid = '', $areaid = '', $is_order = '')
+    public function orderDesign($aid = '', $areaid = '', $is_order = '', $clientid = '')
     {
         $time = intval(time());
         $data = Db::name('order_recommend')->where('aid', $aid)->where('area_id', $areaid)->find();
-        $a = $data;
 
-        if ($a == "") {
-            $data_save = ['aid' => $aid, 'area_id' => $areaid, 'user_id' => session('users_id'), 'is_order' => $is_order, 'create_time' => strtotime($time)];
+        if ($data == "") {
+            $data_save = ['aid' => $aid, 'area_id' => $areaid, 'user_id' => session('users_id'), 'is_order' => $is_order, 'client_id' => $clientid, 'create_time' => strtotime($time)];
             Db::name('order_recommend')->insert($data_save);
             $text = "success";
         }
-        if ($a != "") {
+        if ($data != "") {
             $text = "failed";
         }
         return $text;

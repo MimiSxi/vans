@@ -81,6 +81,15 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'label' => 
+  array (
+    'name' => 'label',
+    'type' => 'set(\'标签1\',\'标签2\',\'标签3\',\'标签4\')',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'BriefIntroduction' => 
   array (
     'name' => 'BriefIntroduction',
@@ -168,6 +177,24 @@ return array (
     'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'ceshiceshi' => 
+  array (
+    'name' => 'ceshiceshi',
+    'type' => 'enum(\'测试1\',\'测试2\')',
+    'notnull' => false,
+    'default' => '测试1',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'abc' => 
+  array (
+    'name' => 'abc',
+    'type' => 'enum(\'1\',\'2\',\'3\')',
+    'notnull' => false,
+    'default' => '1',
     'primary' => false,
     'autoinc' => false,
   ),
