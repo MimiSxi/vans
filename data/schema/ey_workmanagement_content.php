@@ -171,4 +171,13 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'annex' => 
+  array (
+    'name' => 'annex',
+    'type' => 'varchar(200)',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
 );
