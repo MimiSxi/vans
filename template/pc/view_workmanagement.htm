@@ -191,6 +191,28 @@
                     </div>
                 </div>
                 <script type="text/javascript">jQuery(".slideTxtBox1").slide();</script>
+
+                <div class="design_enregistrer  clearfix">
+                    <button class="design_details_content_title fl" style=" margin-right: 41px;" id="js_confirm">下单</button>
+                    <script>
+                        $("#js_confirm").on("click",function(){
+                            alert("123");
+                            jConfirm('是否确认下单',function(){
+
+                            },"");
+                        });
+                    </script>
+
+                    <button class="design_details_content_title fl" id="js_confirm1">推荐</button>
+                    <script>
+                        $("#js_confirm1").on("click",function(){
+                            jConfirm('是否确认推荐',function(){
+
+                            },"");
+                        });
+                    </script>
+                </div>
+
                 <div class="design_enregistrer  clearfix">
                     <div class="design_details_content_title fl">记录：</div>
                     <div class="enregistrer"><a href="/?m=home&c=View&a=precommended&aid={$eyou.field.aid}">推荐记录</a></div>

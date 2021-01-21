@@ -478,6 +478,9 @@ class View extends Base
         $uu = session('users_id');
         $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
 
+        $orderInfo = Db::name('order_recommend')->where('aid', $aid)->where('is_order', 1)->find();
+        $areaInfo =Db::name('area_tab')->where('id', $orderInfo['area_id'])->find();
+
         $eyou = array(
             'type' => $arctypeInfo,
             'field' => $result,
@@ -485,6 +488,8 @@ class View extends Base
             'dename' => $dename[0],
             'favNum' => $favNum,
             'workInfo' => $workInfo,
+            'orderInfo' => $orderInfo,
+            'areaInfo' => $areaInfo,
         );
 
 
