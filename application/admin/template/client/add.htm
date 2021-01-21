@@ -16,7 +16,7 @@
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">客户名称</label>
+                    <label for="title"><em>*</em>客户名称</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="title" value="" id="title" class="input-txt">
@@ -25,7 +25,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">区域</label>
+                    <label for="title"><em>*</em>区域</label>
                 </dt>
                 <dd class="opt">
                     <select name="area_id" id="area_id">
@@ -37,7 +37,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">联系人</label>
+                    <label for="title"><em>*</em>联系人</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="contact_people" value="" id="contact_people" class="input-txt">
@@ -46,7 +46,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">联系电话</label>
+                    <label for="title"><em>*</em>联系电话</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="contact_phone" value="" id="contact_phone" class="input-txt">
@@ -55,7 +55,7 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
-                    <label for="title">地址</label>
+                    <label for="title"><em>*</em>地址</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" name="address" value="" id="address" class="input-txt">
@@ -79,7 +79,7 @@
     // 判断输入框是否为空
     function checkForm(){
         if($('input[name=title]').val() == ''){
-            layer.msg('区域名称不能为空！', {icon: 2,time: 1000});
+            layer.msg('客户名称不能为空！', {icon: 2,time: 1000});
             return false;
         }
         layer_loading('正在处理');
