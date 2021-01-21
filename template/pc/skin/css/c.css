@@ -317,6 +317,12 @@ input::-webkit-input-placeholder{
 .label_content_lable ul li{ float: left; margin-right: 20px; border-bottom: 1px dashed #aaaaaa; padding: 0px 36px 0px 22px; margin-bottom: 10px;}
 .label_content_lable ul li.lables{ padding: 0 0px;  color:#aaaaaa; width: 17%; border-bottom: 1px dashed #aaaaaa; font-size: 16px; margin-right: 0px;}
 .lablescontent{ width: 100%; padding: 10px}
+.label_content_lable .zt{ float: left;}
+.label_content_lable .zt_tit{ float: left; padding-left: 40px;}
+.label_content_lable ul li.lables{ width: 45%; margin-right: 20px;}
+.label_content_lable ul li.lables1{ width: 13%; float: left; padding: 0px 0px 0px 0px; margin-right: 0px;}
+.label_content_lable  .lables1_tit{width: 75%; word-break:break-all; border-bottom: none; float: left; padding: 0px 0px 0px 24px;}
+
 
 .design_details_content{ width: 100%; margin-top: 21%;}
 .design_details_content_all{ padding: 30px 30px;}
@@ -353,6 +359,17 @@ input::-webkit-input-placeholder{
 .recommander ul li{ float: left; width: 21%; margin: 0px 22px;}
 .recommander_img{ border: 1px solid #aaaaaa; height: 167px;}
 
+
+/* 下单记录css */
+.topp{line-height: 40px; font-size: 16px; font-weight: bold; padding-bottom: 30px;}
+.design_content_content .area{ width: 10%; }
+.design_content_content .order{ width: 30%;}
+.design_content_content .time1{ width: 20%;}
+.design_content_content .region{ width: 10%;}
+.design_content_content .specific{ width: 10%;}
+.design_content_content .city{ width: 10%;}
+.design_content_content ul li{ float: left;}
+.tiao{ width: 100%; border-bottom: 1px dashed #aaaaaa; font-weight: normal;  line-height: 40px;}
 
 /* 底部css */
 .foot{ background: #161616; height: 210px;margin-top: 70px; color: #ffffff;}
