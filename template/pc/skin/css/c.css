@@ -316,6 +316,7 @@ input::-webkit-input-placeholder{
 .label_content_lable{ width: 100%;}
 .label_content_lable ul li{ float: left; margin-right: 20px; border-bottom: 1px dashed #aaaaaa; padding: 0px 36px 0px 22px; margin-bottom: 10px;}
 .label_content_lable ul li.lables{ padding: 0 0px;  color:#aaaaaa; width: 17%; border-bottom: 1px dashed #aaaaaa; font-size: 16px; margin-right: 0px;}
+.label_content_lable ul li.lables b{ padding: 0 0px;  color:#000000; width: 17%; font-size: 16px; margin-right: 0px;}
 .lablescontent{ width: 100%; padding: 10px}
 .label_content_lable .zt{ float: left;}
 .label_content_lable .zt_tit{ float: left; padding-left: 40px;}

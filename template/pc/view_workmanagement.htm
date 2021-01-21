@@ -94,27 +94,18 @@
                 </div>
                 <div class="label_content_lable">
                     <ul>
-                        <li class="lables">风格：</li>
-                        <li>{$eyou.field.style}</li>
-                        <li class="lables">时间：</li>
-                        <li>{$eyou.field.add_time|MyDate='Y.m.d',###}</li>
-                        <li class="lables">设计师：</li>
-                        <li>{$eyou.dename}</li>
-                        <li class="lables">品类：</li>
-                        <li>{$eyou.field.category}</li>
-                        <li class="lables">工艺：</li>
-                        <li>{$eyou.field.craft}</li>
-                        <li class="lables">年份：</li>
-                        <li>{$eyou.field.years}</li>
-                        <li class="lables">标签：</li>
-                        <li>
-                            {foreach $eyou.field.tag as $key=>$vo }
-                            <a>{$vo}&nbsp;</a>
+                        <li class="lables">风格：<b>{$eyou.field.style}</b></li>
+                        <li class="lables">时间：<b>{$eyou.field.add_time|MyDate='Y.m.d',###}</b></li>
+                        <li class="lables">设计师：<b>{$eyou.dename}</b></li>
+                        <li class="lables">品类：<b>{$eyou.field.category}</b></li>
+                        <li class="lables">工艺：<b>{$eyou.field.craft}</b></li>
+                        <li class="lables">年份：<b>{$eyou.field.years}</b></li>
+                        <li class="lables">标签： {foreach $eyou.field.tag as $key=>$vo }
+                            <b>{$vo}&nbsp;</b>
                             {/foreach}
                         </li>
-                        <li class="lables">简述：</li>
-                        <li style="width: 64%; word-break:break-all; border-bottom: none;">
-                            {$eyou.field.BriefIntroduction}
+                        <li class="lables" style="width: 100%; word-break:break-all; border-bottom: none;">
+                            简述：<b>{$eyou.field.BriefIntroduction}</b>
                         </li>
                     </ul>
                 </div>
