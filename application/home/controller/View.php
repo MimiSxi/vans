@@ -190,8 +190,315 @@ class View extends Base
                 $this->error($msg);
             }
         }
-
         return $this->fetch(":{$viewfile}");
+    }
+
+    public function precommended($aid = '')
+    {
+        if (!is_numeric($aid) || strval(intval($aid)) !== strval($aid)) {
+            abort(404, '页面不存在');
+        }
+
+        $seo_pseudo = config('ey_config.seo_pseudo');
+        /*URL上参数的校验*/
+        if (3 == $seo_pseudo) {
+            if (stristr($this->request->url(), '&c=View&a=index&')) {
+                abort(404, '页面不存在');
+            }
+        } else if (1 == $seo_pseudo || (2 == $seo_pseudo && isMobile())) {
+            $seo_dynamic_format = config('ey_config.seo_dynamic_format');
+            if (1 == $seo_pseudo && 2 == $seo_dynamic_format && stristr($this->request->url(), '&c=View&a=index&')) {
+                abort(404, '页面不存在');
+            }
+        }
+        /*--end*/
+
+        $aid = intval($aid);
+        $field = 'a.typeid, a.channel, a.users_price, a.users_free, b.nid, b.ctl_name, c.level_id, c.level_name, c.level_value';
+        $archivesInfo = Db::name('archives')->field($field)
+            ->alias('a')
+            ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
+            ->join('__USERS_LEVEL__ c', 'a.arc_level_id = c.level_id', 'LEFT')
+            ->where([
+                'a.aid' => $aid,
+                'a.is_del' => 0,
+            ])
+            ->find();
+        if (empty($archivesInfo) || !in_array($archivesInfo['channel'], config('global.allow_release_channel'))) {
+            abort(404, '页面不存在');
+            // $this->redirect('/public/static/errpage/404.html', 301);
+        }
+        $this->nid = $archivesInfo['nid'];
+        $this->channel = $archivesInfo['channel'];
+        $this->modelName = $archivesInfo['ctl_name'];
+
+        $result = model($this->modelName)->getInfo($aid);
+        // 若是管理员则不受限制
+        if (session('?admin_id')) {
+            if ($result['arcrank'] == -1 && $result['users_id'] != session('users_id')) {
+                $this->success('待审核稿件，你没有权限阅读！');
+            }
+        }
+        // 外部链接跳转
+        if ($result['is_jump'] == 1) {
+            header('Location: ' . $result['jumplinks']);
+            exit;
+        }
+        /*--end*/
+
+        $tid = $result['typeid'];
+        $arctypeInfo = model('Arctype')->getInfo($tid);
+        /*自定义字段的数据格式处理*/
+        $arctypeInfo = $this->fieldLogic->getTableFieldList($arctypeInfo, config('global.arctype_channel_id'));
+        /*--end*/
+        if (!empty($arctypeInfo)) {
+
+            /*URL上参数的校验*/
+            if (3 == $seo_pseudo) {
+                $dirname = input('param.dirname/s');
+                $dirname2 = '';
+                $seo_rewrite_format = config('ey_config.seo_rewrite_format');
+                if (1 == $seo_rewrite_format) {
+                    $toptypeRow = model('Arctype')->getAllPid($tid);
+                    $toptypeinfo = current($toptypeRow);
+                    $dirname2 = $toptypeinfo['dirname'];
+                } else if (2 == $seo_rewrite_format) {
+                    $dirname2 = $arctypeInfo['dirname'];
+                } else if (3 == $seo_rewrite_format) {
+                    $dirname2 = $arctypeInfo['dirname'];
+                }
+                if ($dirname != $dirname2) {
+                    abort(404, '页面不存在');
+                }
+            }
+            /*--end*/
+
+            // 是否有子栏目，用于标记【全部】选中状态
+            $arctypeInfo['has_children'] = model('Arctype')->hasChildren($tid);
+            // 文档模板文件，不指定文档模板，默认以栏目设置的为主
+            empty($result['tempview']) && $result['tempview'] = $arctypeInfo['tempview'];
+
+            /*给没有type前缀的字段新增一个带前缀的字段，并赋予相同的值*/
+            foreach ($arctypeInfo as $key => $val) {
+                if (!preg_match('/^type/i', $key)) {
+                    $key_new = 'type' . $key;
+                    !array_key_exists($key_new, $arctypeInfo) && $arctypeInfo[$key_new] = $val;
+                }
+            }
+            /*--end*/
+        } else {
+            abort(404, '页面不存在');
+        }
+        $result = array_merge($arctypeInfo, $result);
+
+        // 文档链接
+        $result['arcurl'] = $result['pageurl'] = '';
+        if ($result['is_jump'] != 1) {
+            $result['arcurl'] = $result['pageurl'] = $this->request->url(true);
+        }
+        /*--end*/
+
+        // seo
+        $result['seo_title'] = set_arcseotitle($result['title'], $result['seo_title'], $result['typename']);
+        $result['seo_description'] = @msubstr(checkStrHtml($result['seo_description']), 0, config('global.arc_seo_description_length'), false);
+
+        /*支持子目录*/
+        $result['litpic'] = handle_subdir_pic($result['litpic']);
+        /*--end*/
+
+        $result = view_logic($aid, $this->channel, $result, true); // 模型对应逻辑
+
+        /*自定义字段的数据格式处理*/
+        $result = $this->fieldLogic->getChannelFieldList($result, $this->channel);
+        /*--end*/
+
+        $clickNum = Db::name('archives')->field('click')->where('aid', $aid)->find();
+        Db::name('archives')->where('aid', $aid)->update(['click' => $clickNum['click'] + 1]);
+
+        $favNum = Db::name('my_favourite')->where('aid', $aid)->count();
+
+        $tagInfo = Taglist::where('aid', $aid)->column('tag');
+        $result['tag'] = $tagInfo;
+
+        $dename = Db::name('archives')->where('aid', $result['designername'])->column('title');
+        $uu = session('users_id');
+        $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
+
+        $eyou = array(
+            'type' => $arctypeInfo,
+            'field' => $result,
+            'loginId' => $uu,
+            'dename' => $dename[0],
+            'favNum' => $favNum,
+            'workInfo' => $workInfo,
+        );
+
+
+        $this->eyou = array_merge($this->eyou, $eyou);
+        $this->assign('eyou', $this->eyou);
+
+        // 若需要用户权限则执行
+        if ($this->eyou['field']['arcrank'] > 0) {
+            $msg = action('api/Ajax/get_arcrank', ['aid' => $aid, 'vars' => 1]);
+            if (true !== $msg) {
+                $this->error($msg);
+            }
+        }
+        return $this->fetch(":recommended");
+    }
+
+    public function porder($aid = '')
+    {
+        if (!is_numeric($aid) || strval(intval($aid)) !== strval($aid)) {
+            abort(404, '页面不存在');
+        }
+
+        $seo_pseudo = config('ey_config.seo_pseudo');
+        /*URL上参数的校验*/
+        if (3 == $seo_pseudo) {
+            if (stristr($this->request->url(), '&c=View&a=index&')) {
+                abort(404, '页面不存在');
+            }
+        } else if (1 == $seo_pseudo || (2 == $seo_pseudo && isMobile())) {
+            $seo_dynamic_format = config('ey_config.seo_dynamic_format');
+            if (1 == $seo_pseudo && 2 == $seo_dynamic_format && stristr($this->request->url(), '&c=View&a=index&')) {
+                abort(404, '页面不存在');
+            }
+        }
+        /*--end*/
+
+        $aid = intval($aid);
+        $field = 'a.typeid, a.channel, a.users_price, a.users_free, b.nid, b.ctl_name, c.level_id, c.level_name, c.level_value';
+        $archivesInfo = Db::name('archives')->field($field)
+            ->alias('a')
+            ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
+            ->join('__USERS_LEVEL__ c', 'a.arc_level_id = c.level_id', 'LEFT')
+            ->where([
+                'a.aid' => $aid,
+                'a.is_del' => 0,
+            ])
+            ->find();
+        if (empty($archivesInfo) || !in_array($archivesInfo['channel'], config('global.allow_release_channel'))) {
+            abort(404, '页面不存在');
+            // $this->redirect('/public/static/errpage/404.html', 301);
+        }
+        $this->nid = $archivesInfo['nid'];
+        $this->channel = $archivesInfo['channel'];
+        $this->modelName = $archivesInfo['ctl_name'];
+
+        $result = model($this->modelName)->getInfo($aid);
+        // 若是管理员则不受限制
+        if (session('?admin_id')) {
+            if ($result['arcrank'] == -1 && $result['users_id'] != session('users_id')) {
+                $this->success('待审核稿件，你没有权限阅读！');
+            }
+        }
+        // 外部链接跳转
+        if ($result['is_jump'] == 1) {
+            header('Location: ' . $result['jumplinks']);
+            exit;
+        }
+        /*--end*/
+
+        $tid = $result['typeid'];
+        $arctypeInfo = model('Arctype')->getInfo($tid);
+        /*自定义字段的数据格式处理*/
+        $arctypeInfo = $this->fieldLogic->getTableFieldList($arctypeInfo, config('global.arctype_channel_id'));
+        /*--end*/
+        if (!empty($arctypeInfo)) {
+
+            /*URL上参数的校验*/
+            if (3 == $seo_pseudo) {
+                $dirname = input('param.dirname/s');
+                $dirname2 = '';
+                $seo_rewrite_format = config('ey_config.seo_rewrite_format');
+                if (1 == $seo_rewrite_format) {
+                    $toptypeRow = model('Arctype')->getAllPid($tid);
+                    $toptypeinfo = current($toptypeRow);
+                    $dirname2 = $toptypeinfo['dirname'];
+                } else if (2 == $seo_rewrite_format) {
+                    $dirname2 = $arctypeInfo['dirname'];
+                } else if (3 == $seo_rewrite_format) {
+                    $dirname2 = $arctypeInfo['dirname'];
+                }
+                if ($dirname != $dirname2) {
+                    abort(404, '页面不存在');
+                }
+            }
+            /*--end*/
+
+            // 是否有子栏目，用于标记【全部】选中状态
+            $arctypeInfo['has_children'] = model('Arctype')->hasChildren($tid);
+            // 文档模板文件，不指定文档模板，默认以栏目设置的为主
+            empty($result['tempview']) && $result['tempview'] = $arctypeInfo['tempview'];
+
+            /*给没有type前缀的字段新增一个带前缀的字段，并赋予相同的值*/
+            foreach ($arctypeInfo as $key => $val) {
+                if (!preg_match('/^type/i', $key)) {
+                    $key_new = 'type' . $key;
+                    !array_key_exists($key_new, $arctypeInfo) && $arctypeInfo[$key_new] = $val;
+                }
+            }
+            /*--end*/
+        } else {
+            abort(404, '页面不存在');
+        }
+        $result = array_merge($arctypeInfo, $result);
+
+        // 文档链接
+        $result['arcurl'] = $result['pageurl'] = '';
+        if ($result['is_jump'] != 1) {
+            $result['arcurl'] = $result['pageurl'] = $this->request->url(true);
+        }
+        /*--end*/
+
+        // seo
+        $result['seo_title'] = set_arcseotitle($result['title'], $result['seo_title'], $result['typename']);
+        $result['seo_description'] = @msubstr(checkStrHtml($result['seo_description']), 0, config('global.arc_seo_description_length'), false);
+
+        /*支持子目录*/
+        $result['litpic'] = handle_subdir_pic($result['litpic']);
+        /*--end*/
+
+        $result = view_logic($aid, $this->channel, $result, true); // 模型对应逻辑
+
+        /*自定义字段的数据格式处理*/
+        $result = $this->fieldLogic->getChannelFieldList($result, $this->channel);
+        /*--end*/
+
+        $clickNum = Db::name('archives')->field('click')->where('aid', $aid)->find();
+        Db::name('archives')->where('aid', $aid)->update(['click' => $clickNum['click'] + 1]);
+
+        $favNum = Db::name('my_favourite')->where('aid', $aid)->count();
+
+        $tagInfo = Taglist::where('aid', $aid)->column('tag');
+        $result['tag'] = $tagInfo;
+
+        $dename = Db::name('archives')->where('aid', $result['designername'])->column('title');
+        $uu = session('users_id');
+        $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
+
+        $eyou = array(
+            'type' => $arctypeInfo,
+            'field' => $result,
+            'loginId' => $uu,
+            'dename' => $dename[0],
+            'favNum' => $favNum,
+            'workInfo' => $workInfo,
+        );
+
+
+        $this->eyou = array_merge($this->eyou, $eyou);
+        $this->assign('eyou', $this->eyou);
+
+        // 若需要用户权限则执行
+        if ($this->eyou['field']['arcrank'] > 0) {
+            $msg = action('api/Ajax/get_arcrank', ['aid' => $aid, 'vars' => 1]);
+            if (true !== $msg) {
+                $this->error($msg);
+            }
+        }
+        return $this->fetch(":order");
     }
 
     public function downCount($aid = '')
