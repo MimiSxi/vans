@@ -78,7 +78,7 @@ class Client extends Base
             }
             exit;
         }
-        $nowArr = Db::name('area_tab')->select();
+        $nowArr = Db::name('area_tab')->where('status', 1)->select();
 
         foreach ($nowArr as $key => $val) {
             $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '-' . $val['country'] . '-' . $val['city'] . '-' . $val['counties'] . '</option>';
@@ -134,7 +134,7 @@ class Client extends Base
 
         $abc = Db::name('client_tab')->where('id', $id)->find();
         $selected = $abc['area_id'];
-        $nowArr = Db::name('area_tab')->select();
+        $nowArr = Db::name('area_tab')->where('status', 1)->select();
 
         foreach ($nowArr as $key => $val) {
             if ($val['id'] == $selected) {
