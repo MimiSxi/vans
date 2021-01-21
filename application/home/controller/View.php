@@ -324,6 +324,15 @@ class View extends Base
         $uu = session('users_id');
         $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
 
+        $reInfo = Db::name('order_recommend')->where('aid', $aid)->where('is_order', 2)->find();
+        $reareaInfo = Db::name('area_tab')->where('id', $reInfo['area_id'])->find();
+        $reTime = $reInfo['create_time'] != null ? date('Y-m-s h:i:s', $reInfo['create_time']) : null;
+        $reName = null;
+        if ($reInfo['is_order'] == 2) {
+            $bbb = Db::name('users')->where('users_id', session('users_id'))->find();
+            $reName = $bbb['username'];
+        }
+
         $eyou = array(
             'type' => $arctypeInfo,
             'field' => $result,
@@ -331,6 +340,9 @@ class View extends Base
             'dename' => $dename[0],
             'favNum' => $favNum,
             'workInfo' => $workInfo,
+            'reareaInfo' => $reareaInfo,
+            'reTime' => $reTime,
+            'reName' => $reName,
         );
 
 
@@ -479,7 +491,13 @@ class View extends Base
         $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
 
         $orderInfo = Db::name('order_recommend')->where('aid', $aid)->where('is_order', 1)->find();
-        $areaInfo =Db::name('area_tab')->where('id', $orderInfo['area_id'])->find();
+        $areaInfo = Db::name('area_tab')->where('id', $orderInfo['area_id'])->find();
+        $orderTime = $orderInfo['create_time'] != null ? date('Y-m-s h:i:s', $orderInfo['create_time']) : null;
+        $orderName = null;
+        if ($orderInfo['is_order'] == 1) {
+            $aaa = Db::name('users')->where('users_id', session('users_id'))->find();
+            $orderName = $aaa['username'];
+        }
 
         $eyou = array(
             'type' => $arctypeInfo,
@@ -488,8 +506,9 @@ class View extends Base
             'dename' => $dename[0],
             'favNum' => $favNum,
             'workInfo' => $workInfo,
-            'orderInfo' => $orderInfo,
             'areaInfo' => $areaInfo,
+            'orderTime' => $orderTime,
+            'orderName' => $orderName,
         );
 
 
@@ -541,18 +560,28 @@ class View extends Base
         return $b;
     }
 
-    public function orderDesign($aid = '', $areaid = '', $is_order = '', $clientid = '')
+    public function orderDesign($aid = '', $is_order = '', $clientid = 1)
     {
         $time = intval(time());
+        $aaa = Db::name('users')->where('users_id', session('users_id'))->find();
+        $areaid = $aaa['area_id'];
         $data = Db::name('order_recommend')->where('aid', $aid)->where('area_id', $areaid)->find();
 
         if ($data == "") {
-            $data_save = ['aid' => $aid, 'area_id' => $areaid, 'user_id' => session('users_id'), 'is_order' => $is_order, 'client_id' => $clientid, 'create_time' => strtotime($time)];
+            $data_save = ['aid' => $aid, 'area_id' => $areaid, 'user_id' => session('users_id'), 'is_order' => $is_order, 'client_id' => $clientid, 'create_time' => $time];
             Db::name('order_recommend')->insert($data_save);
-            $text = "success";
+            if ($is_order == 1) {
+                $text = "os";
+            } else {
+                $text = "rs";
+            }
         }
         if ($data != "") {
-            $text = "failed";
+            if ($is_order == 1) {
+                $text = "of";
+            } else {
+                $text = "rf";
+            }
         }
         return $text;
     }

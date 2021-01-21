@@ -193,24 +193,11 @@
                 <script type="text/javascript">jQuery(".slideTxtBox1").slide();</script>
 
                 <div class="design_enregistrer  clearfix">
-                    <button class="design_details_content_title fl" style=" margin-right: 41px;" id="js_confirm">下单</button>
-                    <script>
-                        $("#js_confirm").on("click",function(){
-                            alert("123");
-                            jConfirm('是否确认下单',function(){
-
-                            },"");
-                        });
-                    </script>
-
-                    <button class="design_details_content_title fl" id="js_confirm1">推荐</button>
-                    <script>
-                        $("#js_confirm1").on("click",function(){
-                            jConfirm('是否确认推荐',function(){
-
-                            },"");
-                        });
-                    </script>
+                    <button class="design_details_content_title fl" style=" margin-right: 41px;" id="js_confirm"
+                            onclick="orderDesign({$eyou.field.aid},1)">下单
+                    </button>
+                    <button class="design_details_content_title fl" id="js_confirm1" onclick="orderDesign({$eyou.field.aid},2)">推荐
+                    </button>
                 </div>
 
                 <div class="design_enregistrer  clearfix">
@@ -293,6 +280,28 @@
         });
     }
 
+    function orderDesign(a, b) {
+        $.ajax({
+            url: "{:url('app/home/view/orderDesign')}",
+            type: 'post',
+            dataType: 'json',
+            data: {"aid": a, "is_order": b},
+            success: function (res) {
+                if (res === "os") {
+                    alert("下单成功！您可在下单记录中查看");
+                }
+                if (res === "rs") {
+                    alert("推荐成功！您可在推荐记录中查看");
+                }
+                if (res === "of") {
+                    alert("下单失败！该设计已在您管辖的区域被下单，请核查！");
+                }
+                if (res === "rf") {
+                    alert("推荐失败！该设计已在您管辖的区域被推荐，请核查！");
+                }
+            }
+        });
+    }
 </script>
 {eyou:include file="footer.htm" /}
 </body>
