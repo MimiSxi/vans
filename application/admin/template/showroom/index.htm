@@ -19,7 +19,7 @@
                         <input type="submit" class="btn" value="搜索">
                     </div>
                     <!-- <div class="sDiv2">
-                        <input type="button" class="btn" value="重置" onClick="window.location.href='{:url('Area/index')}';">
+                        <input type="button" class="btn" value="重置" onClick="window.location.href='{:url('Showroom/index')}';">
                     </div> -->
                 </div>
             </form>
@@ -98,11 +98,11 @@
                                 <div class="w250 tc">
                                     <!-- <a class="btn blue" href="{:url('Other/index',array('pid'=>$vo['id']))}"><i class="fa fa-search"></i>查看</a> -->
                                     {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                    <a href="{:url('Area/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+                                    <a href="{:url('Showroom/edit',array('id'=>$vo['id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
                                     {/eq}
                                 {eq name='$main_lang' value='$admin_lang'}
                                     {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Area/del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                    <a class="btn red"  href="javascript:void(0);" data-url="{:url('Showroom/del')}" data-id="{$vo.id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
                                     {/eq}
                                 {/eq}
                                 </div>
@@ -124,7 +124,7 @@
                 </div>
                 {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
                 <div class="fbutton">
-                    <a onclick="batch_del(this, 'ids');" data-url="{:url('Area/del')}">
+                    <a onclick="batch_del(this, 'ids');" data-url="{:url('Showroom/del')}">
                         <div class="add" title="批量删除">
                             <span><i class="fa fa-close"></i>批量删除</span>
                         </div>
