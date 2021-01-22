@@ -87,7 +87,8 @@
                         </li>
                         <li>
                             {if $eyou.field.annex != null}
-                            <div class="fl"><a href={$eyou.field.annex} download onclick="downCount({$eyou.field.aid})"><img src="template/pc/skin/images/download.png"></a></div>
+                            <div class="fl"><a href={$eyou.field.annex} download onclick="downCount({$eyou.field.aid})"><img
+                                    src="template/pc/skin/images/download.png"></a></div>
                             {/if}
                         </li>
                     </ul>
@@ -139,7 +140,8 @@
                             <li class="clearfix">
                                 <div class="clearfix;">
                                     {eyou:arcview aid='$val.aid' id='vo'}
-                                    <div class="design_tabe_img"><img src={$vo.litpic} width="494px" height="348px"></div>
+                                    <div class="design_tabe_img"><img src={$vo.litpic} width="494px" height="348px">
+                                    </div>
                                     {/eyou:arcview}
                                     <div class="design_tabe_content">
                                         <div class="design_tabe_content_titleall clearfix">
@@ -196,25 +198,30 @@
                     <button class="design_details_content_title fl" style=" margin-right: 41px;" id="js_confirm"
                             onclick="orderDesign({$eyou.field.aid},1)">下单
                     </button>
-                    <button class="design_details_content_title fl" id="js_confirm1" onclick="orderDesign({$eyou.field.aid},2)">推荐
+                    <button class="design_details_content_title fl" id="js_confirm1"
+                            onclick="orderDesign({$eyou.field.aid},2)">推荐
                     </button>
                 </div>
 
                 <div class="design_enregistrer  clearfix">
                     <div class="design_details_content_title fl">记录：</div>
-                    <div class="enregistrer"><a href="/?m=home&c=View&a=precommended&aid={$eyou.field.aid}">推荐记录</a></div>
+                    <div class="enregistrer"><a href="/?m=home&c=View&a=precommended&aid={$eyou.field.aid}">推荐记录</a>
+                    </div>
                     <div class="enregistrer"><a href="/?m=home&c=View&a=porder&aid={$eyou.field.aid}">下单记录</a></div>
                 </div>
                 <div class="design_details_content_title fl">推荐：</div>
                 <div class="recommander clearfix">
                     <ul>
-                        {eyou:arclist typeid='1' row='4' titlelen='15' orderby ='aid desc' id='abc'}
+                        {eyou:arclist typeid='1' row='4' titlelen='15' orderby ='is_recom desc , sort_order asc'
+                        id='abc'}
+                        {if $abc.is_recom == 1}
                         <a href="/?m=home&c=View&a=index&aid={$abc.aid}">
-                        <li>
-                            <div class="recommander_img"><img src={$abc.litpic} width="237px" height="167px"></div>
-                            <div class="recommander_title">{$abc.title}</div>
-                        </li>
+                            <li>
+                                <div class="recommander_img"><img src={$abc.litpic} width="237px" height="167px"></div>
+                                <div class="recommander_title">{$abc.title}</div>
+                            </li>
                         </a>
+                        {/if}
                         {/eyou:arclist}
                     </ul>
                 </div>
@@ -223,8 +230,8 @@
     </div>
 </div>
 <script type="text/javascript">
-    $aaid=({$eyou.field.aid})
-    $uuid=({$eyou.loginId})
+    $aaid = ({$eyou.field.aid})
+    $uuid = ({$eyou.loginId})
     $.ajax({
         url: "{:url('app/home/view/checkFavourite')}",
         type: 'post',
