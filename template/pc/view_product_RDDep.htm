@@ -114,23 +114,14 @@
                 <div class="design_details_content_title fl">推荐：</div>
                 <div class="recommander clearfix">
                     <ul>
-                        <li>
-                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
-                            <div class="recommander_title">mingzi</div>
-                        </li>
-                        <li>
-                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
-                            <div class="recommander_title">mingzi</div>
-                        </li>
-                        <li>
-                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
-                            <div class="recommander_title">mingzi</div>
-                        </li>
-                        <li>
-                            <div class="recommander_img"><img src="images/recommander.jpg"></div>
-                            <div class="recommander_title">mingzi</div>
-                        </li>
-
+                        {eyou:arclist typeid='5' row='4' titlelen='15' orderby ='aid desc' id='abc'}
+                        <a href="/?m=home&c=View&a=index&aid={$abc.aid}">
+                            <li>
+                                <div class="recommander_img"><img src={$abc.litpic} width="237px" height="167px"></div>
+                                <div class="recommander_title">{$abc.title}</div>
+                            </li>
+                        </a>
+                        {/eyou:arclist}
                     </ul>
                 </div>
             </div>
