@@ -301,7 +301,7 @@ return  array(
                 'action'=>'index',
                 'url'=>'',
                 'target'=>'workspace',
-                'icon'=>'fa fa-list',
+                'icon'=>'fa fa-user',
                 'grade'=>1,
                 'is_menu'=>1,
                 'is_modules'=>1,
