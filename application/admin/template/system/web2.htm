@@ -135,23 +135,23 @@
                     <p class="notic">默认3600秒等于1小时</p>
                 </dd>
             </dl>
-            <dl class="row">
-                <dt class="tit">
-                    <label for="web_tpl_theme">前台模板风格</label>
-                </dt>
-                <dd class="opt">
-                    <select name="web_tpl_theme">
-                        <option value="">默认风格</option>
-                        {volist name='$tpl_theme_list' id='vo'}
-                            {notin name="$vo" value="default,plugins,weapp,pc,mobile"}
-                            <option value="{$vo}" {eq name='$config.web_tpl_theme' value='$vo'}selected{/eq}>{$vo}</option>
-                            {/notin}
-                        {/volist}
-                    </select>
-                    &nbsp;<a href="JavaScript:void(0);" onclick="click_to_eyou_1575506523('https://www.eyoucms.com/plus/view.php?aid=9976','如何防止网站模板文件被仿盗？')" style="font-size: 12px;padding-left: 38px;position:absolute;top: 18px;">查看教程？</a>
-                    <p class="notic">如果是静态URL模式，每次切换请重新生成所有静态页面！</p>
-                </dd>
-            </dl>
+<!--            <dl class="row">-->
+<!--                <dt class="tit">-->
+<!--                    <label for="web_tpl_theme">前台模板风格</label>-->
+<!--                </dt>-->
+<!--                <dd class="opt">-->
+<!--                    <select name="web_tpl_theme">-->
+<!--                        <option value="">默认风格</option>-->
+<!--                        {volist name='$tpl_theme_list' id='vo'}-->
+<!--                            {notin name="$vo" value="default,plugins,weapp,pc,mobile"}-->
+<!--                            <option value="{$vo}" {eq name='$config.web_tpl_theme' value='$vo'}selected{/eq}>{$vo}</option>-->
+<!--                            {/notin}-->
+<!--                        {/volist}-->
+<!--                    </select>-->
+<!--                    &nbsp;<a href="JavaScript:void(0);" onclick="click_to_eyou_1575506523('https://www.eyoucms.com/plus/view.php?aid=9976','如何防止网站模板文件被仿盗？')" style="font-size: 12px;padding-left: 38px;position:absolute;top: 18px;">查看教程？</a>-->
+<!--                    <p class="notic">如果是静态URL模式，每次切换请重新生成所有静态页面！</p>-->
+<!--                </dd>-->
+<!--            </dl>-->
 <!--             <dl class="row">
                 <dt class="tit">
                     <label for="site_url">启用绝对网址</label>
