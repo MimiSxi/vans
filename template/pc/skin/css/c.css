@@ -95,7 +95,7 @@ input::-webkit-input-placeholder{
 .works_content{ padding: 34px 0px 46px 0px; border-bottom: 2px solid #7f7f7f;}
 .works_content ul{}
 .works_content ul li{  width: 552px; margin: 10px 20px; float: left;}
-.works_content_all{border: 6px solid #ffffff; width: 554px;  }
+.works_content_all{border: 6px solid #ffffff; width: 554px; position: relative }
 .works_content_img{width: 552px; height: 389px; border: 1px solid #aaaaaa;}
 .works_content_title{ font-size:32px; color: #1c1c1c; font-weight: bold; padding: 10px 10px 10px 0px; }
 .works_content_tit1{ float: left;}
@@ -105,7 +105,7 @@ input::-webkit-input-placeholder{
 .works_recommend{ float: right;}
 .index_recommend_img{ float: left;}
 .index_recommend_tit{ float: left; font-size: 18px; font-weight: bold; margin:6px 0px 0px 10px; color: #161616;}
-.index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 535px; left: 19.7%;padding-bottom: 14px;}
+.index_work_label{ border: none; width: 554px; display: none; position: absolute; top: 450px; padding-bottom: 14px;z-index: 100; float: left;}
 .works_second .index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 535px; left: 50.65%; padding-bottom: 14px;}
 .works_third .index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 1020px; left: 19.7%; padding-bottom: 14px;}
 .works_fourth .index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 1020px; left: 50.65%; padding-bottom: 14px;}
