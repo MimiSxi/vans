@@ -118,7 +118,9 @@
         <div class="all_search_label">
             <ul>
                 {eyou:hotwords num="10" id="field"}
-                <li>{$field.word}</li>
+                <li>
+                    <a href={$field.url}>{$field.word}</a>
+                </li>
                 {/eyou:hotwords}
             </ul>
         </div>
