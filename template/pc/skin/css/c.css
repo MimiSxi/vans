@@ -124,7 +124,7 @@ input::-webkit-input-placeholder{
 .top{ width: 100%; position: relative;}
 /* 焦点图css */
 .slideBox{ width:100%; height:750px; overflow:hidden; position:relative;   }
-.slideBox .hd{ height:7px; overflow:hidden; position:absolute; left:34%; bottom:106px; z-index:1; }
+.slideBox .hd{ height:7px; overflow:hidden; position:absolute; left:50%; bottom:106px; z-index:1; transform: translate(-50%);}
 .slideBox .hd ul{ overflow:hidden; zoom:1; float:left;  }
 .slideBox .hd ul li{ float:left; margin-right:18px;  width:192px; height:7px; text-align:center; background:#fff; cursor:pointer; }
 .slideBox .hd ul li.on{ background:#303030;  height:16px; line-height: 16px;   }
