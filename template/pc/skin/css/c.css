@@ -334,7 +334,7 @@ input::-webkit-input-placeholder{
 .slideTxtBox1{ width:88%; margin-top: 20px; float: left;}
 .slideTxtBox1 .hd{  position:relative; }
 .slideTxtBox1 .hd ul{}
-.slideTxtBox1 .hd ul li{ width: 96px; line-height: 36px; background: #000000; color: #ffffff; font-size: 20px; font-weight: bold; text-align: center;
+.slideTxtBox1 .hd ul li{ width: 96px; line-height: 36px; background: #000000; color: #ffffff; font-weight: bold; text-align: center;
     float: left; margin: 0px 40px 20px 0px;}
 .slideTxtBox1 .hd ul li.on{ text-decoration: underline;}
 .slideTxtBox1 .bd{ margin-left: -148px; background: #ffffff; margin-bottom: 40px;}
