@@ -305,9 +305,9 @@
                     <table cellspacing="0" cellpadding="0" style="width: 100%">
                         <thead>
                         <tr>
-                            <th class="sign w40" axis="col0">
-                                <div class="tc">选择</div>
-                            </th>
+<!--                            <th class="sign w40" axis="col0">-->
+<!--                                <div class="tc">选择</div>-->
+<!--                            </th>-->
                             <th abbr="article_title" axis="col3" class="">
                                 <div style="text-align: left; padding-left: 10px;" class="">标题</div>
                             </th>
@@ -343,9 +343,9 @@
                         {else/}
                         {foreach name="product_join" item="vo" key="k" }
                         <tr>
-                            <td class="sign">
-                                <div class="tc w40"><input type="checkbox" name="ids[]" value="{$vo.aid}"></div>
-                            </td>
+<!--                            <td class="sign">-->
+<!--                                <div class="tc w40"><input type="checkbox" name="ids[]" value="{$vo.aid}"></div>-->
+<!--                            </td>-->
                             <td class="" style="width: 100%;">
                                 <div class="tl" style="padding-left: 10px;">
                                     {eq name="'Archives@edit'|is_check_access" value="1"}
@@ -417,39 +417,39 @@
             </div>
             <div class="footer-oper">
             <span class="ml15">
-                <input type="checkbox" onclick="javascript:$('input[name*=ids]').prop('checked',this.checked);">
+<!--                <input type="checkbox" onclick="javascript:$('input[name*=ids]').prop('checked',this.checked);">-->
             </span>
-                <div class="nav-dropup">
-                    <button class="layui-btn layui-btn-primary dropdown-bt">批量操作<i class="layui-icon layui-icon-up"></i>
-                    </button>
-                    <div class="dropdown-menus" style="display:none;">
-                        {eq name="'Archives@batch_attr'|is_check_access" value="1"}
-                        <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量新增属性');"
-                           data-url="{:url('Archives/batch_attr', ['opt'=>'add'])}"><i class="fa fa-plus"></i>新增属性</a>
-                        <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量删除属性');"
-                           data-url="{:url('Archives/batch_attr', ['opt'=>'del'])}"><i class="fa fa-close"></i>删除属性</a>
-                        <hr class="layui-bg-gray">
-                        {/eq}
-                        {eq name="'Archives@batch_copy'|is_check_access" value="1"}
-                        <a href="javascript:void(0);" onclick="func_batch_copy(this, 'ids');"
-                           data-url="{:url('Archives/batch_copy', array('typeid'=>$Request.param.typeid))}"><i
-                                class="fa fa-copy"></i>复制文档</a>
-                        {/eq}
-                        {eq name="'Archives@move'|is_check_access" value="1"}
-                        <a href="javascript:void(0);" onclick="func_move(this, 'ids');"
-                           data-url="{:url('Archives/move', array('typeid'=>$Request.param.typeid))}"><i
-                                class="fa fa-hdd-o"></i>移动文档</a>
-                        {/eq}
-                        {eq name="'Archives@del'|is_check_access" value="1"}
-                        <a href="javascript:void(0);" onclick="batch_del(this, 'ids');" data-url="{:url('Archives/del')}"
-                           data-deltype="pseudo"><i class="fa fa-close"></i>删除文档</a>
-                        {/eq}
-                        {eq name="'Archives@check'|is_check_access" value="1"}
-                        <a href="javascript:void(0);" onclick="batch_check(this, 'ids');"
-                           data-url="{:url('Archives/check')}"><i class="fa fa-check-square-o"></i>审核文档</a>
-                        {/eq}
-                    </div>
-                </div>
+<!--                <div class="nav-dropup">-->
+<!--                    <button class="layui-btn layui-btn-primary dropdown-bt">批量操作<i class="layui-icon layui-icon-up"></i>-->
+<!--                    </button>-->
+<!--                    <div class="dropdown-menus" style="display:none;">-->
+<!--                        {eq name="'Archives@batch_attr'|is_check_access" value="1"}-->
+<!--                        <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量新增属性');"-->
+<!--                           data-url="{:url('Archives/batch_attr', ['opt'=>'add'])}"><i class="fa fa-plus"></i>新增属性</a>-->
+<!--                        <a href="javascript:void(0);" onclick="batch_attr(this, 'ids', '批量删除属性');"-->
+<!--                           data-url="{:url('Archives/batch_attr', ['opt'=>'del'])}"><i class="fa fa-close"></i>删除属性</a>-->
+<!--                        <hr class="layui-bg-gray">-->
+<!--                        {/eq}-->
+<!--                        {eq name="'Archives@batch_copy'|is_check_access" value="1"}-->
+<!--                        <a href="javascript:void(0);" onclick="func_batch_copy(this, 'ids');"-->
+<!--                           data-url="{:url('Archives/batch_copy', array('typeid'=>$Request.param.typeid))}"><i-->
+<!--                                class="fa fa-copy"></i>复制文档</a>-->
+<!--                        {/eq}-->
+<!--                        {eq name="'Archives@move'|is_check_access" value="1"}-->
+<!--                        <a href="javascript:void(0);" onclick="func_move(this, 'ids');"-->
+<!--                           data-url="{:url('Archives/move', array('typeid'=>$Request.param.typeid))}"><i-->
+<!--                                class="fa fa-hdd-o"></i>移动文档</a>-->
+<!--                        {/eq}-->
+<!--                        {eq name="'Archives@del'|is_check_access" value="1"}-->
+<!--                        <a href="javascript:void(0);" onclick="batch_del(this, 'ids');" data-url="{:url('Archives/del')}"-->
+<!--                           data-deltype="pseudo"><i class="fa fa-close"></i>删除文档</a>-->
+<!--                        {/eq}-->
+<!--                        {eq name="'Archives@check'|is_check_access" value="1"}-->
+<!--                        <a href="javascript:void(0);" onclick="batch_check(this, 'ids');"-->
+<!--                           data-url="{:url('Archives/check')}"><i class="fa fa-check-square-o"></i>审核文档</a>-->
+<!--                        {/eq}-->
+<!--                    </div>-->
+<!--                </div>-->
                 {eq name="'RecycleBin@archives_index'|is_check_access" value="1"}
                 <a href="{:url('RecycleBin/archives_index')}" class="layui-btn layui-btn-primary" title="回收站"><i
                         class="layui-icon layui-icon-delete"></i>回收站</a>
