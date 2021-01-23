@@ -24,12 +24,12 @@
         <h2>您的浏览器版本太低，请升级您的浏览器</h2>
     </div>
     <![endif]-->
-<!--    {eyou:static file="skin/js/jquery.min.js" /}-->
-<!--    {eyou:static file="skin/js/amazeui.min.js" /}-->
-<!--    {eyou:static file="skin/js/app.js" /}-->
-<!--    {eyou:static file="skin/js/jquery.easing.1.3.js" /}-->
-<!--    {eyou:static file="skin/js/jquery.skitter.js" /}-->
-<!--    {eyou:static file="skin/js/jquery.limarquee.js" /}-->
+    <!--    {eyou:static file="skin/js/jquery.min.js" /}-->
+    <!--    {eyou:static file="skin/js/amazeui.min.js" /}-->
+    <!--    {eyou:static file="skin/js/app.js" /}-->
+    <!--    {eyou:static file="skin/js/jquery.easing.1.3.js" /}-->
+    <!--    {eyou:static file="skin/js/jquery.skitter.js" /}-->
+    <!--    {eyou:static file="skin/js/jquery.limarquee.js" /}-->
 </head>
 
 <body>
@@ -54,7 +54,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+    jQuery(".slideBox").slide({mainCell: ".bd ul", autoPlay: true});
 </script>
 
 <!--<div id="slideBox" class="slideBox" style="position: relative; top: -21px;">-->
@@ -157,18 +157,18 @@
                 </div>
             </a>
             {/eyou:arclist}
-            {eyou:arclist titlelen='20' row='4' infolen='50'}
             <div class="trend_content_right">
-                    <ul>
-                        <a href="{$field.arcurl}" target="_blank">
+                <ul>
+                    {eyou:arclist titlelen='20' row='4' infolen='50'}
+                    <a href="{$field.arcurl}" target="_blank">
                         <li>
                             <div class="trend_right_img"><img src="{$field.litpic}" width="273px" height="192px"></div>
                             <div class="trend_right_title">{$field.title}</div>
                         </li>
-                        </a>
-                    </ul>
+                    </a>
+                    {/eyou:arclist}
+                </ul>
             </div>
-            {/eyou:arclist}
         </div>
     </div>
 </div>
@@ -196,7 +196,8 @@
                 <li>
                     <a href="{$field.arcurl}">
                         <div class="works_content_all">
-                            <div class="works_content_img"><img src="{$field.litpic}" width="552px" height="389px"></div>
+                            <div class="works_content_img"><img src="{$field.litpic}" width="552px" height="389px">
+                            </div>
                             <div class="works_content_title clearfix">
                                 <div class="works_content_tit1">{$field.title}</div>
                                 <div class="works_content_name">
@@ -248,23 +249,24 @@
         <div class="recommend_all clearfix">
             <ul>
                 {eyou:arclist typeid='1' row='9' titlelen='15' orderby ='is_recom desc , sort_order asc' id='abc'}
-                    {if $abc.is_recom == 1}
-                        <li>
-                            <a href="/?m=home&c=View&a=index&aid={$abc.aid}">
-                                <div class="location1">
-                                    <div class="recommend_image border_right_none"><img src={$abc.litpic} width="397px" height="281px"></div>
-                                    <div class="recommen_tit_all">
-                                        <div class="recommend_title">{$abc.title}</div>
-                                        <div class="recommend_on">
-                                            <div class="recommend_on_img"><img
-                                                    src="template/pc/skin/images/recommend_img_on.png"></div>
-                                            <div class="recommend_on_tit">{$abc.click}</div>
-                                        </div>
-                                    </div>
+                {if $abc.is_recom == 1}
+                <li>
+                    <a href="/?m=home&c=View&a=index&aid={$abc.aid}">
+                        <div class="location1">
+                            <div class="recommend_image border_right_none"><img src={$abc.litpic} width="397px"
+                                                                                height="281px"></div>
+                            <div class="recommen_tit_all">
+                                <div class="recommend_title">{$abc.title}</div>
+                                <div class="recommend_on">
+                                    <div class="recommend_on_img"><img
+                                            src="template/pc/skin/images/recommend_img_on.png"></div>
+                                    <div class="recommend_on_tit">{$abc.click}</div>
                                 </div>
-                            </a>
-                        </li>
-                    {/if}
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {/if}
                 {/eyou:arclist}
             </ul>
         </div>
