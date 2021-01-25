@@ -54,14 +54,20 @@
     <div class="wrapper" style="background: #ffffff;">
         <div class="label">
             <div id="slideBox1" class="slideBox1" style="float: left">
-                <div class="bd">
-                    {eyou:diyfield type='imgs' id='bigPicture' name='$eyou.field.bigPicture'}
-                    <img src='{$bigPicture.image_url}'/>
-                    {/eyou:diyfield}
+                <div class="hd">
+                    <ul>
+                        {eyou:diyfield type='imgs' id='bigPicture' name='$eyou.field.bigPicture'}
+                        <li></li>
+                        {/eyou:diyfield}
+                    </ul>
                 </div>
-                <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
-                <a class="prev" href="javascript:void(0)"></a>
-                <a class="next" href="javascript:void(0)"></a>
+                <div class="bd">
+                    <ul>
+                        {eyou:diyfield type='imgs' id='bigPicture' name='$eyou.field.bigPicture'}
+                        <img src='{$bigPicture.image_url}'/>
+                        {/eyou:diyfield}
+                    </ul>
+                </div>
             </div>
             <script type="text/javascript">
                 jQuery(".slideBox1").slide({mainCell: ".bd ul", autoPlay: true});
