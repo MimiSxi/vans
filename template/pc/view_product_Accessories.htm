@@ -46,11 +46,32 @@
 <div class="clearfix" style="position: relative;">
     <div class="wrapper" style="background: #ffffff;">
         <div class="label">
-            <div id="slideBox1" class="slideBox1" style="float: left">
+            <div id="slideBox" class="slideBox1" style="float: left">
+                <div class="hd">
+                    <ul>
+                        {eyou:notempty name='$eyou.field.image_list' /}
+                        {eyou:volist name="$eyou.field.image_list"}
+                        <li></li>
+                        {/eyou:volist}
+                        {eyou:else /}
+                        <li></li>
+                        {/eyou:notempty}
+                    </ul>
+                </div>
                 <div class="bd">
-                    {eyou:diyfield type='imgs' id='bigPicture' name='$eyou.field.bigPicture'}
-                    <img src='{$bigPicture.image_url}'/>
-                    {/eyou:diyfield}
+                    <ul>
+                        {eyou:notempty name='$eyou.field.image_list' /}
+                        {eyou:volist name="$eyou.field.image_list"}
+                        <a href="{$field.image_url}" rel="zoom1" rev="{$field.image_url}">
+                            <div class="item bg-white"><img src="{$field.image_url}" class="img-responsive" alt="{$field.intro}"/></div>
+                        </a>
+                        {/eyou:volist}
+                        {eyou:else /}
+                        <a href="{$eyou.field.litpic}" rel="zoom1" rev="{$eyou.field.litpic}">
+                            <div class="item bg-white"><img src="{$eyou.field.litpic}" class="img-responsive" alt="{$eyou.field.title}"/></div>
+                        </a>
+                        {/eyou:notempty}
+                    </ul>
                 </div>
             </div>
             <script type="text/javascript">
