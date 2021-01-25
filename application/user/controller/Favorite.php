@@ -6,12 +6,13 @@ use think\Db;
 use think\Page;
 
 /**
- * 我的下载
+ * 我的订阅
  */
-class Download extends Base
+class Favorite extends Base
 {
     public function _initialize() {
         parent::_initialize();
+
     }
 
     public function index()
@@ -50,6 +51,6 @@ class Download extends Base
         $this->assign('page',$show);// 赋值分页输出
         $this->assign('list',$list);// 赋值数据集
         $this->assign('pager',$pager);// 赋值分页对象
-        return $this->fetch('users/download_index');
+        return $this->fetch('users/favorite_index');
     }
 }
