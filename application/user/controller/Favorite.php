@@ -21,11 +21,11 @@ class Favorite extends Base
 
         $condition = array();
 
-        $condition['users_id'] = $this->users_id;
+        $condition['userid'] = $this->users_id;
 
-        $count = Db::name('download_log')->where($condition)->count('log_id');// 查询满足要求的总记录数
+        $count = Db::name('my_favourite')->where($condition)->count('id');// 查询满足要求的总记录数
         $Page = $pager = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
-        $list = Db::name('download_log')->where($condition)->group('aid')->order('log_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = Db::name('my_favourite')->where($condition)->group('aid')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 
         $aids = [];
         foreach ($list as $key => $val) {

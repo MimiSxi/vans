@@ -525,10 +525,21 @@ class View extends Base
         return $this->fetch(":order");
     }
 
-    public function downCount($aid = '')
+    public function downCount($aid = '', $userid = '')
     {
         $downNum = Db::name('archives')->field('downcount')->where('aid', $aid)->find();
         Db::name('archives')->where('aid', $aid)->update(['downcount' => $downNum['downcount'] + 1]);
+        $time = intval(time());
+        $data = ['users_id' => $userid, 'aid' => $aid];
+        $data_save = ['users_id' => $userid, 'aid' => $aid, 'add_time' => $time];
+        $data_update = ['users_id' => $userid, 'aid' => $aid, 'update_time' => $time];
+
+        if (M('download_log')->where($data)->count() > 0) {
+            Db::name('download_log')->where($data)->update($data_update);
+        } else {
+            Db::name('download_log')->insert($data_save);
+        }
+
         return $downNum['downcount'] + 1;
     }
 

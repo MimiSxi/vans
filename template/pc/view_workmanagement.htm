@@ -253,7 +253,7 @@
             url: "{:url('app/home/view/downCount')}",
             type: 'post',
             dataType: 'json',
-            data: {"aid": obj},
+            data: {"aid": obj, "userid": $uuid},
             success: function (result) {
                 $("#downdown").html("下载数量：" + result);
             }
