@@ -198,15 +198,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'isRecommend' => 
-  array (
-    'name' => 'isRecommend',
-    'type' => 'tinyint(1)',
-    'notnull' => false,
-    'default' => '1',
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'modifier' => 
   array (
     'name' => 'modifier',
