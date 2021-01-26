@@ -36,7 +36,7 @@ class Area extends Base
         $areaM = M('area_tab');
         $count = $areaM->alias('a')->where($condition)->count();// 查询满足要求的总记录数
         $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
-        $list = $areaM->alias('a')->where($condition)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $list = $areaM->alias('a')->where($condition)->order('sort_order asc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
 
         // 获取指定位置的区域数目
         $cid = get_arr_column($list, 'id');
@@ -77,6 +77,7 @@ class Area extends Base
             $data = array(
                 'title' => trim($post['title']),
                 'remarks' => trim($post['remarks']),
+                'sort_order' => trim($post['order']),
                 'create_people' => session('admin_id'),
                 'create_time' => getTime(),
                 'change_time' => getTime(),
@@ -120,6 +121,7 @@ class Area extends Base
                     'id' => $post['id'],
                     'title' => trim($post['title']),
                     'remarks' => trim($post['remarks']),
+                    'sort_order' => trim($post['order']),
                     'change_people' => session('admin_id'),
                     'change_time' => getTime(),
                 );

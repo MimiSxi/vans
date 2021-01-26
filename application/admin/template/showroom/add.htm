@@ -32,15 +32,18 @@
                     <span class="err"></span>
                 </dd>
             </dl>
+            <!-- 多行文本框 start -->
             <dl class="row">
                 <dt class="tit">
-                    <label for="remarks">备注</label>
+                    <label>备注</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" name="remarks" value="" id="remarks" class="input-txt">
+                    <textarea rows="5" cols="60" id="remarks" name="remarks" style="height:60px;"></textarea>
                     <span class="err"></span>
+                    <p class="notic">{$vo.remark|default=''}</p>
                 </dd>
             </dl>
+            <!-- 多行文本框 end -->
             <div class="bot"><a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
         </div>
     </form>

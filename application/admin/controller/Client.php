@@ -81,7 +81,7 @@ class Client extends Base
         $nowArr = Db::name('area_tab')->where('status', 1)->select();
 
         foreach ($nowArr as $key => $val) {
-            $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '-' . $val['country'] . '-' . $val['city'] . '-' . $val['counties'] . '</option>';
+            $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '</option>';
         }
         $this->assign('area_html', $select_html);
         return $this->fetch();
@@ -138,9 +138,9 @@ class Client extends Base
 
         foreach ($nowArr as $key => $val) {
             if ($val['id'] == $selected) {
-                $select_html .= '<option value="' . $val['id'] . '" selected>' . $val['title'] . '-' . $val['country'] . '-' . $val['city'] . '-' . $val['counties'] . '</option>';
+                $select_html .= '<option value="' . $val['id'] . '" selected>' . $val['title'] . '</option>';
             } else {
-                $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '-' . $val['country'] . '-' . $val['city'] . '-' . $val['counties'] . '</option>';
+                $select_html .= '<option value="' . $val['id'] . '">' . $val['title'] . '</option>';
             }
         }
         $this->assign('area_html', $select_html);
