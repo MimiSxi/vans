@@ -210,10 +210,61 @@
                 </div>
 
                 <div class="design_enregistrer  clearfix">
-                    <div class="design_details_content_title fl">记录：</div>
-                    <div class="enregistrer"><a href="/?m=home&c=View&a=precommended&aid={$eyou.field.aid}">推荐记录</a>
+                    <div class="design_details_content_title" style="float: left; margin:20px 40px 20px 0px;">记录：</div>
+                    <div class="slideTxtBox1">
+                        <div class="hd clearfix">
+                            <ul>
+                                <li onclick="showOR(1)">
+                                    推荐记录
+                                </li>
+                                <li onclick="showOR(2)">
+                                    下单记录
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="oar" style="display: block">
+                            <div id="order" style="display: none" class="design_details_content_all">
+                                <div class="design_details_content_title" style="width: 136px;">下单记录：</div>
+
+                                <div class="design_content_content" style=" margin-bottom: 20px;">
+                                    <div class="topp clearfix">
+                                        <ul>
+                                            <li class="area">区域</li>
+                                            <li class="order">下单人</li>
+                                            <li class="time1">下单时间</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tiao clearfix">
+                                        <ul>
+                                            <li class="area">{$eyou.orderInfo.title}</li>
+                                            <li class="order">{$eyou.orderInfo.username}</li>
+                                            <li class="time1">{$eyou.orderInfo.oT}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="recom" style="display: none" class="design_details_content_all">
+                                <div class="design_details_content_title" style="width: 136px;">推荐记录：</div>
+                                <div class="design_content_content" style=" margin-bottom: 20px;">
+                                    <div class="topp clearfix">
+                                        <ul>
+                                            <li class="area">区域</li>
+                                            <li class="order">推荐人</li>
+                                            <li class="time1">推荐时间</li>
+                                        </ul>
+                                    </div>
+                                    <div class="tiao clearfix">
+                                        <ul>
+                                            <li class="area">{$eyou.recInfo.title}</li>
+                                            <li class="order">{$eyou.recInfo.username}</li>
+                                            <li class="time1">{$eyou.recInfo.rT}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="enregistrer"><a href="/?m=home&c=View&a=porder&aid={$eyou.field.aid}">下单记录</a></div>
+
                 </div>
                 <div class="design_details_content_title fl">推荐：</div>
                 <div class="recommander clearfix">
@@ -253,6 +304,27 @@
             }
         }
     });
+
+    function showOR(n) {
+        if (n === 1) {
+            if (document.getElementById('recom').style.display === "block") {
+                document.getElementById('order').style.display = "none"
+                document.getElementById('recom').style.display = "none";
+            } else {
+                document.getElementById('order').style.display = "none"
+                document.getElementById('recom').style.display = "block";
+            }
+        }
+        if (n === 2) {
+            if (document.getElementById('order').style.display === "block") {
+                document.getElementById('recom').style.display = "none"
+                document.getElementById('order').style.display = "none";
+            } else {
+                document.getElementById('order').style.display = "block"
+                document.getElementById('recom').style.display = "none";
+            }
+        }
+    }
 
     function downCount(obj) {
         $.ajax({

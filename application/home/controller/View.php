@@ -155,6 +155,28 @@ class View extends Base
         $uu = session('users_id');
         $workInfo = Db::name('productmanagement_content')->where('workid', $aid)->select();
 
+        $orderInfo = Db::name('order_recommend')
+            ->alias('a')
+            ->where('a.aid', $aid)
+            ->join('area_tab b', 'b.id = a.area_id')
+            ->join('users c', 'c.users_id = a.user_id')
+            ->where('a.is_order', 1)
+            ->find();
+
+        $oT = $orderInfo['create_time'] != null ? date('Y-m-s h:i:s', $orderInfo['create_time']) : null;
+        $orderInfo['oT'] = $oT;
+
+        $recInfo = Db::name('order_recommend')
+            ->alias('a')
+            ->where('a.aid', $aid)
+            ->join('area_tab b', 'b.id = a.area_id')
+            ->join('users c', 'c.users_id = a.user_id')
+            ->where('a.is_order', 2)
+            ->find();
+
+        $rT = $recInfo['create_time'] != null ? date('Y-m-s h:i:s', $recInfo['create_time']) : null;
+        $recInfo['rT'] = $rT;
+
         $eyou = array(
             'type' => $arctypeInfo,
             'field' => $result,
@@ -162,6 +184,8 @@ class View extends Base
             'dename' => $dename[0],
             'favNum' => $favNum,
             'workInfo' => $workInfo,
+            'orderInfo' => $orderInfo,
+            'recInfo' => $recInfo,
         );
 
 
