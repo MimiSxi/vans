@@ -41,7 +41,7 @@
                 <div class="oneleft ">
                     <ul>
                         <li>
-                            <a href="?m=user&c=UsersRelease&a=article_add"><i></i>资料上传</a>
+                            <a href="?m=user&c=UsersRelease&a=release_centre&list=1"><i></i>上传记录</a>
                         </li>
                         <li>
                             <a href="?m=user&c=Download&a=index"><i></i>下载记录</a>
@@ -60,92 +60,31 @@
                         <!--                            {eyou:include file="/public/static/template/users/users_leftmenu.htm" /}-->
                     </ul>
                 </div>
-                                    <table class="table" style="word-break:break-all;word-wrap:break-word; ">
-                                        <thead>
-                                            <tr>
-                                                <th class="col-sm-1">ID</th>
-                                                <th class="col-sm-5 tl">文章标题</th>
-                                                <th class="col-sm-2">所属栏目</th>
-                                                <th class="col-sm-2">上传时间</th>
-                                                <th class="col-sm-1">审核状态</th>
-                                                <th class="col-sm-2">操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {empty name="$eyou.field.data"}
-                                            <tr class="trSelected">
-                                                <td class="no-data" align="center" axis="col0" colspan="50">
-                                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
-                                                </td>
-                                            </tr>
-                                        {else/}
-                                            {eyou:volist name="$eyou.field.data" id="vo"}    
-                                            <tr>
-                                                <td class="col-sm-1 col-xs-1" >
-                                                    <input type="checkbox" name="aids[]" value="{$vo.aid}">
-                                                </td>
-
-                                                <td class="col-sm-5 col-xs-8 txt tl">
-                                                    <a  href="javascript:void(0);" data-arurl="{$vo.arcurl}" onclick="ArcUrl(this);">
-                                                        {$vo.title}
-                                                    </a>
-                                                </td>
-
-                                                <td class="col-sm-2 col-xs-3 ">
-                                                    {$vo.typename}
-                                                </td>
-
-                                                <td class="col-sm-1 td-state">
-                                                    {$vo.add_time|date='Y-m-d H:i:s',###}
-                                                </td>
-
-                                                <td class="col-sm-2 td-state">
-                                                    {$home_article_arcrank[$vo['arcrank']]|default=''}
-                                                </td>
-
-                                                <td class="col-sm-2 crud">
-                                                    <a href="javascript:void(0);" style="margin-right: 0;" data-editurl="{$vo.editurl}" onclick="EditData(this);">
-                                                        编辑
-                                                    </a>
-                                                    <a href="javascript:void(0);" style="margin-right: 0;" data-id='{$vo.aid}' data-url="{$eyou.field.delurl}" onclick="DelData(this);">
-                                                        删除
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr class="wap">
-                                                <td class="col-xs-1" ></td>
-                                                <td class="col-xs-8 td-state-m">
-                                                    {$home_article_arcrank[$vo['arcrank']]|default=''}
-                                                    <br/>
-                                                    {$vo.add_time|date='Y-m-d H:i:s',###}
-                                                </td>
-                                                <td class="col-xs-3 tc">
-                                                    <a href="javascript:void(0);" data-editurl="{$vo.editurl}" onclick="EditData(this);">
-                                                        编辑
-                                                    </a>
-                                                    <a href="javascript:void(0);" data-id='{$vo.aid}' data-url="{$eyou.field.delurl}" onclick="DelData(this);">
-                                                        删除
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            {/eyou:volist}
-                                        {/empty}
-                                            <tr class="del">
-                                                <td><input type="checkbox" onclick="javascript:$('input[name*=aids]').prop('checked',this.checked);"></td>
-                                                <td class="dels" >
-                                                    <a href="javascript:void(0);" onclick="BatchDelData(this, 'aids');" data-url="{$eyou.field.delurl}">
-                                                        <i class="glyphicon glyphicon-remove"></i>批量删除
-                                                    </a> 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table> 
+                <div class="oneright">
+                    <div class="oneright_title">我的下载</div>
+                    <div class="oneright_content ">
+                        {empty name="$list"}
+                        <ul>
+                            <li class="clearfix">
+                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                            </li>
+                        </ul>
+                        {else/}
+                        {eyou:volist name="$list" id="vo"}
+                        <ul>
+                            <li class="clearfix">
+                                <div class="oneright_content_img"><img src="{$archivesList[$vo['aid']]['litpic']}" width="200px" height="200px"></div>
+                                <div class="oneright_content_tit_all">
+                                    <a href="{$archivesList[$vo['aid']]['arcurl']|default='javascript:void(0);'}" style="color: #0C0C0C">
+                                        <div class="tit1">{$archivesList[$vo['aid']]['title']|default='<font color="red">该文档已被删除！</font>'}</div>
+                                        <div>下载时间：{$vo.add_time|date='Y-m-d H:i',###}</div>
+                                    </a>
                                 </div>
-                            </div>
-                            <div style="text-align: center;">{$page}</div>
-                        </div>
+                            </li>
+                        </ul>
+                        {/eyou:volist}
+                        {/empty}
                     </div>
-                <!-- END -->
                 </div>
             </div>
         </div>
