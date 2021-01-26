@@ -111,6 +111,18 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
+                    <label for="area_id"><em>*</em>所属地区</label>
+                </dt>
+                <dd class="opt">
+                    <select name="area_id" id="area_id">
+                        <option value="0">请选择所属地区…</option>
+                        {$area_html}
+                    </select>
+                    <span class="err"></span>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
                     <label for="reg_time">注册日期</label>
                 </dt>
                 <dd class="opt">

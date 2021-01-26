@@ -68,9 +68,6 @@ class Area extends Base
 
             $map = array(
                 'title' => trim($post['title']),
-                'country' => trim($post['country']),
-                'city' => trim($post['city']),
-                'counties' => trim($post['counties']),
             );
             if (M('area_tab')->where($map)->count() > 0) {
                 $this->error('该区域名称已存在，请检查', url('Area/index'));
@@ -79,9 +76,6 @@ class Area extends Base
             // 添加区域位置表信息
             $data = array(
                 'title' => trim($post['title']),
-                'country' => trim($post['country']),
-                'city' => trim($post['city']),
-                'counties' => trim($post['counties']),
                 'remarks' => trim($post['remarks']),
                 'create_people' => session('admin_id'),
                 'create_time' => getTime(),
@@ -116,9 +110,6 @@ class Area extends Base
                 $map = array(
                     'id' => array('NEQ', $post['id']),
                     'title' => trim($post['title']),
-                    'country' => trim($post['country']),
-                    'city' => trim($post['city']),
-                    'counties' => trim($post['counties']),
                 );
 
                 if (Db::name('area_tab')->where($map)->count() > 0) {
@@ -128,9 +119,6 @@ class Area extends Base
                 $data = array(
                     'id' => $post['id'],
                     'title' => trim($post['title']),
-                    'country' => trim($post['country']),
-                    'city' => trim($post['city']),
-                    'counties' => trim($post['counties']),
                     'remarks' => trim($post['remarks']),
                     'change_people' => session('admin_id'),
                     'change_time' => getTime(),

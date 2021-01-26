@@ -79,7 +79,7 @@
                             <td align="left" class="" style="width: 100%">
                                 <div class="tl">
                                     {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                    <a href="{:url('Area/edit',array('id'=>$vo['id']))}">{$vo.title} - {$vo.country} - {$vo.city} - {$vo.counties}</a>
+                                    <a href="{:url('Area/edit',array('id'=>$vo['id']))}">{$vo.title}</a>
                                     {else /}
                                     {$vo.title}
                                     {/eq}
