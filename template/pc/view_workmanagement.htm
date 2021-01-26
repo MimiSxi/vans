@@ -162,25 +162,21 @@
                                         <div class="design_tabe_content_lable1">
                                             <ul>
                                                 <li class="lables1">品类：</li>
-                                                <li>{$val.category}</li>
+                                                <li><b>{$val.category}</b>&nbsp;</li>
                                                 <li class="lables1">工艺：</li>
-                                                <li>{$val.craft}</li>
+                                                <li><b>{$val.craft}</b>&nbsp;</li>
                                                 <li class="lables1">年份：</li>
-                                                <li>{$val.years}</li>
+                                                <li><b>{$val.years}</b>&nbsp;</li>
                                                 <li class="lables1">材质：</li>
-                                                <li>{$val.material}</li>
+                                                <li><b>{$val.material}</b>&nbsp;</li>
                                                 <li class="lables1">价格：</li>
-                                                <li>¥{$val.price}</li>
+                                                <li><b>¥{$val.price}</b>&nbsp;</li>
                                                 <li class="lables1">颜色：</li>
-                                                <li>{$val.color}</li>
+                                                <li><b>{$val.color}</b>&nbsp;</li>
                                                 <li class="lables1">尺寸：</li>
-                                                <li style="width: 64% !important; word-break:break-all; border-bottom: none;">
-                                                    {$val.size}
-                                                </li>
-                                                <li class="lables1">描述：</li>
-                                                <li style="width: 64% !important; word-break:break-all; border-bottom: none;">
-                                                    {$val.BriefIntroduction}
-                                                </li>
+                                                <li><b>{$val.size}</b>&nbsp;</li>
+                                                <li class="lables1"> 描述：</li>
+                                                <li><b>{$val.BriefIntroduction}&nbsp;</b></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -264,7 +260,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="design_details_content_title fl">推荐：</div>
                 <div class="recommander clearfix">
@@ -375,6 +370,7 @@
                 if (res === "rf") {
                     alert("推荐失败！该设计已在您管辖的区域被推荐，请核查！");
                 }
+                window.location.reload();
             }
         });
     }
