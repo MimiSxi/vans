@@ -14,6 +14,7 @@
         <!--todo 筛选版-->
         {eyou:channel type="top" row="60" id="one" currentstyle="hover"}
         <li><a href="{$one.typeurl}">{$one.typename}</a>
+            {if $one.typeid != 2}
             {eyou:screening id='field' typeid='$one.typeid' currentstyle='active' alltxt='off' }
             <ul class="one clearfix">
                 {eyou:volist name='$field.list' id='vo'}
@@ -22,6 +23,7 @@
                         <div class="second_title">{$vo.title}</div>
                         <div class="secont_image"><img src="template/pc/skin/images/top_meun_second_hover.png"></div>
                     </a>
+                    {if $vo.typeid != 2}
                     <ul class="two">
                         {eyou:volist name='$vo.dfvalue' id='val'}
                         <li>
@@ -29,20 +31,22 @@
                         </li>
                         {/eyou:volist}
                     </ul>
+                    {/if}
                 </li>
                 {/eyou:volist}
             </ul>
             {/eyou:screening}
+            {/if}
         </li>
         {/eyou:channel}
         <script>
-            function jump($var1,$var2,$var3) {
+            function jump($var1, $var2, $var3) {
                 const url = "?m=home&c=Lists&a=index&tid=" + $var3 + "&" + $var2 + "=" + $var1 + "&ZXljbXM=1";
-                self.location.href= url;
+                self.location.href = url;
             }
         </script>
         <!--todo 筛选版-->
-        
+
 
         <!-- todo 子栏目版-->
         <!--		{eyou:channel type="top" row="60" id="field" currentstyle="hover"}-->
