@@ -146,7 +146,7 @@
                             <li class="clearfix">
                                 <div class="clearfix;">
                                     {eyou:arcview aid='$val.aid' id='vo'}
-                                    <div class="design_tabe_img"><img src={$vo.litpic} width="494px" height="348px">
+                                    <div class="design_tabe_img"><img src={$vo.litpic} alt="{$vo.litpic}" width="494px" height="348px">
                                     </div>
                                     {/eyou:arcview}
                                     <div class="design_tabe_content">
@@ -154,7 +154,7 @@
                                             <div class="design_tabe_content_title1">{$eyou.field.title}</div>
                                             <div class="design_tabe_content_title2">
                                                 {eyou:arcview aid='$val.aid' id='vo'}
-                                                {$vo.title}
+                                                <a href="{$vo.arcurl}">{$vo.title}</a>
                                                 {/eyou:arcview}
                                             </div>
                                         </div>
