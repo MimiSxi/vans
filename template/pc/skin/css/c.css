@@ -105,7 +105,7 @@ input::-webkit-input-placeholder{
 .works_recommend{ float: right;}
 .index_recommend_img{ float: left;}
 .index_recommend_tit{ float: left; font-size: 18px; font-weight: bold; margin:6px 0px 0px 10px; color: #161616;}
-.index_work_label{ border: none; width: 554px; display: none; position: absolute; top: 450px; padding-bottom: 14px;z-index: 100; float: left;}
+.index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 450px; padding-bottom: 14px;z-index: 100; float: left; margin-left: -6px;}
 .works_second .index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 535px; left: 50.65%; padding-bottom: 14px;}
 .works_third .index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 1020px; left: 19.7%; padding-bottom: 14px;}
 .works_fourth .index_work_label{ border: none; width: 566px; display: none; position: absolute; top: 1020px; left: 50.65%; padding-bottom: 14px;}
