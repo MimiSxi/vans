@@ -31,32 +31,6 @@ class Lists extends Base
             abort(404, '页面不存在');
         }
 
-        $map = [];
-        /*URL上参数的校验*/
-        /*        $seo_pseudo = config('ey_config.seo_pseudo');
-                $url_screen_var = config('global.url_screen_var');
-                if (!isset($param[$url_screen_var]) && 3 == $seo_pseudo)
-                {
-                    if (stristr($this->request->url(), '&c=Lists&a=index&')) {
-                        abort(404,'页面不存在');
-                    }
-                    $map = array('a.dirname'=>$tid);
-                }
-                else if (isset($param[$url_screen_var]) || 1 == $seo_pseudo || (2 == $seo_pseudo && isMobile()))
-                {
-                    $seo_dynamic_format = config('ey_config.seo_dynamic_format');
-                    if (1 == $seo_pseudo && 2 == $seo_dynamic_format && stristr($this->request->url(), '&c=Lists&a=index&')) {
-                        abort(404,'页面不存在');
-                    } else if (!is_numeric($tid) || strval(intval($tid)) !== strval($tid)) {
-                        abort(404,'页面不存在');
-                    }
-                    $map = array('a.id'=>$tid);
-
-                }else if (2 == $seo_pseudo){ // 生成静态页面代码
-
-                    $map = array('a.id'=>$tid);
-                }*/
-        /*--end*/
         if (!is_numeric($tid) || strval(intval($tid)) !== strval($tid)) {
             $map = array('a.dirname' => $tid);
         } else {
@@ -72,30 +46,21 @@ class Lists extends Base
         if (empty($row)) {
             abort(404, '页面不存在');
         }
+
         $tid = $row['id'];
         $this->nid = $row['nid'];
         $this->channel = intval($row['current_channel']);
         /*--end*/
         $result = $this->logic($tid); // 模型对应逻辑
 
-        $tagInfo = Taglist::where('typeid', $tid)->column('tag');
+        $tagInfo = Taglist::where('typeid',$tid)->column('tag');
         $result['tag'] = $tagInfo;
-
-//        // 设计师列表
-//        $designer_list = M('archives')->field('b.aid, b.typeid, b.title')
-//            ->alias('a')
-//            ->join('archives b', 'a.designername = b.aid', 'LEFT')
-//            ->where('a.typeid = 1 AND a.designername > 0')
-//            ->order('a.designername')
-//            ->select();
-//
-//        $result['designer_list'] = $designer_list;
 
         $eyou = array(
             'field' => $result,
         );
 
-//        $this->eyou = array_merge($this->eyou, $eyou);
+        $this->eyou = array_merge($this->eyou, $eyou);
 
 //        print_r(json_encode($this->eyou));die;
 //

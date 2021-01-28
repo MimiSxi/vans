@@ -41,7 +41,7 @@
                 <div class="oneleft ">
                     <ul>
                         <li>
-                            <a href="?m=user&c=UsersRelease&a=release_centre&list=1"><i></i>上传记录</a>
+                            <a href="?m=user&c=Users&a=index"><i></i>上传记录</a>
                         </li>
                         <li>
                             <a href="?m=user&c=Download&a=index"><i></i>下载记录</a>
@@ -50,14 +50,8 @@
                             <a href="?m=user&c=Favorite&a=index"><i></i>订阅记录</a>
                         </li>
                         <li>
-                            <a onclick="ChangePwd();">修改密码</a>
+                            <a href="?m=user&c=Info&a=index"><i></i>修改密码</a>
                         </li>
-                        <!--                            <li><a href="#">上传记录</a></li>-->
-                        <!--                            <li><a href="#">浏览记录</a></li>-->
-                        <!--                            <li><a href="#">下载记录</a></li>-->
-                        <!--                            <li><a href="#">订阅记录</a></li>-->
-                        <!--                            <li><a href="#">修改密码</a></li>-->
-                        <!--                        {eyou:include file="/public/static/template/users/users_leftmenu.htm" /}-->
                     </ul>
                 </div>
                 <div class="oneright">
@@ -77,7 +71,7 @@
                                 <div class="oneright_content_tit_all">
                                     <a href="{$archivesList[$vo['aid']]['arcurl']|default='javascript:void(0);'}" style="color: #0C0C0C">
                                         <div class="tit1">{$archivesList[$vo['aid']]['title']|default='<font color="red">该文档已被删除！</font>'}</div>
-                                        <div>下载时间：{$vo.add_time|date='Y-m-d H:i',###}</div>
+                                        <div>订阅时间：{$vo.create_time|date='Y-m-d H:i',###}</div>
                                     </a>
                                 </div>
                             </li>

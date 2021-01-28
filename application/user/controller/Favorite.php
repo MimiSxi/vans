@@ -35,9 +35,10 @@ class Favorite extends Base
         $channeltype_row = \think\Cache::get('extra_global_channeltype');
 
         $archivesList = DB::name('archives')
-            ->field("b.*, a.*, a.aid as aid")
+            ->field("c.*, b.*, a.*, a.aid as aid")
             ->alias('a')
             ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
+            ->join('order_recommend c', 'c.aid = a.aid', 'LEFT')
             ->where('a.aid', 'in', $aids)
             ->getAllWithIndex('aid');
         foreach ($archivesList as $key => $val) {

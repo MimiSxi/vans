@@ -14,15 +14,15 @@ class Users extends Base
     public function _initialize()
     {
         parent::_initialize();
-        $this->smtpmailLogic      = new SmtpmailLogic;
-        $this->users_db           = Db::name('users');      // 用户数据表
-        $this->users_level_db     = Db::name('users_level'); // 用户等级表
+        $this->smtpmailLogic = new SmtpmailLogic;
+        $this->users_db = Db::name('users');      // 用户数据表
+        $this->users_level_db = Db::name('users_level'); // 用户等级表
         $this->users_parameter_db = Db::name('users_parameter'); // 用户属性表
-        $this->users_list_db      = Db::name('users_list'); // 用户属性信息表
-        $this->users_config_db    = Db::name('users_config');// 用户配置表
-        $this->users_money_db     = Db::name('users_money');// 用户金额明细表
-        $this->smtp_record_db     = Db::name('smtp_record');// 发送邮箱记录表
-        $this->sms_log_db         = Db::name('sms_log');// 发送手机记录表
+        $this->users_list_db = Db::name('users_list'); // 用户属性信息表
+        $this->users_config_db = Db::name('users_config');// 用户配置表
+        $this->users_money_db = Db::name('users_money');// 用户金额明细表
+        $this->smtp_record_db = Db::name('smtp_record');// 发送邮箱记录表
+        $this->sms_log_db = Db::name('sms_log');// 发送手机记录表
         // 微信配置信息
         $this->pay_wechat_config = unserialize(getUsersConfigData('pay.pay_wechat_config'));
     }
@@ -37,9 +37,12 @@ class Users extends Base
 
         // 菜单名称
         $result['title'] = Db::name('users_menu')->where([
-            'mca'  => 'user/Users/index',
+            'mca' => 'user/Users/index',
             'lang' => $this->home_lang,
         ])->getField('title');
+
+        $art = Db::name('archives')->where('admin_id', session('users_id'))->select();
+        $result['art'] = $art;
 
         $eyou = array(
             'field' => $result,
@@ -56,6 +59,7 @@ class Users extends Base
         /*end*/
         // 美化昵称输入框
         $html = str_ireplace('type="text" name="nickname"', 'type="text" name="nickname" class="input-txt"', $html);
+
 
         return $html;
     }
@@ -74,7 +78,7 @@ class Users extends Base
 
         // 拼装url
         $result = [
-            'wechat_url'  => url("user/Users/ajax_wechat_login"),
+            'wechat_url' => url("user/Users/ajax_wechat_login"),
             'website_url' => $this->root_dir . "/index.php?m=user&c=Users&a=login&website=website",
         ];
 
@@ -115,8 +119,8 @@ class Users extends Base
                 }
 
                 // 获取微信配置授权登陆
-                $appid     = $WeChatLoginConfig['appid'];
-                $NewUrl    = urlencode(url('user/Users/get_wechat_info', '', true, true));
+                $appid = $WeChatLoginConfig['appid'];
+                $NewUrl = urlencode(url('user/Users/get_wechat_info', '', true, true));
                 $ReturnUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" . $appid . "&redirect_uri=" . $NewUrl . "&response_type=code&scope=snsapi_userinfo&state=eyoucms&#wechat_redirect";
 
                 if (isset($this->usersConfig['users_open_website_login']) && empty($this->usersConfig['users_open_website_login'])) {
@@ -138,22 +142,22 @@ class Users extends Base
         $WeChatLoginConfig = !empty($this->usersConfig['wechat_login_config']) ? unserialize($this->usersConfig['wechat_login_config']) : [];
 
         // 微信配置信息
-        $appid  = $WeChatLoginConfig['appid'];
+        $appid = $WeChatLoginConfig['appid'];
         $secret = $WeChatLoginConfig['appsecret'];
-        $code   = input('param.code/s');
+        $code = input('param.code/s');
 
         // 获取到用户openid
         $get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
-        $data          = httpRequest($get_token_url);
-        $WeChatData    = json_decode($data, true);
+        $data = httpRequest($get_token_url);
+        $WeChatData = json_decode($data, true);
         if (empty($WeChatData) || (!empty($WeChatData['errcode']) && !empty($WeChatData['errmsg']))) {
-            $this->error('AppSecret错误或已过期', $this->root_dir.'/');
+            $this->error('AppSecret错误或已过期', $this->root_dir . '/');
         }
-        
+
         // 查询这个openid是否已注册
         $where = [
             'open_id' => $WeChatData['openid'],
-            'lang'    => $this->home_lang,
+            'lang' => $this->home_lang,
         ];
         $Users = $this->users_db->where($where)->find();
         if (!empty($Users)) {
@@ -172,31 +176,31 @@ class Users extends Base
             }
             // 获取用户信息
             $get_userinfo = 'https://api.weixin.qq.com/sns/userinfo?access_token=' . $WeChatData["access_token"] . '&openid=' . $WeChatData["openid"] . '&lang=zh_CN';
-            $UserInfo     = httpRequest($get_userinfo);
-            $UserInfo     = json_decode($UserInfo, true);
+            $UserInfo = httpRequest($get_userinfo);
+            $UserInfo = json_decode($UserInfo, true);
             if (empty($UserInfo['nickname']) && empty($UserInfo['headimgurl'])) {
-                $this->error('用户授权异常，建议清理手机缓存再进行登录', $this->root_dir.'/');
+                $this->error('用户授权异常，建议清理手机缓存再进行登录', $this->root_dir . '/');
             }
 
             // 新增用户和微信绑定
             $UsersData = [
-                'username'       => $username,
-                'nickname'       => $UserInfo['nickname'],
-                'open_id'        => $WeChatData['openid'],
-                'password'       => '', // 密码默认为空
-                'last_ip'        => clientIP(),
-                'reg_time'       => getTime(),
-                'last_login'     => getTime(),
-                'is_activation'  => 1, // 微信注册用户，默认开启激活
+                'username' => $username,
+                'nickname' => $UserInfo['nickname'],
+                'open_id' => $WeChatData['openid'],
+                'password' => '', // 密码默认为空
+                'last_ip' => clientIP(),
+                'reg_time' => getTime(),
+                'last_login' => getTime(),
+                'is_activation' => 1, // 微信注册用户，默认开启激活
                 'register_place' => 2, // 前台微信注册用户
-                'login_count'    => Db::raw('login_count+1'),
-                'head_pic'       => $UserInfo['headimgurl'],
-                'lang'           => $this->home_lang,
+                'login_count' => Db::raw('login_count+1'),
+                'head_pic' => $UserInfo['headimgurl'],
+                'lang' => $this->home_lang,
             ];
             // 查询默认用户级别，存入用户表
-            $level_id           = $this->users_level_db->where([
+            $level_id = $this->users_level_db->where([
                 'is_system' => 1,
-                'lang'      => $this->home_lang,
+                'lang' => $this->home_lang,
             ])->getField('level_id');
             $UsersData['level'] = $level_id;
 
@@ -222,24 +226,9 @@ class Users extends Base
             $this->redirect('user/Users/centre');
             exit;
         }
-        
-        // 若为微信端并且开启微商城模式则重定向
-        if (isWeixin() && !empty($this->usersConfig['shop_micro'])) {
-            $WeChatLoginConfig = !empty($this->usersConfig['wechat_login_config']) ? unserialize($this->usersConfig['wechat_login_config']) : [];
-            if (!empty($WeChatLoginConfig)) {
-                $this->redirect('user/Users/ajax_wechat_login');
-            }
-        }
-
-        // 若为微信端则重定向
-        $website = input('param.website/s');
-        if (isWeixin() && empty($website)) {
-            $this->redirect('user/Users/users_select_login');
-            exit;
-        }
 
         // 默认开启验证码
-        $is_vertify          = 1;
+        $is_vertify = 1;
         $users_login_captcha = config('captcha.users_login');
         if (!function_exists('imagettftext') || empty($users_login_captcha['is_on'])) {
             $is_vertify = 0; // 函数不存在，不符合开启的条件
@@ -247,7 +236,7 @@ class Users extends Base
         $this->assign('is_vertify', $is_vertify);
 
         if (IS_AJAX_POST) {
-            $post             = input('post.');
+            $post = input('post.');
             $post['username'] = trim($post['username']);
 
             if (empty($post['username'])) {
@@ -266,16 +255,16 @@ class Users extends Base
                 }
             }
 
-            $users = $this->users_db->where([
+            $users = Db::name('users')->where([
                 'username' => $post['username'],
-                'is_del'   => 0,
-                'lang'     => $this->home_lang,
+                'is_del' => 0,
+                'lang' => $this->home_lang,
             ])->find();
             if (!empty($users)) {
-                if (!empty($users['admin_id'])) {
-                    // 后台账号不允许在前台通过账号密码登录，只能后台登录时同步到前台
-                    $this->error('前台禁止管理员登录！', null, ['status' => 1]);
-                }
+//                if (!empty($users['admin_id'])) {
+//                    // 后台账号不允许在前台通过账号密码登录，只能后台登录时同步到前台
+//                    $this->error('前台禁止管理员登录！', null, ['status' => 1]);
+//                }
 
                 if (empty($users['is_activation'])) {
                     $this->error('该用户尚未激活，请联系管理员！', null, ['status' => 1]);
@@ -320,63 +309,6 @@ class Users extends Base
             }
         }
 
-        /*微信登录插件 - 判断是否显示微信登录按钮*/
-        $weapp_wxlogin = 0;
-        if (is_dir('./weapp/WxLogin/')) {
-            $wx         = Db::name('weapp')->field('data,status,config')->where(['code' => 'WxLogin'])->find();
-            $wx['data'] = unserialize($wx['data']);
-            if ($wx['status'] == 1 && $wx['data']['login_show'] == 1) {
-                $weapp_wxlogin = 1;
-            }
-            // 使用场景 0 PC+手机 1 手机 2 PC
-            $wx['config'] = json_decode($wx['config'], true);
-            if (isMobile() && !in_array($wx['config']['scene'], [0,1])) {
-                $weapp_wxlogin = 0;
-            } else if (!isMobile() && !in_array($wx['config']['scene'], [0,2])) {
-                $weapp_wxlogin = 0;
-            }
-        }
-        $this->assign('weapp_wxlogin', $weapp_wxlogin);
-        /*end*/
-
-        /*QQ登录插件 - 判断是否显示QQ登录按钮*/
-        $weapp_qqlogin = 0;
-        if (is_dir('./weapp/QqLogin/')) {
-            $qq         = Db::name('weapp')->field('data,status,config')->where(['code' => 'QqLogin'])->find();
-            $qq['data'] = unserialize($qq['data']);
-            if ($qq['status'] == 1 && $qq['data']['login_show'] == 1) {
-                $weapp_qqlogin = 1;
-            }
-            // 使用场景 0 PC+手机 1 手机 2 PC
-            $qq['config'] = json_decode($qq['config'], true);
-            if (isMobile() && !in_array($qq['config']['scene'], [0,1])) {
-                $weapp_qqlogin = 0;
-            } else if (!isMobile() && !in_array($qq['config']['scene'], [0,2])) {
-                $weapp_qqlogin = 0;
-            }
-        }
-        $this->assign('weapp_qqlogin', $weapp_qqlogin);
-        /*end*/
-
-        /*微博插件 - 判断是否显示微博按钮*/
-        $weapp_wblogin = 0;
-        if (is_dir('./weapp/Wblogin/')) {
-            $wb         = Db::name('weapp')->field('data,status,config')->where(['code' => 'Wblogin'])->find();
-            $wb['data'] = unserialize($wb['data']);
-            if ($wb['status'] == 1 && $wb['data']['login_show'] == 1) {
-                $weapp_wblogin = 1;
-            }
-            // 使用场景 0 PC+手机 1 手机 2 PC
-            $wb['config'] = json_decode($wb['config'], true);
-            if (isMobile() && !in_array($wb['config']['scene'], [0,1])) {
-                $weapp_wblogin = 0;
-            } else if (!isMobile() && !in_array($wb['config']['scene'], [0,2])) {
-                $weapp_wblogin = 0;
-            }
-        }
-        $this->assign('weapp_wblogin', $weapp_wblogin);
-        /*end*/
-
         // 跳转链接
         $referurl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : url("user/Users/centre");
         cookie('referurl', $referurl);
@@ -392,7 +324,7 @@ class Users extends Base
             exit;
         }
 
-        $is_vertify        = 1; // 默认开启验证码
+        $is_vertify = 1; // 默认开启验证码
         $users_reg_captcha = config('captcha.users_reg');
         if (!function_exists('imagettftext') || empty($users_reg_captcha['is_on'])) {
             $is_vertify = 0; // 函数不存在，不符合开启的条件
@@ -400,7 +332,7 @@ class Users extends Base
         $this->assign('is_vertify', $is_vertify);
 
         if (IS_AJAX_POST) {
-            $post             = input('post.');
+            $post = input('post.');
             $post['username'] = trim($post['username']);
 
             $users_reg_notallow = explode(',', getUsersConfigData('users.users_reg_notallow'));
@@ -432,7 +364,7 @@ class Users extends Base
 
             $count = $this->users_db->where([
                 'username' => $post['username'],
-                'lang'     => $this->home_lang,
+                'lang' => $this->home_lang,
             ])->count();
             if (!empty($count)) {
                 $this->error('用户名已存在！', null, ['status' => 1]);
@@ -480,14 +412,14 @@ class Users extends Base
             if (!empty($RequiredData['email'])) {
                 // 查询用户输入的邮箱并且为找回密码来源的所有验证码
                 $RecordWhere = [
-                    'source'   => 2,
-                    'email'    => $RequiredData['email'],
+                    'source' => 2,
+                    'email' => $RequiredData['email'],
                     'users_id' => 0,
-                    'status'   => 0,
-                    'lang'     => $this->home_lang,
+                    'status' => 0,
+                    'lang' => $this->home_lang,
                 ];
-                $RecordData  = [
-                    'status'      => 1,
+                $RecordData = [
+                    'status' => 1,
                     'update_time' => getTime(),
                 ];
                 // 更新数据
@@ -500,9 +432,9 @@ class Users extends Base
                     'source' => 0,
                     'mobile' => $RequiredData['mobile'],
                     'is_use' => 0,
-                    'lang'   => $this->home_lang
+                    'lang' => $this->home_lang
                 ];
-                $RecordData  = [
+                $RecordData = [
                     'is_use' => 1,
                     'update_time' => getTime()
                 ];
@@ -517,21 +449,21 @@ class Users extends Base
             if (1 == $users_verification) $data['is_activation'] = 0;
 
             // 添加用户到用户表
-            $data['username']       = $post['username'];
-            $data['nickname']       = !empty($post['nickname']) ? $post['nickname'] : $post['username'];
-            $data['password']       = func_encrypt($post['password']);
-            $data['is_mobile']      = !empty($ParaData['mobile_1']) ? 1 : 0;
-            $data['is_email']       = !empty($ParaData['email_2']) ? 1 : 0;
-            $data['last_ip']        = clientIP();
-            $data['head_pic']       = ROOT_DIR . '/public/static/common/images/dfboy.png';
-            $data['reg_time']       = getTime();
-            $data['last_login']     = getTime();
+            $data['username'] = $post['username'];
+            $data['nickname'] = !empty($post['nickname']) ? $post['nickname'] : $post['username'];
+            $data['password'] = func_encrypt($post['password']);
+            $data['is_mobile'] = !empty($ParaData['mobile_1']) ? 1 : 0;
+            $data['is_email'] = !empty($ParaData['email_2']) ? 1 : 0;
+            $data['last_ip'] = clientIP();
+            $data['head_pic'] = ROOT_DIR . '/public/static/common/images/dfboy.png';
+            $data['reg_time'] = getTime();
+            $data['last_login'] = getTime();
             $data['register_place'] = 2;  // 注册位置，后台注册不受注册验证影响，1为后台注册，2为前台注册。
-            $data['lang']           = $this->home_lang;
+            $data['lang'] = $this->home_lang;
 
-            $level_id      = $this->users_level_db->where([
+            $level_id = $this->users_level_db->where([
                 'is_system' => 1,
-                'lang'      => $this->home_lang,
+                'lang' => $this->home_lang,
             ])->getField('level_id');
             $data['level'] = $level_id;
 
@@ -541,9 +473,9 @@ class Users extends Base
             if (!empty($users_id)) {
                 // 批量添加用户属性到属性信息表
                 if (!empty($ParaData)) {
-                    $betchData    = [];
+                    $betchData = [];
                     $usersparaRow = $this->users_parameter_db->where([
-                        'lang'      => $this->home_lang,
+                        'lang' => $this->home_lang,
                         'is_hidden' => 0,
                     ])->getAllWithIndex('name');
                     foreach ($ParaData as $key => $value) {
@@ -553,13 +485,13 @@ class Users extends Base
 
                         // 若为数组，则拆分成字符串
                         if (is_array($value)) $value = implode(',', $value);
-                        
-                        $para_id     = intval($usersparaRow[$key]['para_id']);
+
+                        $para_id = intval($usersparaRow[$key]['para_id']);
                         $betchData[] = [
                             'users_id' => $users_id,
-                            'para_id'  => $para_id,
-                            'info'     => $value,
-                            'lang'     => $this->home_lang,
+                            'para_id' => $para_id,
+                            'info' => $value,
+                            'lang' => $this->home_lang,
                             'add_time' => getTime(),
                         ];
                     }
@@ -567,7 +499,7 @@ class Users extends Base
                 }
 
                 // 查询属性表的手机号码和邮箱地址,拼装数组$UsersListData
-                $UsersListData                = model('Users')->getUsersListData('*', $users_id);
+                $UsersListData = model('Users')->getUsersListData('*', $users_id);
                 $UsersListData['login_count'] = 1;
                 $UsersListData['update_time'] = getTime();
                 if (2 == $users_verification) {
@@ -616,16 +548,16 @@ class Users extends Base
         /*微信登录插件 - 判断是否显示微信登录按钮*/
         $weapp_wxlogin = 0;
         if (is_dir('./weapp/WxLogin/')) {
-            $wx         = Db::name('weapp')->field('data,status,config')->where(['code' => 'WxLogin'])->find();
+            $wx = Db::name('weapp')->field('data,status,config')->where(['code' => 'WxLogin'])->find();
             $wx['data'] = unserialize($wx['data']);
             if ($wx['status'] == 1 && $wx['data']['login_show'] == 1) {
                 $weapp_wxlogin = 1;
             }
             // 使用场景 0 PC+手机 1 手机 2 PC
             $wx['config'] = json_decode($wx['config'], true);
-            if (isMobile() && !in_array($wx['config']['scene'], [0,1])) {
+            if (isMobile() && !in_array($wx['config']['scene'], [0, 1])) {
                 $weapp_wxlogin = 0;
-            } else if (!isMobile() && !in_array($wx['config']['scene'], [0,2])) {
+            } else if (!isMobile() && !in_array($wx['config']['scene'], [0, 2])) {
                 $weapp_wxlogin = 0;
             }
         }
@@ -635,16 +567,16 @@ class Users extends Base
         /*QQ登录插件 - 判断是否显示QQ登录按钮*/
         $weapp_qqlogin = 0;
         if (is_dir('./weapp/QqLogin/')) {
-            $qq         = Db::name('weapp')->field('data,status,config')->where(['code' => 'QqLogin'])->find();
+            $qq = Db::name('weapp')->field('data,status,config')->where(['code' => 'QqLogin'])->find();
             $qq['data'] = unserialize($qq['data']);
             if ($qq['status'] == 1 && $qq['data']['login_show'] == 1) {
                 $weapp_qqlogin = 1;
             }
             // 使用场景 0 PC+手机 1 手机 2 PC
             $qq['config'] = json_decode($qq['config'], true);
-            if (isMobile() && !in_array($qq['config']['scene'], [0,1])) {
+            if (isMobile() && !in_array($qq['config']['scene'], [0, 1])) {
                 $weapp_qqlogin = 0;
-            } else if (!isMobile() && !in_array($qq['config']['scene'], [0,2])) {
+            } else if (!isMobile() && !in_array($qq['config']['scene'], [0, 2])) {
                 $weapp_qqlogin = 0;
             }
         }
@@ -654,16 +586,16 @@ class Users extends Base
         /*微博插件 - 判断是否显示微博按钮*/
         $weapp_wblogin = 0;
         if (is_dir('./weapp/Wblogin/')) {
-            $wb         = Db::name('weapp')->field('data,status,config')->where(['code' => 'Wblogin'])->find();
+            $wb = Db::name('weapp')->field('data,status,config')->where(['code' => 'Wblogin'])->find();
             $wb['data'] = unserialize($wb['data']);
             if ($wb['status'] == 1 && $wb['data']['login_show'] == 1) {
                 $weapp_wblogin = 1;
             }
             // 使用场景 0 PC+手机 1 手机 2 PC
             $wb['config'] = json_decode($wb['config'], true);
-            if (isMobile() && !in_array($wb['config']['scene'], [0,1])) {
+            if (isMobile() && !in_array($wb['config']['scene'], [0, 1])) {
                 $weapp_wblogin = 0;
-            } else if (!isMobile() && !in_array($wb['config']['scene'], [0,2])) {
+            } else if (!isMobile() && !in_array($wb['config']['scene'], [0, 2])) {
                 $weapp_wblogin = 0;
             }
         }
@@ -691,7 +623,7 @@ EOF;
     public function centre()
     {
         $result = Db::name('users_menu')->where(['is_userpage' => 1, 'lang' => $this->home_lang])->find();
-        $mca    = !empty($result['mca']) ? $result['mca'] : 'user/Users/index';
+        $mca = !empty($result['mca']) ? $result['mca'] : 'user/Users/index';
         $this->redirect($mca);
     }
 
@@ -700,14 +632,14 @@ EOF;
     {
         if (IS_AJAX_POST) {
             $post = input('post.');
-/*            if (empty($this->users['password'])) {
-                // 密码为空则表示第三方注册用户，强制设置密码
-                if (empty($post['password'])) {
-                    $this->error('第三方注册用户，为确保账号安全，请设置密码。');
-                } else {
-                    $password_new = func_encrypt($post['password']);
-                }
-            }*/
+            /*            if (empty($this->users['password'])) {
+                            // 密码为空则表示第三方注册用户，强制设置密码
+                            if (empty($post['password'])) {
+                                $this->error('第三方注册用户，为确保账号安全，请设置密码。');
+                            } else {
+                                $password_new = func_encrypt($post['password']);
+                            }
+                        }*/
 
             $nickname = trim($post['nickname']);
             if (!empty($post['nickname']) && empty($nickname)) {
@@ -749,22 +681,22 @@ EOF;
                         $value = implode(',', $value);
                     }
 
-                    $data                = [];
-                    $para_id             = intval($row2[$key]['para_id']);
-                    $where               = [
+                    $data = [];
+                    $para_id = intval($row2[$key]['para_id']);
+                    $where = [
                         'users_id' => $this->users_id,
-                        'para_id'  => $para_id,
-                        'lang'     => $this->home_lang,
+                        'para_id' => $para_id,
+                        'lang' => $this->home_lang,
                     ];
-                    $data['info']        = $value;
+                    $data['info'] = $value;
                     $data['update_time'] = getTime();
 
                     // 若信息表中无数据则添加
                     $row = $this->users_list_db->where($where)->count();
                     if (empty($row)) {
                         $data['users_id'] = $this->users_id;
-                        $data['para_id']  = $para_id;
-                        $data['lang']     = $this->home_lang;
+                        $data['para_id'] = $para_id;
+                        $data['lang'] = $this->home_lang;
                         $data['add_time'] = getTime();
                         $this->users_list_db->add($data);
                     } else {
@@ -774,13 +706,13 @@ EOF;
             }
 
             // 查询属性表的手机和邮箱信息，同步修改用户信息
-            $usersData             = model('Users')->getUsersListData('*', $this->users_id);
+            $usersData = model('Users')->getUsersListData('*', $this->users_id);
             $usersData['nickname'] = trim($post['nickname']);
             if (!empty($password_new)) {
                 $usersData['password'] = $password_new;
             }
             $usersData['update_time'] = getTime();
-            $return                   = $this->users_db->where('users_id', $this->users_id)->update($usersData);
+            $return = $this->users_db->where('users_id', $this->users_id)->update($usersData);
             if ($return) {
                 \think\Cache::clear('users_list');
                 $this->success('操作成功');
@@ -805,7 +737,7 @@ EOF;
 
             $users = $this->users_db->field('password')->where([
                 'users_id' => $this->users_id,
-                'lang'     => $this->home_lang,
+                'lang' => $this->home_lang,
             ])->find();
             if (!empty($users)) {
                 if (strval($users['password']) !== strval(func_encrypt($post['oldpassword']))) {
@@ -814,9 +746,9 @@ EOF;
 
                 $r = $this->users_db->where([
                     'users_id' => $this->users_id,
-                    'lang'     => $this->home_lang,
+                    'lang' => $this->home_lang,
                 ])->update([
-                    'password'    => func_encrypt($post['password']),
+                    'password' => func_encrypt($post['password']),
                     'update_time' => getTime(),
                 ]);
                 if ($r) {
@@ -839,7 +771,7 @@ EOF;
             $this->redirect('user/Users/retrieve_password_mobile');
         }
 
-        $is_vertify                 = 1; // 默认开启验证码
+        $is_vertify = 1; // 默认开启验证码
         $users_retrieve_pwd_captcha = config('captcha.users_retrieve_password');
         if (!function_exists('imagettftext') || empty($users_retrieve_pwd_captcha['is_on'])) {
             $is_vertify = 0; // 函数不存在，不符合开启的条件
@@ -866,7 +798,7 @@ EOF;
                 'info' => array('eq', $post['email']),
                 'lang' => array('eq', $this->home_lang),
             );
-            $ListData  = $this->users_list_db->where($ListWhere)->field('users_id')->find();
+            $ListData = $this->users_list_db->where($ListWhere)->field('users_id')->find();
             if (empty($ListData)) {
                 $this->error('邮箱不存在，不能找回密码！');
             }
@@ -874,9 +806,9 @@ EOF;
             // 判断用户输入的邮箱是否已绑定
             $UsersWhere = array(
                 'email' => array('eq', $post['email']),
-                'lang'  => array('eq', $this->home_lang),
+                'lang' => array('eq', $this->home_lang),
             );
-            $UsersData  = $this->users_db->where($UsersWhere)->field('is_email')->find();
+            $UsersData = $this->users_db->where($UsersWhere)->field('is_email')->find();
             if (empty($UsersData['is_email'])) {
                 $this->error('邮箱未绑定，不能找回密码！');
             }
@@ -886,10 +818,10 @@ EOF;
                 'code' => $post['email_code'],
                 'lang' => $this->home_lang,
             ];
-            $RecordData  = $this->smtp_record_db->where($RecordWhere)->field('status,add_time,email')->find();
+            $RecordData = $this->smtp_record_db->where($RecordWhere)->field('status,add_time,email')->find();
             if (!empty($RecordData)) {
                 // 邮箱验证码是否超时
-                $time                   = getTime();
+                $time = getTime();
                 $RecordData['add_time'] += Config::get('global.email_default_time_out');
                 if ('1' == $RecordData['status'] || $RecordData['add_time'] <= $time) {
                     $this->error('邮箱验证码已被使用或超时，请重新发送！');
@@ -903,7 +835,7 @@ EOF;
                     }
 
                     session('users_retrieve_password_email', $post['email']); // 标识邮箱验证通过
-                    $em  = rand(10, 99) . base64_encode($post['email']) . '/=';
+                    $em = rand(10, 99) . base64_encode($post['email']) . '/=';
                     $url = url('user/Users/reset_password', ['em' => base64_encode($em)]);
                     $this->success('操作成功', $url);
                 }
@@ -917,9 +849,9 @@ EOF;
 
         /*检测用户邮箱属性是否开启*/
         $usersparamRow = $this->users_parameter_db->where([
-            'name'      => ['LIKE', 'email_%'],
+            'name' => ['LIKE', 'email_%'],
             'is_hidden' => 1,
-            'lang'      => $this->home_lang,
+            'lang' => $this->home_lang,
         ])->find();
         if (!empty($usersparamRow)) {
             $this->error('用户邮箱属性已关闭，请联系网站管理员 ！');
@@ -943,13 +875,13 @@ EOF;
 
             $email = session('users_retrieve_password_email');
             if (!empty($email)) {
-                $data   = [
-                    'password'    => func_encrypt($post['password']),
+                $data = [
+                    'password' => func_encrypt($post['password']),
                     'update_time' => getTime(),
                 ];
                 $return = $this->users_db->where([
                     'email' => $email,
-                    'lang'  => $this->home_lang,
+                    'lang' => $this->home_lang,
                 ])->update($data);
                 if ($return) {
                     session('users_retrieve_password_email', null); // 标识邮箱验证通过
@@ -961,9 +893,9 @@ EOF;
         }
 
         // 没有传入邮箱，重定向至找回密码页面
-        $em    = input('param.em/s');
-        $em    = base64_decode(input('param.em/s'));
-        $em    = base64_decode(msubstr($em, 2, -2));
+        $em = input('param.em/s');
+        $em = base64_decode(input('param.em/s'));
+        $em = base64_decode(msubstr($em, 2, -2));
         $email = session('users_retrieve_password_email');
         if (empty($email) || !check_email($em) || $em != $email) {
             $this->redirect('user/Users/retrieve_password');
@@ -971,21 +903,21 @@ EOF;
         }
         $users = $this->users_db->where([
             'email' => $email,
-            'lang'  => $this->home_lang,
+            'lang' => $this->home_lang,
         ])->find();
 
         if (!empty($users)) {
             // 查询用户输入的邮箱并且为找回密码来源的所有验证码
             $RecordWhere = [
-                'source'   => 4,
-                'email'    => $email,
+                'source' => 4,
+                'email' => $email,
                 'users_id' => 0,
-                'status'   => 0,
-                'lang'     => $this->home_lang,
+                'status' => 0,
+                'lang' => $this->home_lang,
             ];
             // 更新数据
             $RecordData = [
-                'status'      => 1,
+                'status' => 1,
                 'update_time' => getTime(),
             ];
             $this->smtp_record_db->where($RecordWhere)->update($RecordData);
@@ -1025,22 +957,22 @@ EOF;
                 'info' => array('eq', $post['mobile']),
                 'lang' => array('eq', $this->home_lang)
             );
-            $ListData  = $this->users_list_db->where($ListWhere)->field('users_id')->find();
+            $ListData = $this->users_list_db->where($ListWhere)->field('users_id')->find();
             if (empty($ListData)) $this->error('手机号码不存在，不能找回密码！');
 
             // 判断用户输入的手机是否已绑定
             $UsersWhere = array(
                 'mobile' => array('eq', $post['mobile']),
-                'lang'   => array('eq', $this->home_lang)
+                'lang' => array('eq', $this->home_lang)
             );
-            $UsersData  = $this->users_db->where($UsersWhere)->field('is_mobile')->find();
+            $UsersData = $this->users_db->where($UsersWhere)->field('is_mobile')->find();
             if (empty($UsersData['is_mobile'])) $this->error('手机号码未绑定，不能找回密码！');
 
             // 判断验证码是否存在并且是否可用
             $RecordWhere = [
                 'mobile' => $post['mobile'],
-                'code'   => $post['mobile_code'],
-                'lang'   => $this->home_lang
+                'code' => $post['mobile_code'],
+                'lang' => $this->home_lang
             ];
             $RecordData = $this->sms_log_db->where($RecordWhere)->field('is_use, add_time')->order('id desc')->find();
             if (!empty($RecordData)) {
@@ -1052,14 +984,14 @@ EOF;
                 } else {
                     // 处理手机验证码
                     $RecordWhere = [
-                        'source'   => 4,
-                        'mobile'   => $post['mobile'],
-                        'is_use'   => 0,
-                        'lang'     => $this->home_lang
+                        'source' => 4,
+                        'mobile' => $post['mobile'],
+                        'is_use' => 0,
+                        'lang' => $this->home_lang
                     ];
                     // 更新数据
                     $RecordData = [
-                        'is_use'      => 1,
+                        'is_use' => 1,
                         'update_time' => $time
                     ];
                     $this->sms_log_db->where($RecordWhere)->update($RecordData);
@@ -1075,9 +1007,9 @@ EOF;
 
         /*检测用户邮箱属性是否开启*/
         $usersparamRow = $this->users_parameter_db->where([
-            'name'      => ['LIKE', 'mobile_%'],
+            'name' => ['LIKE', 'mobile_%'],
             'is_hidden' => 1,
-            'lang'      => $this->home_lang
+            'lang' => $this->home_lang
         ])->find();
         if (!empty($usersparamRow)) $this->error('用户手机属性已关闭，请联系网站管理员！');
         /*--end*/
@@ -1095,11 +1027,11 @@ EOF;
 
             $mobile = session('users_retrieve_password_mobile');
             if (!empty($mobile)) {
-                $data   = [
-                    'password'    => func_encrypt($post['password']),
+                $data = [
+                    'password' => func_encrypt($post['password']),
                     'update_time' => getTime()
                 ];
-                $return = $this->users_db->where(['mobile'=>$mobile, 'lang'=>$this->home_lang])->update($data);
+                $return = $this->users_db->where(['mobile' => $mobile, 'lang' => $this->home_lang])->update($data);
                 if ($return) {
                     session('users_retrieve_password_mobile', null);
                     $url = url('user/Users/login');
@@ -1112,11 +1044,11 @@ EOF;
         // 没有手机号则重定向至找回密码页面
         $mobile = session('users_retrieve_password_mobile');
         if (empty($mobile)) $this->redirect('user/Users/retrieve_password_mobile');
-        
+
         // 查询用户信息
-        $username = $this->users_db->where(['mobile'=>$mobile, 'lang'=>$this->home_lang])->getField('username');
+        $username = $this->users_db->where(['mobile' => $mobile, 'lang' => $this->home_lang])->getField('username');
         $this->assign('username', $username);
-        return $this->fetch();   
+        return $this->fetch();
     }
 
     public function edit_users_head_pic()
@@ -1126,19 +1058,19 @@ EOF;
             if (!empty($filename) && !is_http_url($filename)) {
                 $head_pic_url = $filename;
                 if (!empty($head_pic_url)) {
-                    $usersData['head_pic']    = $head_pic_url;
+                    $usersData['head_pic'] = $head_pic_url;
                     $usersData['update_time'] = getTime();
-                    $return                   = $this->users_db->where([
+                    $return = $this->users_db->where([
                         'users_id' => $this->users_id,
-                        'lang'     => $this->home_lang,
+                        'lang' => $this->home_lang,
                     ])->update($usersData);
                 }
                 if ($return) {
                     /*同步头像到管理员表对应的管理员*/
                     if (!empty($this->users['admin_id'])) {
-                        Db::name('admin')->where(['admin_id'=>$this->users['admin_id']])->update([
-                            'head_pic'  => $head_pic_url,
-                            'update_time'   => getTime(),
+                        Db::name('admin')->where(['admin_id' => $this->users['admin_id']])->update([
+                            'head_pic' => $head_pic_url,
+                            'update_time' => getTime(),
                         ]);
                     }
                     /*end*/
@@ -1165,25 +1097,25 @@ EOF;
                 // 是否已存在相同邮箱地址
                 $ListWhere = [
                     'users_id' => ['NEQ', $this->users_id],
-                    'info'     => $post['email'],
-                    'lang'     => $this->home_lang,
+                    'info' => $post['email'],
+                    'lang' => $this->home_lang,
                 ];
-                $ListData  = $this->users_list_db->where($ListWhere)->count();
+                $ListData = $this->users_list_db->where($ListWhere)->count();
                 if (!empty($ListData)) {
                     $this->error('该邮箱已存在，不可绑定！');
                 }
 
                 // 判断验证码是否存在并且是否可用
                 $RecordWhere = [
-                    'email'    => $post['email'],
-                    'code'     => $post['email_code'],
+                    'email' => $post['email'],
+                    'code' => $post['email_code'],
                     'users_id' => $this->users_id,
-                    'lang'     => $this->home_lang,
+                    'lang' => $this->home_lang,
                 ];
-                $RecordData  = $this->smtp_record_db->where($RecordWhere)->field('record_id,email,status,add_time')->find();
+                $RecordData = $this->smtp_record_db->where($RecordWhere)->field('record_id,email,status,add_time')->find();
                 if (!empty($RecordData)) {
                     // 验证码存在
-                    $time                   = getTime();
+                    $time = getTime();
                     $RecordData['add_time'] += Config::get('global.email_default_time_out');
                     if (1 == $RecordData['status'] || $RecordData['add_time'] <= $time) {
                         // 验证码不可用
@@ -1191,62 +1123,62 @@ EOF;
                     } else {
                         // 查询用户输入的邮箱并且为绑定邮箱来源的所有验证码
                         $RecordWhere = [
-                            'source'   => 3,
-                            'email'    => $RecordData['email'],
+                            'source' => 3,
+                            'email' => $RecordData['email'],
                             'users_id' => $this->users_id,
-                            'status'   => 0,
-                            'lang'     => $this->home_lang,
+                            'status' => 0,
+                            'lang' => $this->home_lang,
                         ];
 
                         // 更新数据
                         $RecordData = [
-                            'status'      => 1,
+                            'status' => 1,
                             'update_time' => $time,
                         ];
                         $this->smtp_record_db->where($RecordWhere)->update($RecordData);
 
                         // 匹配查询邮箱
                         $ParaWhere = [
-                            'name'      => ['LIKE', "email_%"],
+                            'name' => ['LIKE', "email_%"],
                             'is_system' => 1,
-                            'lang'      => $this->home_lang,
+                            'lang' => $this->home_lang,
                         ];
-                        $ParaData  = $this->users_parameter_db->where($ParaWhere)->field('para_id')->find();
+                        $ParaData = $this->users_parameter_db->where($ParaWhere)->field('para_id')->find();
 
                         // 修改用户属性表信息
                         $listCount = $this->users_list_db->where([
-                            'para_id'  => $ParaData['para_id'],
+                            'para_id' => $ParaData['para_id'],
                             'users_id' => ['EQ', $this->users_id],
-                            'lang'     => $this->home_lang,
+                            'lang' => $this->home_lang,
                         ])->count();
                         if (empty($listCount)) { // 后台新增用户，没有用户属性记录的情况
                             $ListData = [
                                 'users_id' => $this->users_id,
-                                'para_id'  => $ParaData['para_id'],
-                                'info'     => $post['email'],
-                                'lang'     => $this->home_lang,
+                                'para_id' => $ParaData['para_id'],
+                                'info' => $post['email'],
+                                'lang' => $this->home_lang,
                                 'add_time' => $time,
                             ];
-                            $IsList   = $this->users_list_db->where($ListWhere)->add($ListData);
+                            $IsList = $this->users_list_db->where($ListWhere)->add($ListData);
                         } else {
                             $ListWhere = [
                                 'users_id' => $this->users_id,
-                                'para_id'  => $ParaData['para_id'],
-                                'lang'     => $this->home_lang,
+                                'para_id' => $ParaData['para_id'],
+                                'lang' => $this->home_lang,
                             ];
-                            $ListData  = [
-                                'info'        => $post['email'],
+                            $ListData = [
+                                'info' => $post['email'],
                                 'update_time' => $time,
                             ];
-                            $IsList    = $this->users_list_db->where($ListWhere)->update($ListData);
+                            $IsList = $this->users_list_db->where($ListWhere)->update($ListData);
                         }
 
                         if (!empty($IsList)) {
                             // 同步修改用户表邮箱地址，并绑定邮箱地址到用户账号
                             $UsersData = [
-                                'users_id'    => $this->users_id,
-                                'is_email'    => '1',
-                                'email'       => $post['email'],
+                                'users_id' => $this->users_id,
+                                'is_email' => '1',
+                                'email' => $post['email'],
                                 'update_time' => $time,
                             ];
                             $this->users_db->update($UsersData);
@@ -1274,21 +1206,21 @@ EOF;
             if (!empty($post['mobile']) && !empty($post['mobile_code'])) {
                 // 手机格式验证是否正确
                 if (!check_mobile($post['mobile'])) $this->error('手机格式不正确！');
-                
+
                 // 是否已存在相同手机号码
                 $ListWhere = [
                     'users_id' => ['NEQ', $this->users_id],
-                    'info'     => $post['mobile'],
-                    'lang'     => $this->home_lang
+                    'info' => $post['mobile'],
+                    'lang' => $this->home_lang
                 ];
-                $ListData  = $this->users_list_db->where($ListWhere)->count();
+                $ListData = $this->users_list_db->where($ListWhere)->count();
                 if (!empty($ListData)) $this->error('手机号码已存在，不可绑定！');
 
                 // 判断验证码是否存在并且是否可用
                 $RecordWhere = [
-                    'mobile'   => $post['mobile'],
-                    'code'     => $post['mobile_code'],
-                    'lang'     => $this->home_lang
+                    'mobile' => $post['mobile'],
+                    'code' => $post['mobile_code'],
+                    'lang' => $this->home_lang
                 ];
                 $RecordData = $this->sms_log_db->where($RecordWhere)->field('is_use, add_time')->order('id desc')->find();
                 if (!empty($RecordData)) {
@@ -1301,50 +1233,50 @@ EOF;
                     } else {
                         // 查询用户输入的邮箱并且为绑定邮箱来源的所有验证码
                         $RecordWhere = [
-                            'source'   => 1,
-                            'mobile'   => $post['mobile'],
-                            'is_use'   => 0,
-                            'lang'     => $this->home_lang
+                            'source' => 1,
+                            'mobile' => $post['mobile'],
+                            'is_use' => 0,
+                            'lang' => $this->home_lang
                         ];
                         // 更新数据
                         $RecordData = [
-                            'is_use'      => 1,
+                            'is_use' => 1,
                             'update_time' => $time
                         ];
                         $this->sms_log_db->where($RecordWhere)->update($RecordData);
 
                         // 匹配查询手机
                         $ParaWhere = [
-                            'name'      => ['LIKE', "mobile_%"],
+                            'name' => ['LIKE', "mobile_%"],
                             'is_system' => 1,
-                            'lang'      => $this->home_lang
+                            'lang' => $this->home_lang
                         ];
-                        $ParaData  = $this->users_parameter_db->where($ParaWhere)->field('para_id')->find();
+                        $ParaData = $this->users_parameter_db->where($ParaWhere)->field('para_id')->find();
 
                         // 修改用户属性表信息
                         $listCount = $this->users_list_db->where([
-                            'para_id'  => $ParaData['para_id'],
+                            'para_id' => $ParaData['para_id'],
                             'users_id' => ['EQ', $this->users_id],
-                            'lang'     => $this->home_lang
+                            'lang' => $this->home_lang
                         ])->count();
 
                         if (empty($listCount)) {
                             // 后台新增用户，没有用户属性记录的情况
                             $ListData = [
                                 'users_id' => $this->users_id,
-                                'para_id'  => $ParaData['para_id'],
-                                'info'     => $post['mobile'],
-                                'lang'     => $this->home_lang,
+                                'para_id' => $ParaData['para_id'],
+                                'info' => $post['mobile'],
+                                'lang' => $this->home_lang,
                                 'add_time' => $time
                             ];
                             $IsList = $this->users_list_db->where($ListWhere)->add($ListData);
                         } else {
                             $ListWhere = [
                                 'users_id' => $this->users_id,
-                                'para_id'  => $ParaData['para_id'],
-                                'lang'     => $this->home_lang
+                                'para_id' => $ParaData['para_id'],
+                                'lang' => $this->home_lang
                             ];
-                            $ListData  = [
+                            $ListData = [
                                 'info' => $post['mobile'],
                                 'update_time' => $time
                             ];
@@ -1354,9 +1286,9 @@ EOF;
                         if (!empty($IsList)) {
                             // 同步修改用户表邮箱地址，并绑定邮箱地址到用户账号
                             $UsersData = [
-                                'users_id'    => $this->users_id,
-                                'is_mobile'   => 1,
-                                'mobile'      => $post['mobile'],
+                                'users_id' => $this->users_id,
+                                'is_mobile' => 1,
+                                'mobile' => $post['mobile'],
                                 'update_time' => $time
                             ];
                             $this->users_db->update($UsersData);

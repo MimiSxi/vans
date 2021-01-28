@@ -55,21 +55,37 @@
                     </ul>
                 </div>
                 <div class="oneright">
-                    <div class="oneright_title">上传记录</div>
-                    <div class="oneright_content ">
-                        {eyou:volist name='$eyou.field.art' id='vo'}
-                        <ul>
-                            <li class="clearfix">
-                                <div class="oneright_content_img"><img style="width: 80px;height: 80px;" src="{$vo.litpic}"></div>
-                                <div class="oneright_content_tit_all">
-                                    <div class="tit1">{$vo.title}</div>
-                                    <div class="tit2">浏览次数：{$vo.click}</div>
-                                    <div>上传时间：<?php echo date('Y-m-d', $vo['add_time']); ?></div>
-                                </div>
-                            </li>
-                        </ul>
-                        {/eyou:volist}
+                    <div class="oneright_title">修改密码</div>
+                    <div class="item-from-row">
+                        <div class="from-row-l">
+                            用户名：{$users.username}
+                        </div>
                     </div>
+                    <form name='theForm' id="theForm">
+                        <div class="item-from-row">
+                            <div class="from-row-l">
+                                旧密码：
+                                <input type="text" name="password_old" id="password_old" autocomplete="off"
+                                       class="el-input__inner w300" placeholder="请输入旧密码">
+                            </div>
+                            <div class="from-row-l">
+                                新密码：
+                                <input type="text" name="password_new" id="password_new" autocomplete="off"
+                                       class="el-input__inner w300" placeholder="请输入新密码">
+                            </div>
+                            <div class="from-row-l">
+                                重复新密码：
+                                <input type="text" name="password_newa" id="password_newa" autocomplete="off"
+                                       class="el-input__inner w300" placeholder="请重复新密码">
+                            </div>
+                        </div>
+                        <div class="item-from-row">
+                            <div class="from-row-r">
+                                <input type="button" onclick="changeP()"
+                                       class="el-button el-button--primary el-button--medium" value="修改密码"/>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -77,19 +93,24 @@
 </div>
 <script type="text/javascript">
 
-    // 修改密码
-    function ChangePwd() {
-        var url = "{eyou:url link='user/Users/change_pwd' /}";
-        //iframe窗
-        layer.open({
-            type: 2,
-            title: '修改密码',
-            shadeClose: false,
-            maxmin: false, //开启最大化最小化按钮
-            area: ['350px', '300px'],
-            content: url
+    function changeP() {
+        var $op = $("#password_old").val();
+        var $np = $("#password_new").val();
+        var $nnp = $("#password_newa").val();
+        $.ajax({
+            url: "{:url('app/user/info/change_pwd')}",
+            type: 'post',
+            dataType: 'json',
+            data: {"op": $op, "np": $np, "nnp": $nnp},
+            success: function (res) {
+                alert(res);
+                if (res === "修改成功") {
+                    window.location.href = "?m=user&c=Users&a=index";
+                }
+            },
         });
     }
+
 </script>
 {eyou:include file="footer.htm" /}
 </body>

@@ -127,7 +127,7 @@
                 dataType:'json',
                 success:function(res){
                     layer.closeAll();
-                    if (1 == res.code) {
+                    if (1 === res.code) {
                         layer.msg(res.msg, {time: 1000},function(){
                             location.reload();
                         });

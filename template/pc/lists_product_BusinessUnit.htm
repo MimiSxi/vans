@@ -14,6 +14,7 @@
     <meta name="keywords" content="{eyou:global name='web_keywords' /}"/>
     <!--网站地址栏图标-->
     <link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="template/pc/skin/js/theme.js">
     <link href="template/pc/skin/css/c.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="template/pc/skin/js/jquery1.42.min.js"></script>
     <script src="template/pc/skin/js/yyui.js"></script>
@@ -37,7 +38,7 @@
 <div class="top">
     <div class="details_banner">
         {eyou:adv pid='11'}
-        <img src='{$field.litpic}' alt='{$field.title}' />
+        <img src='{$field.litpic}' alt='{$field.title}'/>
         {/eyou:adv}
     </div>
 </div>
@@ -137,9 +138,7 @@
                 {/eyou:screening}
 
                 <!--筛选——结束-->
-                <ul class="clearfix">
-                    <li class="pull_down"><img src="template/pc/skin/images/pull-down.png"></li>
-                </ul>
+                <div class="pull_down more" style="text-align: center;padding-bottom: 5px;"><span></span></div>
             </div>
         </div>
         <div class="design_list clearfix">
@@ -193,6 +192,7 @@
 
 <!--网站公用底部——开始-->
 {eyou:include file="footer.htm" /}
+<script charset="utf-8" type="text/javascript" src="template/pc/skin/js/theme.js"></script>
 <!--网站公用底部——结束-->
 </body>
 </html>
